@@ -1,2 +1,2 @@
-# Trade
-Trading in campus.
+# trade
+Trade in campus.
