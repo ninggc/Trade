@@ -4,6 +4,14 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <EditText
+        android:id="@+id/et_url"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="http://123.207.244.139:8080/trade/image/1.jpg" />
+
     <Button
         android:id="@+id/btn_click"
         android:layout_width="match_parent"
@@ -16,9 +24,4 @@
         android:layout_height="wrap_content"
         app:srcCompat="@mipmap/ic_launcher" />
 
-    <Button
-        android:id="@+id/test"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="No useful" />
 </LinearLayout>

@@ -51,11 +51,6 @@ public class CommodityRecyclerViewAdapter extends RecyclerView.Adapter<Commodity
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(context, ShareViewActivity.class);
-//                intent.putExtra("color", color);
-//                context.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation
-//                        ((Activity) context, holder.rela_round, "shareView").toBundle());
-
                 Intent intent = new Intent(context, DetailCommodityActivity.class);
                 intent.putExtra("commodity", commodity);
                 context.startActivity(intent);

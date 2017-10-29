@@ -23,7 +23,7 @@ public class DelegationFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_commodity_index, container, false);
+        View view = inflater.inflate(R.layout.fragment_delegation_index, container, false);
         this.view = view;
         initView(view);
         return view;

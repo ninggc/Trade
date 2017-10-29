@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -32,6 +33,7 @@ import java.util.List;
  */
 
 public class DelegationList extends BaseActivity {
+    Toolbar toolbar;
     RecyclerView recyclerView;
     SwipeRefreshLayout swipeRefreshLayout;
     DelegationRecycleViewAdapter adapter;
@@ -50,7 +52,10 @@ public class DelegationList extends BaseActivity {
     }
 
     private void initView() {
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        recyclerView = (RecyclerView) findViewById(R.id.list_2_recyclerview);
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
 
         initData();

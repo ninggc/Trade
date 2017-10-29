@@ -53,7 +53,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     Toolbar mToolbar;
     Button btn_QQLogin;
 
-    String result;
+    String resultInfo;
     String account;
     String password;
 
@@ -62,12 +62,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     UserInfo userInfo;
     IUiListener QQUserInfoListener;
 
-    public void setResult(String result) {
-        this.result = result;
+    public void setResultInfo(String resultInfo) {
+        this.resultInfo = resultInfo;
     }
 
-    public String getResult() {
-        return result;
+    public String getResultInfo() {
+        return resultInfo;
     }
 
     @Override
@@ -96,7 +96,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                loginCancel();
             }
         });
     }
@@ -165,6 +165,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
             Toast.makeText(LoginActivity.this, "register", Toast.LENGTH_SHORT).show();
         }
 
+        @Override
         public void afterEvent(int event, int result, Object data) {
             if (data instanceof Throwable) {
                 try {
@@ -217,6 +218,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                     @Override
                     public void onSucceed(int what, Response<String> response) {
                         super.onSucceed(what, response);
+                        if (response.getHeaders().getResponseCode() != 200) {
+                            Toast.makeText(LoginActivity.this, getResources().getString(R.string.server_error), Toast.LENGTH_SHORT).show();
+                            return;
+                        }
                         String result = response.get();
                         if (DEBUG) {
                             Log.e(TAG, "onSucceed: " + what + result);
@@ -230,7 +235,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                         } else {
                             login_til_account.setErrorEnabled(false);
                             login_til_password.setErrorEnabled(false);
-                            setResult(result);
+                            setResultInfo(result);
                             loginSuccess();
                         }
                     }
@@ -261,9 +266,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 RegisterPage registerPage = new RegisterPage();
                 registerPage.setRegisterCallback(eventHandler);
 //                registerPage.setRegisterCallback(new EventHandler() {
-//                    public void afterEvent(int event, int result, Object data) {
+//                    public void afterEvent(int event, int resultInfo, Object data) {
 //// 解析注册结果
-//                        if (result == SMSSDK.RESULT_COMPLETE) {
+//                        if (resultInfo == SMSSDK.RESULT_COMPLETE) {
 //                            @SuppressWarnings("unchecked")
 //                            HashMap<String,Object> phoneMap = (HashMap<String, Object>) data;
 //                            String country = (String) phoneMap.get("country");
@@ -290,9 +295,17 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
             Log.e(TAG, "loginSuccess: " + account);
         }
         Intent data = new Intent();
-        data.putExtra("user", result);
+        data.putExtra("user", resultInfo);
         //1 is no sense.
         setResult(1, data);
+        finish();
+    }
+
+    public void loginCancel() {
+        Intent data = new Intent();
+//        data.putExtra("user");
+        //1 is no sense.
+        setResult(-1, data);
         finish();
     }
 

@@ -41,13 +41,12 @@
     <!-- Strings related to Settings -->
 
     <!-- Example General settings -->
-    <string name="pref_header_general">基本</string>
+    <string name="pref_header_general">基本设置</string>
 
     <string name="pref_title_social_recommendations">打开社交建议</string>
-    <string name="pref_description_social_recommendations">社交好友建议基于你的使用记录</string>
+    <string name="pref_description_social_recommendations">基于你的使用习惯推荐好友</string>
 
     <string name="pref_title_display_name">姓名</string>
-    <string name="pref_default_display_name">John Smith</string>
 
     <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
     <string-array name="pref_example_list_titles">
@@ -118,6 +117,9 @@
     <!-- activity_detail_commodity -->
 
     <string name="detail_main_1_name">姓名</string>
+    <string name="title_activity_settings">设置</string>
+    <string name="main_login_canceled">登录取消</string>
+    <string name="server_error">服务器异常</string>
 
     <!-- activity_detail_commodity -->
 </resources>

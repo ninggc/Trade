@@ -6,11 +6,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
-
 import com.ninggc.trade.DAO.Commodity;
 import com.ninggc.trade.R;
 
 /**
+ * @author Ning
  * Created by Ning on 8/16/2017 0016.
  */
 
@@ -24,7 +24,6 @@ public class DetailCommodityActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_commodity);
-
         initView();
     }
 
@@ -36,17 +35,15 @@ public class DetailCommodityActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        commodity = (Commodity) getIntent().getSerializableExtra("delegation");
-
+        commodity = (Commodity) getIntent().getSerializableExtra("commodity");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
+//        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                finish();
+//            }
+//        });
         tv_name.setText(commodity.getName());
         tv_intro.setText(commodity.getNote());
     }

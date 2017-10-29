@@ -61,6 +61,9 @@ public class MainActivity extends AppCompatActivity
     IUiListener QQUIListener;
 
     Gson gson = new Gson();
+    /**
+     * 登陆成功后的用户
+     */
     User user;
 
     private int mCurrentViewPagerPosition = 0;
@@ -310,22 +313,31 @@ public class MainActivity extends AppCompatActivity
         if (null != mTencent) {
             mTencent.onActivityResult(requestCode, resultCode, data);
         }
+        if (data == null) {
+            return;
+        }
         switch (requestCode) {
             case LOGIN:
                 String result = data.getStringExtra("user");
                 if (DEBUG) {
                     Log.e(TAG, "onActivityResult: " + result);
                 }
+                if (result == null || "".equals(result)) {
+                    Toast.makeText(this, getResources().getString(R.string.main_login_canceled), Toast.LENGTH_SHORT).show();
+                    break;
+                }
                 user = gson.fromJson(result, User.class);
                 if (user == null) {
                     Toast.makeText(MainActivity.this, getResources().getString(R.string.main_login_failed), Toast.LENGTH_SHORT).show();
                 } else {
-                    main_tv_login.setText(user.getName());
+                    Snackbar.make(coordinatorLayout, getResources().getString(R.string.main_login_success) + result, Snackbar.LENGTH_SHORT).show();
                 }
-                Snackbar.make(coordinatorLayout, getResources().getString(R.string.main_login_success) + result, Snackbar.LENGTH_SHORT).show();
                 break;
             default:
                 break;
+        }
+        if (user != null) {
+            main_tv_login.setText(user.getName());
         }
     }
 }

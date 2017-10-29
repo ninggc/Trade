@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -17,11 +18,8 @@ import com.ninggc.trade.R;
 import com.ninggc.trade.activity.BaseActivity;
 import com.ninggc.trade.adapter.CommodityRecyclerViewAdapter;
 import com.ninggc.trade.factory.Constant;
-import com.ninggc.trade.factory.nohttp.CallServer;
-import com.yanzhenjie.nohttp.NoHttp;
-import com.yanzhenjie.nohttp.RequestMethod;
-import com.yanzhenjie.nohttp.rest.OnResponseListener;
-import com.yanzhenjie.nohttp.rest.Request;
+import com.ninggc.trade.factory.http.HttpGetSomething;
+import com.ninggc.trade.factory.http.ResponseListener;
 import com.yanzhenjie.nohttp.rest.Response;
 
 import java.util.ArrayList;
@@ -32,6 +30,7 @@ import java.util.List;
  */
 
 public class CommodityList extends BaseActivity {
+    Toolbar toolbar;
     RecyclerView recyclerView;
     SwipeRefreshLayout swipeRefreshLayout;
     CommodityRecyclerViewAdapter adapter;
@@ -43,6 +42,7 @@ public class CommodityList extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.list_commodity);
         initView();
         initData();
@@ -50,7 +50,11 @@ public class CommodityList extends BaseActivity {
     }
 
     void initView() {
-        recyclerView = (RecyclerView) findViewById(R.id.fragment_main_1_recyclerview);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        toolbar.setTitleTextColor(getResources().getColor(R.color.white));
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        recyclerView = (RecyclerView) findViewById(R.id.list_1_recyclerview);
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
     }
 
@@ -76,15 +80,10 @@ public class CommodityList extends BaseActivity {
     }
 
     void initList() {
-        Request<String> request = NoHttp.createStringRequest(Constant.url + "delegation/select.php", RequestMethod.POST);
-        CallServer.getInstance().add(-1, request, new OnResponseListener() {
+        HttpGetSomething.getString(Constant.url + "commodity/select.php", new ResponseListener<String>() {
             @Override
-            public void onStart(int what) {
-                Log.e(TAG, "onStart: ");
-            }
-
-            @Override
-            public void onSucceed(int what, Response response) {
+            public void onSucceed(int what, Response<String> response) {
+                super.onSucceed(what, response);
                 String result = (String) response.get();
                 Log.e(TAG, "onSucceed: " + result);
                 List<Commodity> list = parseJsonToList(result);
@@ -93,12 +92,14 @@ public class CommodityList extends BaseActivity {
             }
 
             @Override
-            public void onFailed(int what, Response response) {
+            public void onFailed(int what, Response<String> response) {
+                super.onFailed(what, response);
                 Toast.makeText(CommodityList.this, getString(R.string.NoHttp_status_failed), Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFinish(int what) {
+                super.onFinish(what);
                 swipeRefreshLayout.setRefreshing(false);
             }
         });

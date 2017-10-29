@@ -18,7 +18,7 @@ public class UserinfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_userinfo);
 
-//        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+//        mToolbar = (Toolbar) findViewById(R.id.app_bar_layout);
 //        setSupportActionBar(mToolbar);
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 //

@@ -33,7 +33,7 @@
         </menu>
     </item>
 
-    <item android:title="">
+    <item android:title="Tool">
         <menu>
             <item
                 android:id="@+id/nav_setting"
