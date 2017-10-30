@@ -17,16 +17,16 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.ninggc.trade.R;
 import com.ninggc.trade.factory.Constant;
+import com.ninggc.trade.factory.http.ResponseListener;
 import com.ninggc.trade.factory.nohttp.ILoginStatus;
+import com.ninggc.trade.factory.nohttp.MyStringRequest;
 import com.tencent.connect.UserInfo;
 import com.tencent.connect.common.Constants;
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
-import com.yanzhenjie.nohttp.NoHttp;
-import com.yanzhenjie.nohttp.rest.Request;
+import com.yanzhenjie.nohttp.RequestMethod;
 import com.yanzhenjie.nohttp.rest.Response;
-import com.yanzhenjie.nohttp.rest.SimpleResponseListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -211,10 +211,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
             case R.id.login_btn_login:
                 account = login_til_account.getEditText().getText().toString();
                 password = login_til_password.getEditText().getText().toString();
-                final Request<String> request = NoHttp.createStringRequest(url + "login");
-                request.set("account", account);
-                request.set("pwd", password);
-                request(0, request, new SimpleResponseListener<String>() {
+                final MyStringRequest request = new MyStringRequest(url + "usermage/login/", RequestMethod.POST);
+///                request.set("type", "1");
+                request.set("username", account);
+                request.set("password", password);
+                request(0, request, new ResponseListener<String>() {
                     @Override
                     public void onSucceed(int what, Response<String> response) {
                         super.onSucceed(what, response);

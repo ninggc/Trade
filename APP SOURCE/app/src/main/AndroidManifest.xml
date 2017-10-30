@@ -115,6 +115,14 @@
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="n8fOF6EWISU5ObrGIeXmPk6D3CkyjHry" />
+
+        <meta-data
+            android:name="com.ninggc.trade.factory.SimpleGlideModule"
+            android:value="GlideModule" />
+
+        <!-- test activity -->
+
+        <activity android:name=".activity.test.BannerAty"/>
     </application>
 
 </manifest>

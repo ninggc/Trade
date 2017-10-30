@@ -4,6 +4,12 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <com.youth.banner.Banner
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:id="@+id/banner">
+    </com.youth.banner.Banner>
+
     <EditText
         android:id="@+id/et_url"
         android:layout_width="match_parent"
@@ -23,5 +29,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:srcCompat="@mipmap/ic_launcher" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_test_banner"
+        android:text="test_banner"/>
 
 </LinearLayout>

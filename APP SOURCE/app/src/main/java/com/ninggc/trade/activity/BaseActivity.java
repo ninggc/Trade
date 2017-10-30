@@ -3,12 +3,13 @@ package com.ninggc.trade.activity;
 import android.support.v7.app.AppCompatActivity;
 
 import com.google.gson.Gson;
-import com.ninggc.trade.factory.Constant;
 import com.ninggc.trade.factory.nohttp.CallServer;
 import com.yanzhenjie.nohttp.NoHttp;
 import com.yanzhenjie.nohttp.RequestMethod;
 import com.yanzhenjie.nohttp.rest.OnResponseListener;
 import com.yanzhenjie.nohttp.rest.Request;
+
+import static com.ninggc.trade.factory.Constant.*;
 
 /**
  * Created by Ning on 7/29/2017 0029.
@@ -18,7 +19,6 @@ public class BaseActivity extends AppCompatActivity {
     private Object cancelObject = new Object();
     public String TAG = getClass().getSimpleName();
     public Gson gson = new Gson();
-    public String url = Constant.url;
     public String url_commodity = url + "/commodity";
     public final int NO_WHAT = 0;
 

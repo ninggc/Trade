@@ -29,6 +29,7 @@ import com.ninggc.trade.DAO.User;
 import com.ninggc.trade.R;
 import com.ninggc.trade.activity.c_d_activity.ReleaseCommodityActivity;
 import com.ninggc.trade.activity.c_d_activity.ReleaseDelegationActivity;
+import com.ninggc.trade.activity.test.BannerAty;
 import com.ninggc.trade.adapter.MyFragmentPagerAdapter;
 import com.ninggc.trade.factory.Constant;
 import com.ninggc.trade.fragment.CommodityFragment;
@@ -129,6 +130,7 @@ public class MainActivity extends AppCompatActivity
 
         main_iv_login = (ImageView) nav_header.findViewById(R.id.main_iv_login);
         main_tv_login = (TextView) nav_header.findViewById(R.id.main_tv_login);
+
     }
 
     void initData() {
@@ -326,7 +328,12 @@ public class MainActivity extends AppCompatActivity
                     Toast.makeText(this, getResources().getString(R.string.main_login_canceled), Toast.LENGTH_SHORT).show();
                     break;
                 }
-                user = gson.fromJson(result, User.class);
+                try {
+                    user = gson.fromJson(result, User.class);
+                } catch (Exception e) {
+                    //TODO
+                    System.out.println(e.getMessage());
+                }
                 if (user == null) {
                     Toast.makeText(MainActivity.this, getResources().getString(R.string.main_login_failed), Toast.LENGTH_SHORT).show();
                 } else {

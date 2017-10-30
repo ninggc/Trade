@@ -6,7 +6,6 @@ import com.ninggc.trade.factory.nohttp.CallServer;
 import com.yanzhenjie.nohttp.NoHttp;
 import com.yanzhenjie.nohttp.RequestMethod;
 import com.yanzhenjie.nohttp.rest.Request;
-import com.yanzhenjie.nohttp.rest.SimpleResponseListener;
 
 /**
  * @author Ning
@@ -20,12 +19,13 @@ public class HttpGetSomething {
 //        getImage(NO_WHAT, url, responseListener);
 //    }
 
-    public static void getImage(int what, String url, SimpleResponseListener<Bitmap> responseListener) {
+    public static void getImage(int what, String url, ResponseListener<Bitmap> responseListener) {
         Request<Bitmap> request = NoHttp.createImageRequest(url);
+        request.set("type", "1");
         CallServer.getInstance().add(what, request, responseListener);
     }
 
-    public static void getImage(String url, SimpleResponseListener<Bitmap> responseListener) {
+    public static void getImage(String url, ResponseListener<Bitmap> responseListener) {
         getImage(0, url, responseListener);
     }
 
@@ -33,12 +33,13 @@ public class HttpGetSomething {
 //        getString(NO_WHAT, url, responseListener);
 //    }
 
-    public static void getString(int what, String url, SimpleResponseListener<String> responseListener) {
+    public static void getString(int what, String url, ResponseListener<String> responseListener) {
         Request<String> request = NoHttp.createStringRequest(url, RequestMethod.POST);
+        request.set("type", "1");
         CallServer.getInstance().add(what, request, responseListener);
     }
 
-    public static void getString(String url, SimpleResponseListener<String> responseListener) {
+    public static void getString(String url, ResponseListener<String> responseListener) {
         getString(NO_WHAT, url, responseListener);
     }
 

@@ -1,5 +1,7 @@
 package com.ninggc.trade.factory.http;
 
+import android.util.Log;
+
 import com.yanzhenjie.nohttp.rest.Response;
 import com.yanzhenjie.nohttp.rest.SimpleResponseListener;
 
@@ -8,6 +10,7 @@ import com.yanzhenjie.nohttp.rest.SimpleResponseListener;
  */
 
 public abstract class ResponseListener<T> extends SimpleResponseListener<T> {
+    final String TAG = this.getClass().getSimpleName();
     @Override
     public void onStart(int what) {
         super.onStart(what);

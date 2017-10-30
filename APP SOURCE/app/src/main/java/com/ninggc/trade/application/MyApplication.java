@@ -20,5 +20,8 @@ public class MyApplication extends MobApplication {
                 .setNetworkExecutor(new OkHttpNetworkExecutor()));
         Logger.setTag("NoHttpUser");
 
+        Logger.setDebug(true);
+        Logger.setTag("NOHTTP");
+
     }
 }
