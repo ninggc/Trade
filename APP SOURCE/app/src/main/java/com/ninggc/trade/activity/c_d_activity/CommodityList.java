@@ -15,15 +15,17 @@ import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.ninggc.trade.DAO.Commodity;
 import com.ninggc.trade.R;
-import com.ninggc.trade.activity.BaseActivity;
+import com.ninggc.trade.activity.base.BaseActivity;
 import com.ninggc.trade.adapter.CommodityRecyclerViewAdapter;
-import com.ninggc.trade.factory.Constant;
+import com.ninggc.trade.factory.constants.Constant;
 import com.ninggc.trade.factory.http.HttpGetSomething;
 import com.ninggc.trade.factory.http.ResponseListener;
 import com.yanzhenjie.nohttp.rest.Response;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Ning on 7/31/2017 0031.
@@ -39,6 +41,8 @@ public class CommodityList extends BaseActivity {
     ArrayList<Commodity> commodities = new ArrayList<>();
     Gson gson = new Gson();
 
+    String kind;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +51,7 @@ public class CommodityList extends BaseActivity {
         initView();
         initData();
         initList();
+
     }
 
     void initView() {
@@ -59,6 +64,10 @@ public class CommodityList extends BaseActivity {
     }
 
     void initData() {
+
+        if (getIntent() != null) {
+            this.kind = getIntent().getStringExtra("kind");
+        }
 
         adapter = new CommodityRecyclerViewAdapter(CommodityList.this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -80,7 +89,9 @@ public class CommodityList extends BaseActivity {
     }
 
     void initList() {
-        HttpGetSomething.getString(Constant.url + "commodity/select.php", new ResponseListener<String>() {
+        Map<String, String> map = new HashMap<>();
+        map.put("kind", kind);
+        ResponseListener<String> responseListener = new ResponseListener<String>() {
             @Override
             public void onSucceed(int what, Response<String> response) {
                 super.onSucceed(what, response);
@@ -102,7 +113,8 @@ public class CommodityList extends BaseActivity {
                 super.onFinish(what);
                 swipeRefreshLayout.setRefreshing(false);
             }
-        });
+        };
+        HttpGetSomething.getString(NO_WHAT, Constant.url + "commodity/select.php", responseListener, map);
     }
 
     List<Commodity> parseJsonToList(String json) {

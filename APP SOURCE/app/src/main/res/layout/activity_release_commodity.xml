@@ -84,6 +84,12 @@
         android:layout_margin="16dp">
 
         <Button
+            android:text="选择图片"
+            android:id="@+id/btn_picture"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="发布"

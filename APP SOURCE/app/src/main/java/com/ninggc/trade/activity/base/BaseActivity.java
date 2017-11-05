@@ -1,4 +1,4 @@
-package com.ninggc.trade.activity;
+package com.ninggc.trade.activity.base;
 
 import android.support.v7.app.AppCompatActivity;
 
@@ -9,7 +9,7 @@ import com.yanzhenjie.nohttp.RequestMethod;
 import com.yanzhenjie.nohttp.rest.OnResponseListener;
 import com.yanzhenjie.nohttp.rest.Request;
 
-import static com.ninggc.trade.factory.Constant.*;
+import static com.ninggc.trade.factory.constants.Constant.*;
 
 /**
  * Created by Ning on 7/29/2017 0029.

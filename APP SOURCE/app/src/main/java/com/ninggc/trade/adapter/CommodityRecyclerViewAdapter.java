@@ -17,7 +17,7 @@ import com.ninggc.trade.fragment.onMoveAndSwipedListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.ninggc.trade.factory.Constant.DEBUG;
+import static com.ninggc.trade.factory.constants.Constant.DEBUG;
 
 /**
  * Created by Ning on 8/16/2017 0016.

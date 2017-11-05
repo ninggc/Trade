@@ -1,4 +1,4 @@
-package com.ninggc.trade.factory;
+package com.ninggc.trade.factory.image;
 
 import android.content.Context;
 

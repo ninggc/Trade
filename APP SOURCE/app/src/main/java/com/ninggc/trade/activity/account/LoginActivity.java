@@ -1,4 +1,4 @@
-package com.ninggc.trade.activity;
+package com.ninggc.trade.activity.account;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,9 +16,11 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.ninggc.trade.R;
-import com.ninggc.trade.factory.Constant;
+import com.ninggc.trade.activity.base.BaseActivity;
+import com.ninggc.trade.factory.constants.Constant;
+import com.ninggc.trade.factory.constants.IRequestCode;
 import com.ninggc.trade.factory.http.ResponseListener;
-import com.ninggc.trade.factory.nohttp.ILoginStatus;
+import com.ninggc.trade.factory.constants.ILoginStatus;
 import com.ninggc.trade.factory.nohttp.MyStringRequest;
 import com.tencent.connect.UserInfo;
 import com.tencent.connect.common.Constants;
@@ -31,11 +33,13 @@ import com.yanzhenjie.nohttp.rest.Response;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Map;
+
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
 import cn.smssdk.gui.RegisterPage;
 
-import static com.ninggc.trade.factory.Constant.DEBUG;
+import static com.ninggc.trade.factory.constants.Constant.DEBUG;
 
 /**
  * Created by Ning on 7/26/2017 0026.
@@ -157,53 +161,53 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         };
     }
 
-    //NoHttp回调
-    EventHandler eventHandler  = new EventHandler() {
-        @Override
-        public void onRegister() {
-            super.onRegister();
-            Toast.makeText(LoginActivity.this, "register", Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void afterEvent(int event, int result, Object data) {
-            if (data instanceof Throwable) {
-                try {
-                    Throwable throwable = (Throwable)data;
-                    String msg = throwable.getMessage();
-                    Toast.makeText(LoginActivity.this, msg, Toast.LENGTH_SHORT).show();
-
-                    JSONObject object = new JSONObject(throwable.getMessage());
-                    String des = object.optString("detail");//错误描述
-                    int status = object.optInt("status");//错误代码
-                    if (status > 0 && !TextUtils.isEmpty(des)) {
-                        Toast.makeText(LoginActivity.this, des, Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
-                    if(result == SMSSDK.RESULT_COMPLETE) {
-                        boolean smart = (Boolean)data;
-                        if(smart) {
-                            Toast.makeText(LoginActivity.this, "success", Toast.LENGTH_SHORT).show();
-                        } else {
-                            //依然走短信验证
-                            Toast.makeText(LoginActivity.this, "failed", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                } else if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
-                    if (DEBUG) {
-                        Log.e(TAG, data.toString());
-                        Log.e(TAG, "afterEvent: " + result);
-                    }
-                    // 处理你自己的逻辑
-                }
-            }
-        }
-    };
+//    //NoHttp回调
+//    EventHandler eventHandler  = new EventHandler() {
+//        @Override
+//        public void onRegister() {
+//            super.onRegister();
+//            Toast.makeText(LoginActivity.this, "register", Toast.LENGTH_SHORT).show();
+//        }
+//
+//        @Override
+//        public void afterEvent(int event, int result, Object data) {
+//            if (data instanceof Throwable) {
+//                try {
+//                    Throwable throwable = (Throwable)data;
+//                    String msg = throwable.getMessage();
+//                    Toast.makeText(LoginActivity.this, msg, Toast.LENGTH_SHORT).show();
+//
+//                    JSONObject object = new JSONObject(throwable.getMessage());
+//                    String des = object.optString("detail");//错误描述
+//                    int status = object.optInt("status");//错误代码
+//                    if (status > 0 && !TextUtils.isEmpty(des)) {
+//                        Toast.makeText(LoginActivity.this, des, Toast.LENGTH_SHORT).show();
+//                        return;
+//                    }
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            } else {
+//                if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
+//                    if(result == SMSSDK.RESULT_COMPLETE) {
+//                        boolean smart = (Boolean)data;
+//                        if(smart) {
+//                            Toast.makeText(LoginActivity.this, "success", Toast.LENGTH_SHORT).show();
+//                        } else {
+//                            //依然走短信验证
+//                            Toast.makeText(LoginActivity.this, "failed", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                } else if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
+//                    if (DEBUG) {
+//                        Log.e(TAG, data.toString());
+//                        Log.e(TAG, "afterEvent: " + result);
+//                    }
+//                    // 处理你自己的逻辑
+//                }
+//            }
+//        }
+//    };
 
     @Override
     public void onClick(View view) {
@@ -264,8 +268,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
                 break;
             case R.id.login_tv_register_now:
-                RegisterPage registerPage = new RegisterPage();
-                registerPage.setRegisterCallback(eventHandler);
+                initRegisterPage();
+//                startActivityForResult(new Intent(this, RegisterActivity.class), IRequestCode.REGISTER);
+//                RegisterPage registerPage = new RegisterPage();
+//                registerPage.setRegisterCallback(eventHandler);
 //                registerPage.setRegisterCallback(new EventHandler() {
 //                    public void afterEvent(int event, int resultInfo, Object data) {
 //// 解析注册结果
@@ -280,7 +286,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 //                        }
 //                    }
 //                });
-                registerPage.show(LoginActivity.this);
+//                registerPage.show(LoginActivity.this);
                 break;
             case R.id.login_btn_QQlogin:
                 QQLogin();
@@ -290,6 +296,62 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 break;
         }
     }
+
+    private void initRegisterPage() {
+        // 如果希望在读取通信录的时候提示用户，可以添加下面的代码，并且必须在其他代码调用之前，否则不起作用；如果没这个需求，可以不加这行代码
+        SMSSDK.setAskPermisionOnReadContact(true);
+        RegisterPage registerPage = new RegisterPage();
+        registerPage.setRegisterCallback(pageEventHandler);
+        registerPage.show(this);
+    }
+
+    EventHandler pageEventHandler = new EventHandler() {
+        @Override
+        public void afterEvent(int event, int result, Object data) {
+            super.afterEvent(event, result, data);
+            Log.e(TAG, "afterEvent: " + result);
+            if (result == SMSSDK.RESULT_COMPLETE) {
+                if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
+                    Map<String, Object> map = (Map<String, Object>) data;
+                    String country = (String) map.get("country");
+                    String phone = (String) map.get("phone");
+                    Log.e(TAG, "afterEvent: " + "验证成功");
+                    Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                    intent.putExtra("country", country);
+                    intent.putExtra("phone", phone);
+                    startActivityForResult(intent, IRequestCode.REGISTER);
+                } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
+                    //获取验证码成功
+                    Log.e(TAG, "afterEvent: " + "获取验证码成功");
+//                startActivityForResult(new Intent(LoginActivity.this, RegisterActivity.class), IRequestCode.REGISTER);
+                } else if (event == SMSSDK.EVENT_GET_SUPPORTED_COUNTRIES) {
+                    //如果你调用了获取国家区号类表会在这里回调
+                    //返回支持发送验证码的国家列表
+                }
+            } else {
+                if (data instanceof Throwable) {
+                    try {
+                        Throwable throwable = (Throwable) data;
+                        throwable.printStackTrace();
+                        JSONObject object = null;
+                        object = new JSONObject(throwable.getMessage());
+                        //错误描述
+                        String des = object.optString("detail");
+                        //错误代码
+                        int status = object.optInt("status");
+                        if (status > 0 && !TextUtils.isEmpty(des)) {
+                            Log.e(TAG, "afterEvent: " + des);
+                            return;
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            // 根据服务器返回的网络错误，给toast提示
+        }
+    };
 
     public void loginSuccess() {
         if (DEBUG) {
@@ -342,7 +404,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        SMSSDK.unregisterEventHandler(eventHandler);
+//        SMSSDK.unregisterEventHandler(eventHandler);
+        SMSSDK.unregisterEventHandler(pageEventHandler);
     }
 
     @Override

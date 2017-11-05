@@ -13,7 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.ninggc.trade.DAO.Commodity;
 import com.ninggc.trade.R;
-import com.ninggc.trade.activity.BaseActivity;
+import com.ninggc.trade.activity.base.BaseActivity;
 import com.yanzhenjie.nohttp.rest.OnResponseListener;
 import com.yanzhenjie.nohttp.rest.Request;
 import com.yanzhenjie.nohttp.rest.Response;
@@ -66,8 +66,8 @@ public class ReleaseDelegationActivity extends BaseActivity {
                                         c.set(Calendar.MONTH, month);
                                         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 //                                        设置发布和结束时间
-//                                        delegation.setEndTime(new Timestamp(c.getTimeInMillis()).toString());
-//                                        delegation.setReleaseTime(new Timestamp(c.getTimeInMillis()).toString());
+//                                        delegation.setEndTime(new Timestamp(DemoLoadMoreView.getTimeInMillis()).toString());
+//                                        delegation.setReleaseTime(new Timestamp(DemoLoadMoreView.getTimeInMillis()).toString());
                                         ((TextView) v).setText(fmtDateAndTime.format(c.getTime()));
                                     }
                                 }

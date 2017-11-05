@@ -1,4 +1,4 @@
-package com.ninggc.trade.factory.nohttp;
+package com.ninggc.trade.factory.constants;
 
 public interface ILoginStatus {
     public static final int NOT_EXIST = -1;

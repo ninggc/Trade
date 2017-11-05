@@ -36,14 +36,22 @@ public class Campus implements IBean {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         Campus campus = (Campus) o;
 
-        if (id != campus.id) return false;
+        if (id != campus.id) {
+            return false;
+        }
 //        if (locationId != campus.locationId) return false;
-        if (name != null ? !name.equals(campus.name) : campus.name != null) return false;
+        if (name != null ? !name.equals(campus.name) : campus.name != null) {
+            return false;
+        }
 
         return true;
     }

@@ -42,12 +42,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.ninggc.trade.activity.LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name="com.ninggc.trade.activity.UserinfoActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name="com.ninggc.trade.activity.account.LoginActivity"/>
+        <activity android:name=".activity.account.RegisterActivity"
+            android:parentActivityName=".activity.account.LoginActivity"/>
+        <activity android:name="com.ninggc.trade.activity.UserinfoActivity"/>
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -117,12 +115,13 @@
             android:value="n8fOF6EWISU5ObrGIeXmPk6D3CkyjHry" />
 
         <meta-data
-            android:name="com.ninggc.trade.factory.SimpleGlideModule"
+            android:name="com.ninggc.trade.factory.image.SimpleGlideModule"
             android:value="GlideModule" />
 
         <!-- test activity -->
 
         <activity android:name=".activity.test.BannerAty"/>
+        <activity android:name=".activity.test.PtrrvAty"/>
     </application>
 
 </manifest>

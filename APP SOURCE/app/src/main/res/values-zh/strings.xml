@@ -120,6 +120,14 @@
     <string name="title_activity_settings">设置</string>
     <string name="main_login_canceled">登录取消</string>
     <string name="server_error">服务器异常</string>
+    <string name="register_btn_register">注册</string>
+    <string name="register_getCode">获取验证码</string>
+    <string name="register_phone_number">手机号码</string>
+    <string name="register_identify_code">验证码</string>
+    <string name="register_password">密码</string>
+    <string name="register_password_again">再次输入密码</string>
+    <string name="register_password_diff">密码不一致，请重新输入</string>
+    <string name="register_password_invalid">密码不合法</string>
 
     <!-- activity_detail_commodity -->
 </resources>

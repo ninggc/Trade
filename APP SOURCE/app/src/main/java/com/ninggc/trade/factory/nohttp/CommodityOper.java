@@ -1,6 +1,7 @@
 package com.ninggc.trade.factory.nohttp;
 
-import com.ninggc.trade.factory.Constant;
+import com.ninggc.trade.factory.constants.Constant;
+import com.ninggc.trade.factory.constants.ILoginStatus;
 import com.yanzhenjie.nohttp.NoHttp;
 import com.yanzhenjie.nohttp.RequestMethod;
 import com.yanzhenjie.nohttp.rest.Request;
