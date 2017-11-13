@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity
      * 登陆成功后的用户
      */
     User user = AccountUtil.getCurrentUser();
-    AccountSPUtil accountSPUtil = new AccountSPUtil();
+    AccountSPUtil accountSPUtil;
 
     private int mCurrentViewPagerPosition = 0;
 
@@ -143,6 +143,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     void initData() {
+        accountSPUtil = new AccountSPUtil();
         User user = accountSPUtil.getUserFromLocal();
         if (user != null) {
             AccountUtil.login(user);
