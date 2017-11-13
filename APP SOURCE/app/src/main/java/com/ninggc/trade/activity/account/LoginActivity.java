@@ -1,8 +1,11 @@
 package com.ninggc.trade.activity.account;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.Toolbar;
@@ -15,8 +18,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.hyphenate.EMCallBack;
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.easeui.EaseUI;
+import com.hyphenate.easeui.domain.EaseUser;
+import com.hyphenate.exceptions.HyphenateException;
+import com.ninggc.trade.DAO.User;
 import com.ninggc.trade.R;
 import com.ninggc.trade.activity.base.BaseActivity;
+import com.ninggc.trade.encrypt.MD5Util;
 import com.ninggc.trade.factory.constants.Constant;
 import com.ninggc.trade.factory.constants.IRequestCode;
 import com.ninggc.trade.factory.http.ResponseListener;
@@ -57,7 +67,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     Toolbar mToolbar;
     Button btn_QQLogin;
 
-    String resultInfo;
+    String result;
     String account;
     String password;
 
@@ -66,30 +76,34 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     UserInfo userInfo;
     IUiListener QQUserInfoListener;
 
-    public void setResultInfo(String resultInfo) {
-        this.resultInfo = resultInfo;
+    /**
+     * 登陆成功后Server返回的信息
+     * @param result
+     */
+    public void setResult(String result) {
+        this.result = result;
     }
 
-    public String getResultInfo() {
-        return resultInfo;
+    public String getResult() {
+        return result;
     }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        super.onCreate(savedInstanceState);
 
-        initView();
-        initData();
+        login_btn_login = (Button) findViewById(R.id.login_btn_login);
     }
 
-    void initView() {
+    @Override
+    protected void initView() {
         login_til_account = (TextInputLayout) findViewById(R.id.login_til_account);
         login_til_password = (TextInputLayout) findViewById(R.id.login_til_password);
-        login_btn_login = (Button) findViewById(R.id.login_btn_login);
-        login_btn_login.setOnClickListener(this);
         login_tv_register_now = (TextView) findViewById(R.id.login_tv_register_now);
         login_tv_register_now.setOnClickListener(this);
+        login_btn_login = (Button) findViewById(R.id.login_btn_login);
+        login_btn_login.setOnClickListener(this);
 
         btn_QQLogin = (Button) findViewById(R.id.login_btn_QQlogin);
         btn_QQLogin.setOnClickListener(this);
@@ -105,7 +119,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         });
     }
 
-    void initData() {
+    protected void initData() {
         // 创建EventHandler对象
         // 注册监听器
 //        SMSSDK.registerEventHandler(eventHandler);
@@ -209,28 +223,79 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 //        }
 //    };
 
+    @SuppressLint("HandlerLeak")
+    Handler handler = new Handler() {
+        //0：无状态
+        //1：成功
+        //-1：失败
+        int myServerFlag = 0;
+        int EMCFlag = 0;
+        int flag = 0;
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            // TEST: 11/12/2017 0012 测试阶段只要为31就算作成功
+            Log.e(TAG, "handleMessage: " + msg.what);
+            if (msg.what == 31) {
+                loginSuccess();
+                return;
+            }
+            //2是我的服务器;21成功;-21失败
+            //3是EMC的服务器;31成功;-31失败
+            switch (msg.what) {
+                case 21:
+                    myServerFlag = 1;
+                    if (EMCFlag == 1) {
+                        flag = 1;
+                    }
+                    break;
+                case -21:
+                    flag = -1;
+                    break;
+                case 31:
+                    EMCFlag = 1;
+                    if (myServerFlag == 1) {
+                        flag = 1;
+                    }
+                    break;
+                case -31:
+                    flag = -1;
+                    break;
+            }
+            if (flag == -1) {
+                loginFailed();
+            } else if (flag == 1){
+                loginSuccess();
+            }
+        }
+    };
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+//            点击登录按钮的事件
             case R.id.login_btn_login:
                 account = login_til_account.getEditText().getText().toString();
                 password = login_til_password.getEditText().getText().toString();
+                // EMC和MyServer同时登陆
+                loginForEMC(account, password);
+                // FIXME: 11/8/2017 0008 待更正为注册成功后创建账号
+                /*
                 final MyStringRequest request = new MyStringRequest(url + "usermage/login/", RequestMethod.POST);
-///                request.set("type", "1");
                 request.set("username", account);
                 request.set("password", password);
                 request(0, request, new ResponseListener<String>() {
+                    //2是我的服务器;21成功;-21失败
+                    Message msg = new Message();
                     @Override
                     public void onSucceed(int what, Response<String> response) {
                         super.onSucceed(what, response);
                         if (response.getHeaders().getResponseCode() != 200) {
-                            Toast.makeText(LoginActivity.this, getResources().getString(R.string.server_error), Toast.LENGTH_SHORT).show();
+                            msg.what = -21;
                             return;
                         }
                         String result = response.get();
-                        if (DEBUG) {
-                            Log.e(TAG, "onSucceed: " + what + result);
-                        }
                         if (result.equals(String.valueOf(NOT_EXIST))) {
                             login_til_account.setError(getString(R.string.login_error_account_not_exist));
                             login_til_password.setErrorEnabled(false);
@@ -240,53 +305,44 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                         } else {
                             login_til_account.setErrorEnabled(false);
                             login_til_password.setErrorEnabled(false);
-                            setResultInfo(result);
-                            loginSuccess();
+                            setResult(result);
+                            User user = null;
+                            try {
+                                user = gson.fromJson(result, User.class);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                                msg.what = -21;
+                                return;
+                            }
+                            // FIXME: 11/12/2017 0012 设置MD5
+                            AccountUtil.MD5 = MD5Util.GetMD5Code(password);
+                            msg.what = 21;
+                            AccountUtil.login(user);
                         }
                     }
 
                     @Override
                     public void onFailed(int what, Response<String> response) {
                         super.onFailed(what, response);
+                        msg.what = -21;
                         if (DEBUG) {
                             Log.e(TAG, "onSucceed: " + what + response.get());
                         }
                     }
+
+                    @Override
+                    public void onFinish(int what) {
+                        super.onFinish(what);
+                        // FIXME: 11/12/2017 0012 忽略结果，直接设置成为成功状态
+                        msg.what = 21;
+                        handler.sendMessage(msg);
+                    }
                 });
-//                NoHttpUser.verify(account, password);
-
-//                if (!"123".equals(account)) {
-//                    login_til_account.setError(getString(R.string.login_account_error));
-//                    login_til_password.setErrorEnabled(false);
-//                } else if (!"qwe".equals(password)) {
-//                    login_til_password.setError(getString(R.string.login_password_error));
-//                    login_til_account.setErrorEnabled(false);
-//                }else {
-//                    login_til_account.setErrorEnabled(false);
-//                    login_til_password.setErrorEnabled(false);
-//                }
-
+                */
                 break;
+//                点击注册按钮的事件
             case R.id.login_tv_register_now:
                 initRegisterPage();
-//                startActivityForResult(new Intent(this, RegisterActivity.class), IRequestCode.REGISTER);
-//                RegisterPage registerPage = new RegisterPage();
-//                registerPage.setRegisterCallback(eventHandler);
-//                registerPage.setRegisterCallback(new EventHandler() {
-//                    public void afterEvent(int event, int resultInfo, Object data) {
-//// 解析注册结果
-//                        if (resultInfo == SMSSDK.RESULT_COMPLETE) {
-//                            @SuppressWarnings("unchecked")
-//                            HashMap<String,Object> phoneMap = (HashMap<String, Object>) data;
-//                            String country = (String) phoneMap.get("country");
-//                            String phone = (String) phoneMap.get("phone");
-//
-//// 提交用户信息（此方法可以不调用）
-////                            registerUser(country, phone);
-//                        }
-//                    }
-//                });
-//                registerPage.show(LoginActivity.this);
                 break;
             case R.id.login_btn_QQlogin:
                 QQLogin();
@@ -295,6 +351,60 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 Toast.makeText(LoginActivity.this, "default", Toast.LENGTH_SHORT).show();
                 break;
         }
+    }
+
+    private void createAccountForEMC(final String account, final String password) {
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    EMClient.getInstance().createAccount(account, password);
+                } catch (HyphenateException e) {
+                    e.printStackTrace();
+                    Log.e(TAG, "createAccountForEMC: " + "EMC注册账号失败" + e.getMessage());
+                }
+            }
+        }.start();
+        loginForEMC(account, password);
+    }
+
+    private void loginForEMC(String account, String password) {
+        Log.e(TAG, "loginForEMC: " + "EMC开始登陆");
+        EMClient.getInstance().login(account, password, new EMCallBack() {
+            //3是EMC的服务器;31成功;-31失败
+            Message message = new Message();
+            @Override
+            public void onSuccess() {
+                message.what = 31;
+                handler.sendMessage(message);
+                Log.e(TAG, "onSuccess: " + "EMC登陆成功");
+                EMClient.getInstance().groupManager().loadAllGroups();
+                EMClient.getInstance().chatManager().loadAllConversations();
+                Log.d("main", "登录聊天服务器成功！");
+
+                EaseUI ease = EaseUI.getInstance();
+                ease.setUserProfileProvider(new EaseUI.EaseUserProfileProvider() {
+                    @Override
+                    public EaseUser getUser(String username) {
+                        // FIXME: 11/12/2017 0012 返回用户信息
+                        return null;
+                    }
+                });
+            }
+
+            @Override
+            public void onError(int i, String s) {
+                message.what = -31;
+                handler.sendMessage(message);
+                Log.e(TAG, "onError: " + "EMC登录失败 : " + s);
+
+            }
+
+            @Override
+            public void onProgress(int i, String s) {
+                Log.i(TAG, "onProgress: " + i + s);
+            }
+        });
     }
 
     private void initRegisterPage() {
@@ -354,21 +464,16 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     };
 
     public void loginSuccess() {
-        if (DEBUG) {
-            Log.e(TAG, "loginSuccess: " + account);
-        }
-        Intent data = new Intent();
-        data.putExtra("user", resultInfo);
-        //1 is no sense.
-        setResult(1, data);
+        setResult(Constant.SUCCESS);
         finish();
     }
 
+    public void loginFailed() {
+        Toast.makeText(this, getResources().getString(R.string.main_login_failed), Toast.LENGTH_SHORT).show();
+    }
+
     public void loginCancel() {
-        Intent data = new Intent();
-//        data.putExtra("user");
-        //1 is no sense.
-        setResult(-1, data);
+        setResult(Constant.CANCEL);
         finish();
     }
 

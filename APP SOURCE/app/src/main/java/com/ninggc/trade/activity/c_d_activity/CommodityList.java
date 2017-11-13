@@ -45,16 +45,17 @@ public class CommodityList extends BaseActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        setContentView(R.layout.list_commodity);
         super.onCreate(savedInstanceState);
 //        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.list_commodity);
         initView();
         initData();
         initList();
 
     }
 
-    void initView() {
+    @Override
+    protected void initView() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        toolbar.setTitleTextColor(getResources().getColor(R.color.white));
         setSupportActionBar(toolbar);
@@ -63,7 +64,8 @@ public class CommodityList extends BaseActivity {
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
     }
 
-    void initData() {
+    @Override
+    protected void initData() {
 
         if (getIntent() != null) {
             this.kind = getIntent().getStringExtra("kind");

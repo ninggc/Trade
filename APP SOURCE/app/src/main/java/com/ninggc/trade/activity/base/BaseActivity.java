@@ -1,5 +1,7 @@
 package com.ninggc.trade.activity.base;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.google.gson.Gson;
@@ -15,7 +17,7 @@ import static com.ninggc.trade.factory.constants.Constant.*;
  * Created by Ning on 7/29/2017 0029.
  */
 
-public class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity {
     private Object cancelObject = new Object();
     public String TAG = getClass().getSimpleName();
     public Gson gson = new Gson();
@@ -34,9 +36,32 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initView();
+        initData();
+    }
+
+    /**
+     * 初始化视图,在onCreate调用
+     */
+    protected void initView() {
+
+    }
+
+    /**
+     * 初始化数据
+     * 在onCreate调用
+     * initView调用之后调用
+     */
+    protected void initData() {
+
+    }
+
+    @Override
     protected void onDestroy() {
+        super.onDestroy();
         // 在组件销毁的时候调用队列的按照sign取消的方法即可取消。
         CallServer.getInstance().cancelBySign(cancelObject);
-        super.onDestroy();
     }
 }

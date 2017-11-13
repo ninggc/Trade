@@ -42,14 +42,15 @@ public class ReleaseCommodityActivity extends BaseActivity implements View.OnCli
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_release_commodity);
+        super.onCreate(savedInstanceState);
 
         initView();
 
     }
 
-    private void initView() {
+    @Override
+    protected void initView() {
         et_title = (EditText) findViewById(R.id.et_title);
         et_text = (EditText) findViewById(R.id.et_body);
         tv_endTime = (TextView) findViewById(R.id.tv_endTime);

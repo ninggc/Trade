@@ -1,16 +1,25 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'key1'
+            keyPassword '906978985'
+            storeFile file('D:/Dev/key/apk.jks')
+            storePassword '906978985'
+        }
+    }
     compileSdkVersion 25
     buildToolsVersion '26.0.2'
     defaultConfig {
-        applicationId "com.ninggc.match.trade"
+        applicationId "com.ninggc.trade"
         minSdkVersion 19
         targetSdkVersion 25
         versionCode 11
         versionName "1.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -18,7 +27,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    //use legacy for android 6.0
+    useLibrary 'org.apache.http.legacy'
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
 }
+
 
 repositories {
     flatDir {
@@ -46,15 +63,16 @@ dependencies {
     compile 'com.yanzhenjie.nohttp:okhttp:1.1.3'
     compile 'com.android.support:support-vector-drawable:25.4.0'
     testCompile 'junit:junit:4.12'
-    compile files('libs/BaiduLBS_Android.jar')
-
-//    https://github.com/youth5201314/banner
+//    compile files('libs/BaiduLBS_Android.jar')
+    //    https://github.com/youth5201314/banner
     compile 'com.youth.banner:banner:1.4.10'
-//    http://blog.csdn.net/jiangxuqaz/article/details/50421754
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-//    https://github.com/HomHomLin/Android-PullToRefreshRecyclerView
+    //    http://blog.csdn.net/jiangxuqaz/article/details/50421754
+    compile 'com.github.bumptech.glide:glide:3.8.0'
+    //    https://github.com/HomHomLin/Android-PullToRefreshRecyclerView
     compile 'homhomlin.lib:ptrrv-library:1.3.1'
-//    https://github.com/yanzhenjie/Album/blob/master/README-CN.md
+    //    https://github.com/yanzhenjie/Album/blob/master/README-CN.md
     compile 'com.yanzhenjie:album:2.0.1'
-
+//    implementation files('libs/hyphenatechat_3.3.6.jar')
+    //    compile 'com.android.support:multidex:1.0.2'
+    compile project(path: ':easeui')
 }

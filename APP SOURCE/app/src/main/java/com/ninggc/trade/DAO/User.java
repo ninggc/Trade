@@ -15,6 +15,7 @@ public class User implements IBean {
     private String introduce;
     private String unique;
     private String portrait;
+    private String MD5;
 
     public int getId() {
         return id;
@@ -100,6 +101,14 @@ public class User implements IBean {
 
     public void setPortrait(String portrait) {
         this.portrait = portrait;
+    }
+
+    public String getMD5() {
+        return MD5;
+    }
+
+    public void setMD5(String MD5) {
+        this.MD5 = MD5;
     }
 
     @Override

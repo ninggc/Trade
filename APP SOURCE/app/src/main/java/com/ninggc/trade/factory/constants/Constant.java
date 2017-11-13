@@ -25,16 +25,20 @@ public class Constant {
     public static final String QQ_APP_ID = "1106325208";
     public static final String QQ_APP_KEY = "DmwXgfjPfNXjMI3E";
 
+    public static final String TAG_TEST = "TEST";
+    public static final String TAG_TEST_EMC = "TEST_EMC";
     public static final boolean DEBUG = true;
 
-    //Status code
+    //Status code AND Result code
     public static final short PASSWORD_INCORRECT = -13;
     public static final short NOT_EXIST = -12;
-    public static final int FAILED = -1;
+    public static final short FAILED = 0;
+    public static final short CANCEL = -1;
     public static final short SUCCESS = 1;
 
 
     //shortent code
+    //request code for activity
     public static final short INSIGNIFICANCE = -11;
     public static final short MAIN = 10;
     public static final short LOGIN = 11;

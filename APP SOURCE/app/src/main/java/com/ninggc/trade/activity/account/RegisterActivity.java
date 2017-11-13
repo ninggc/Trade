@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -29,8 +30,10 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
     Toolbar toolbar;
     Button btnRegister;
-    EditText et_password;
-    EditText et_password_again;
+    TextInputLayout til_password;
+    TextInputLayout til_password_again;
+//    EditText et_password;
+//    EditText et_password_again;
 
     String country;
     String phone;
@@ -38,8 +41,8 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        super.onCreate(savedInstanceState);
 
         if (getIntent() != null) {
             country = getIntent().getStringExtra("country");
@@ -51,25 +54,29 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         initView();
     }
 
-    private void initView() {
+    @Override
+    protected void initView() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         btnRegister = (Button) findViewById(R.id.register_btn_register);
         btnRegister.setOnClickListener(this);
-        et_password = (EditText) findViewById(R.id.register_et_password);
-        et_password_again = (EditText) findViewById(R.id.register_et_password_again);
+        til_password = (TextInputLayout) findViewById(R.id.register_til_password);
+        til_password_again = (TextInputLayout) findViewById(R.id.register_til_password_again);
+//        et_password = (EditText) findViewById(R.id.register_et_password);
+//        et_password_again = (EditText) findViewById(R.id.register_et_password_again);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.register_btn_register:
-                String password = et_password.getText().toString();
+//                String password = et_password.getText().toString();
+                String password = til_password.getEditText().getText().toString();
                 if(!vertify(password)) {
                     Toast.makeText(this, getResources().getString(R.string.register_password_invalid), Toast.LENGTH_SHORT).show();
                     break;
-                }else if (!et_password.getText().toString().equals(et_password_again.getText().toString())) {
+                }else if (!password.equals(til_password_again.getEditText().getText().toString())) {
                     Toast.makeText(this, getResources().getString(R.string.register_password_diff), Toast.LENGTH_SHORT).show();
                     break;
                 } else {

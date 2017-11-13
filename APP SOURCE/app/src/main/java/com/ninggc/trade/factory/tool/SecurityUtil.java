@@ -9,10 +9,10 @@ import java.security.NoSuchAlgorithmException;
 
 public class SecurityUtil {
     //静态方法，便于作为工具类
-    public static String getMd5(String plainText) {
+    public static String getMd5(String s) {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
-            md.update(plainText.getBytes());
+            md.update(s.getBytes());
             byte b[] = md.digest();
 
             int i;

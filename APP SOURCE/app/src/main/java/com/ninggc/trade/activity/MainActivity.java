@@ -1,11 +1,11 @@
 package com.ninggc.trade.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
@@ -23,18 +23,24 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.baidu.mapapi.SDKInitializer;
 import com.google.gson.Gson;
+import com.hyphenate.EMCallBack;
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.chat.EMConversation;
+import com.hyphenate.easeui.EaseConstant;
+import com.hyphenate.easeui.ui.EaseConversationListFragment;
 import com.ninggc.trade.DAO.User;
 import com.ninggc.trade.R;
+import com.ninggc.trade.activity.account.AccountUtil;
 import com.ninggc.trade.activity.account.LoginActivity;
 import com.ninggc.trade.activity.c_d_activity.ReleaseCommodityActivity;
 import com.ninggc.trade.activity.c_d_activity.ReleaseDelegationActivity;
+import com.ninggc.trade.activity.ease.ChatActivity;
+import com.ninggc.trade.activity.ease.ConversationListFragment;
+import com.ninggc.trade.activity.ease.TestFragment;
 import com.ninggc.trade.adapter.MyFragmentPagerAdapter;
 import com.ninggc.trade.factory.constants.Constant;
 import com.ninggc.trade.factory.constants.IRequestCode;
-import com.ninggc.trade.fragment.CommodityFragment;
-import com.ninggc.trade.fragment.DelegationFragment;
 import com.ninggc.trade.fragment.IndexFragment;
 import com.tencent.connect.share.QQShare;
 import com.tencent.tauth.IUiListener;
@@ -44,7 +50,9 @@ import com.tencent.tauth.UiError;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.ninggc.trade.factory.constants.Constant.CANCEL;
 import static com.ninggc.trade.factory.constants.Constant.DEBUG;
+import static com.ninggc.trade.factory.constants.Constant.SUCCESS;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
@@ -66,15 +74,16 @@ public class MainActivity extends AppCompatActivity
     /**
      * 登陆成功后的用户
      */
-    User user;
+    User user = AccountUtil.getCurrentUser();
+    AccountSPUtil accountSPUtil = new AccountSPUtil();
 
     private int mCurrentViewPagerPosition = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setContentView(R.layout.activity_main);
         super.onCreate(savedInstanceState);
         initBaiduMap();
-        setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -112,7 +121,7 @@ public class MainActivity extends AppCompatActivity
     private void initBaiduMap() {
         //在使用SDK各组件之前初始化context信息，传入ApplicationContext
         //注意该方法要再setContentView方法之前实现
-        SDKInitializer.initialize(getApplicationContext());
+//        SDKInitializer.initialize(getApplicationContext());
     }
 
     void initView() {
@@ -134,6 +143,33 @@ public class MainActivity extends AppCompatActivity
     }
 
     void initData() {
+        User user = accountSPUtil.getUserFromLocal();
+        if (user != null) {
+            AccountUtil.login(user);
+            // FIXME: 11/12/2017 0012 TEST账号拟登陆
+            EMClient.getInstance().login("test", "test", new EMCallBack() {
+                @Override
+                public void onSuccess() {
+                    MainActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            // FIXME: 11/12/2017 0012 未经测试
+                            Toast.makeText(MainActivity.this, "登陆成功", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+
+                @Override
+                public void onError(int i, String s) {
+
+                }
+
+                @Override
+                public void onProgress(int i, String s) {
+
+                }
+            });
+        }
         mTencent = Tencent.createInstance(Constant.QQ_APP_ID, this);
         QQUIListener = new IUiListener() {
             @Override
@@ -162,8 +198,16 @@ public class MainActivity extends AppCompatActivity
         titles.add(getString(R.string.main_tab_title_3));
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(new IndexFragment());
-        fragments.add(new CommodityFragment());
-        fragments.add(new DelegationFragment());
+//        fragments.add(new CommodityFragment());
+        ConversationListFragment conversationListFragment = new ConversationListFragment();
+        conversationListFragment.setConversationListItemClickListener(new EaseConversationListFragment.EaseConversationListItemClickListener() {
+            @Override
+            public void onListItemClicked(EMConversation conversation) {
+                startActivity(new Intent(MainActivity.this, ChatActivity.class).putExtra(EaseConstant.EXTRA_USER_ID, conversation.conversationId()));
+            }
+        });
+        fragments.add(conversationListFragment);
+        fragments.add(new TestFragment());
         myFragmentPagerAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), fragments, titles);
         main_view_pager.setAdapter(myFragmentPagerAdapter);
         main_tabLayout.setupWithViewPager(main_view_pager);
@@ -182,7 +226,7 @@ public class MainActivity extends AppCompatActivity
                 if (DEBUG) {
                     Log.e(TAG, "onPageSelected: " + position);
                 }
-                if (position == 1 || position == 2) {
+                if (position == 2) {
                     fab.show();
                 } else {
                     fab.hide();
@@ -269,6 +313,7 @@ public class MainActivity extends AppCompatActivity
 //        } else if (id == R.id.nav_send) {
 
         } else if (id == R.id.nav_setting) {
+            // FIXME: 11/6/2017 0006 SETTING
             startActivity(new Intent(MainActivity.this, SettingsActivity.class));
         }
 
@@ -320,31 +365,47 @@ public class MainActivity extends AppCompatActivity
         }
         switch (requestCode) {
             case IRequestCode.LOGIN:
-                String result = data.getStringExtra("user");
-                if (DEBUG) {
-                    Log.e(TAG, "onActivityResult: " + result);
-                }
-                if (result == null || "".equals(result)) {
+                if (resultCode == SUCCESS) {
+                    Toast.makeText(this, getResources().getString(R.string.main_login_success), Toast.LENGTH_SHORT).show();
+//                    Snackbar.make(coordinatorLayout, getResources().getString(R.string.main_login_success), Snackbar.LENGTH_SHORT).show();
+                } else if (resultCode == CANCEL) {
                     Toast.makeText(this, getResources().getString(R.string.main_login_canceled), Toast.LENGTH_SHORT).show();
-                    break;
+//                    Snackbar.make(coordinatorLayout, getResources().getString(R.string.main_login_canceled), Snackbar.LENGTH_SHORT).show();
                 }
-                try {
-                    user = gson.fromJson(result, User.class);
-                } catch (Exception e) {
-                    //TODO
-                    System.out.println(e.getMessage());
-                }
-                if (user == null) {
-                    Toast.makeText(MainActivity.this, getResources().getString(R.string.main_login_failed), Toast.LENGTH_SHORT).show();
-                } else {
-                    Snackbar.make(coordinatorLayout, getResources().getString(R.string.main_login_success) + result, Snackbar.LENGTH_SHORT).show();
-                }
-                break;
             default:
                 break;
         }
-        if (user != null) {
-            main_tv_login.setText(user.getName());
+        if (AccountUtil.isLogin()) {
+            main_tv_login.setText(AccountUtil.getCurrentUser().getName());
+            accountSPUtil.saveUserToLocal();
+        } else {
+            accountSPUtil.logoutFromLocal();
+        }
+    }
+
+    class AccountSPUtil {
+        SharedPreferences sharedPreferences;
+        SharedPreferences.Editor editor;
+
+        public AccountSPUtil() {
+            sharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
+        }
+
+        void saveUserToLocal() {
+            editor = sharedPreferences.edit();
+            editor.putString("user", gson.toJson(AccountUtil.getCurrentUser()));
+            editor.apply();
+        }
+
+        void logoutFromLocal() {
+            editor = sharedPreferences.edit();
+            editor.remove("user");
+            editor.apply();
+        }
+
+        User getUserFromLocal() {
+            String s = sharedPreferences.getString("user", "null");
+            return gson.fromJson(s, User.class);
         }
     }
 }

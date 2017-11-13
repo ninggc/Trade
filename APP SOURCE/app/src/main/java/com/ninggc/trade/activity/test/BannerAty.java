@@ -22,8 +22,8 @@ import java.util.Arrays;
 public class BannerAty extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.test_banner);
+        super.onCreate(savedInstanceState);
 
         Banner banner = (Banner) findViewById(R.id.banner);
         //设置图片加载器

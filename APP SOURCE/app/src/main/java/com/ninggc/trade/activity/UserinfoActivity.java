@@ -15,8 +15,8 @@ public class UserinfoActivity extends AppCompatActivity {
     Toolbar mToolbar;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_userinfo);
+        super.onCreate(savedInstanceState);
 
 //        mToolbar = (Toolbar) findViewById(R.id.app_bar_layout);
 //        setSupportActionBar(mToolbar);

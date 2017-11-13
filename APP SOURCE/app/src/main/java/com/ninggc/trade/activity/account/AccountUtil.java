@@ -16,7 +16,9 @@ public class AccountUtil {
     /**
      * 登陆的账户
      */
-    private static User localUser;
+    private static User currentUser;
+    private static EMCUser emcUser = new EMCUser();
+    public static String MD5;
 
     public static boolean isLogin() {
         return loginStatus;
@@ -24,15 +26,46 @@ public class AccountUtil {
 
     public static void login(User user) {
         loginStatus = true;
-        localUser = user;
+        currentUser = user;
     }
 
     public static void logout() {
         loginStatus = false;
-        localUser = null;
+        currentUser = null;
     }
 
-    public static User getLocalUser() {
-        return localUser;
+    public static User getCurrentUser() {
+        return currentUser;
+    }
+
+    public static EMCUser getEmcUser() {
+        return emcUser;
+    }
+
+    public static void setEMCUser(String username, String password) {
+        emcUser.setUsername(username);
+        emcUser.setPassword(password);
+    }
+
+    public static class EMCUser {
+        String username;
+        String password;
+
+        public String getUsername() {
+            return username;
+        }
+
+        public void setUsername(String username) {
+            this.username = username;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
+        }
+
     }
 }

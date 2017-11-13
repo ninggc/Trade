@@ -44,14 +44,15 @@ public class DelegationList extends BaseActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.list_delegation);
+        super.onCreate(savedInstanceState);
         initView();
         initData();
         initList();
     }
 
-    private void initView() {
+    @Override
+    protected void initView() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -61,7 +62,8 @@ public class DelegationList extends BaseActivity {
         initData();
     }
 
-    private void initData() {
+    @Override
+    protected void initData() {
         ArrayList<Delegation> list = new ArrayList<>();
         adapter = new DelegationRecycleViewAdapter(DelegationList.this, list);
         recyclerView.setLayoutManager(new LinearLayoutManager(DelegationList.this));
