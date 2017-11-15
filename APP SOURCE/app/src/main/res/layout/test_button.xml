@@ -24,4 +24,10 @@
         android:layout_height="wrap_content"
         android:text="Button3" />
 
+    <TextView
+        android:id="@+id/tv"
+        android:text="show"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>

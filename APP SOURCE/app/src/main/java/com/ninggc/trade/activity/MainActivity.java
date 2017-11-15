@@ -63,18 +63,15 @@ public class MainActivity extends AppCompatActivity
     CoordinatorLayout coordinatorLayout;
     FloatingActionButton fab;
 
-    ImageView main_iv_login;
-    TextView main_tv_login;
+    ImageView nav_header_iv_login;
+    TextView nav_header_tv_login;
+    TextView nav_header_tv_tip;
 
     MyFragmentPagerAdapter myFragmentPagerAdapter;
     Tencent mTencent;
     IUiListener QQUIListener;
 
     Gson gson = new Gson();
-    /**
-     * 登陆成功后的用户
-     */
-    User user = AccountUtil.getCurrentUser();
     AccountSPUtil accountSPUtil;
 
     private int mCurrentViewPagerPosition = 0;
@@ -118,6 +115,26 @@ public class MainActivity extends AppCompatActivity
         initViewPager();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (AccountUtil.isLogin()) {
+            AccountUtil.getCurrentUser().getName();
+            nav_header_tv_login.setText(AccountUtil.getCurrentUser().getName());
+            nav_header_tv_tip.setVisibility(View.VISIBLE);
+        } else {
+            nav_header_tv_login.setText(getResources().getString(R.string.header_main_login_tip));
+            nav_header_tv_tip.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //退出EMC
+        EMClient.getInstance().logout(true);
+    }
+
     private void initBaiduMap() {
         //在使用SDK各组件之前初始化context信息，传入ApplicationContext
         //注意该方法要再setContentView方法之前实现
@@ -129,16 +146,24 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
-        LinearLayout nav_header = (LinearLayout) headerView.findViewById(R.id.nav_header);
+        final LinearLayout nav_header = (LinearLayout) headerView.findViewById(R.id.nav_header);
         nav_header.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivityForResult(new Intent(MainActivity.this, LoginActivity.class), IRequestCode.LOGIN);
+                TextView tv_login = (TextView) nav_header.findViewById(R.id.main_tv_login);
+                String text = tv_login.getText().toString();
+                if (!AccountUtil.isLogin()) {
+                    startActivityForResult(new Intent(MainActivity.this, LoginActivity.class), IRequestCode.LOGIN);
+                } else {
+//                    Log.e(TAG, "onClick: " + text);
+                    startActivity(new Intent(MainActivity.this, UserinfoActivity.class));
+                }
             }
         });
 
-        main_iv_login = (ImageView) nav_header.findViewById(R.id.main_iv_login);
-        main_tv_login = (TextView) nav_header.findViewById(R.id.main_tv_login);
+        nav_header_iv_login = (ImageView) nav_header.findViewById(R.id.main_iv_login);
+        nav_header_tv_login = (TextView) nav_header.findViewById(R.id.main_tv_login);
+        nav_header_tv_tip = (TextView) nav_header.findViewById(R.id.nav_header_tv_tip);
 
     }
 
@@ -358,12 +383,13 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.e(TAG, "onActivityResult: ");
         if (null != mTencent) {
             mTencent.onActivityResult(requestCode, resultCode, data);
         }
-        if (data == null) {
-            return;
-        }
+//        if (data == null) {
+//            return;
+//        }
         switch (requestCode) {
             case IRequestCode.LOGIN:
                 if (resultCode == SUCCESS) {
@@ -376,11 +402,25 @@ public class MainActivity extends AppCompatActivity
             default:
                 break;
         }
+        
+        //修改首页显示的用户名
         if (AccountUtil.isLogin()) {
-            main_tv_login.setText(AccountUtil.getCurrentUser().getName());
+            Log.e(TAG, "onActivityResult: " + "登陆成功");
+            nav_header_tv_login.setText(AccountUtil.getCurrentUser().getName());
+            nav_header_tv_tip.setVisibility(View.INVISIBLE);
             accountSPUtil.saveUserToLocal();
         } else {
+            nav_header_tv_login.setText(getResources().getString(R.string.header_main_login_tip));
+            nav_header_tv_tip.setVisibility(View.INVISIBLE);
+            Log.e(TAG, "onActivityResult: " + "未登录");
             accountSPUtil.logoutFromLocal();
+            String currentUser = EMClient.getInstance().getCurrentUser();
+            if (currentUser != null) {
+                nav_header_tv_login.setText("EMC已登录 : " + currentUser);
+            } else {
+//                Log.e(TAG, "onActivityResult: ", );
+                nav_header_tv_login.setText("未登录");
+            }
         }
     }
 

@@ -279,6 +279,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 account = login_til_account.getEditText().getText().toString();
                 password = login_til_password.getEditText().getText().toString();
                 // EMC和MyServer同时登陆
+                User user = new User();
+                user.setId(1);
+                user.setName("Ning");
+                AccountUtil.login(user);
                 loginForEMC(account, password);
                 // FIXME: 11/8/2017 0008 待更正为注册成功后创建账号
                 /*
