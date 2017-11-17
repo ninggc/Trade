@@ -1,14 +1,13 @@
 package com.ninggc.trade.test;
 
+import com.ninggc.trade.encrypt.EncryptionUtil;
 import com.yanzhenjie.nohttp.Headers;
 import com.yanzhenjie.nohttp.RequestMethod;
 import com.yanzhenjie.nohttp.rest.RestRequest;
 import com.yanzhenjie.nohttp.rest.StringRequest;
-import com.yanzhenjie.nohttp.tools.Encryption;
 import com.yanzhenjie.nohttp.tools.MultiValueMap;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;

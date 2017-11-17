@@ -11,15 +11,25 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.easeui.EaseUI;
 import com.ninggc.trade.R;
+import com.ninggc.trade.activity.test.TestListActivity;
+import com.ninggc.trade.factory.Server;
+import com.ninggc.trade.factory.constants.Constant;
+import com.ninggc.trade.factory.http.HttpGetSomething;
+import com.ninggc.trade.factory.http.ResponseListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import okhttp3.Response;
 
 /**
  * Created by Ning on 11/12/2017 0012.
@@ -28,6 +38,7 @@ import java.util.List;
 public class TestFragment extends Fragment {
 
     View view;
+    String TAG = "NOHTTP";
 
     @Nullable
     @Override
@@ -45,18 +56,20 @@ public class TestFragment extends Fragment {
         view.findViewById(R.id.button1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Log.e("SP", "onClick: ");;
-////                Intent intent = new Intent(getContext(), ChatActivity.class);
-////                startActivity(intent);
-//                SPContactUtil spUtil = new SPContactUtil(getContext());
-//                spUtil.clear();
-//                Log.e("SP", "onClick: " + new Gson().toJson(spUtil.getALLContacts()));;
-//                Log.e("SP", "onClick: " + spUtil.getALLContacts().size());;
 
-                EaseUI instance = EaseUI.getInstance();
-                Context context = instance.getContext();
-                SharedPreferences mSharedPreferences = context.getSharedPreferences("EM_SP_AT_MESSAGE", Context.MODE_PRIVATE);
+                Server.addUser("ning", "12345678", new ResponseListener<String>() {
+                    @Override
+                    public void onSucceed(int what, com.yanzhenjie.nohttp.rest.Response<String> response) {
+                        super.onSucceed(what, response);
+                        Log.e(TAG, "onSucceed: " + response.get());
+                    }
 
+                    @Override
+                    public void onFailed(int what, com.yanzhenjie.nohttp.rest.Response<String> response) {
+                        super.onFailed(what, response);
+                        Log.e(TAG, "onFailed: " +response.get());
+                    }
+                });
             }
         });
 
@@ -74,22 +87,41 @@ public class TestFragment extends Fragment {
 //                Intent intent = new Intent(getContext(), ChatFragment.class);
 //                startActivity(intent);
 
-                new Thread() {
-                    @Override
-                    public void run() {
-                        Log.e("TEST", "run: ");
-                        List<String> list =  EMClient.getInstance().contactManager().getBlackListUsernames();
-                        Log.e("TEST", "run: " + list.size());
-                        for (String s :
-                                list) {
-                            Log.e("TEST", "run: " + s);
-                        }
-                    }
-                }.start();
+//                new Thread() {
+//                    @Override
+//                    public void run() {
+//                        Log.e("TEST", "run: ");
+//                        List<String> list =  EMClient.getInstance().contactManager().getBlackListUsernames();
+//                        Log.e("TEST", "run: " + list.size());
+//                        for (String s :
+//                                list) {
+//                            Log.e("TEST", "run: " + s);
+//                        }
+//                    }
+//                }.start();
+
+//                Server.login("ning", "123", new ResponseListener<String>() {
+//                    @Override
+//                    public void onSucceed(int what, com.yanzhenjie.nohttp.rest.Response<String> response) {
+//                        super.onSucceed(what, response);
+//                        Log.e("NOHTTP", "onSucceed: " + response.get());
+//                    }
+//
+//                    @Override
+//                    public void onFailed(int what, com.yanzhenjie.nohttp.rest.Response<String> response) {
+//                        super.onFailed(what, response);
+//                        Log.e("NOHTTP", "onFailed: " + response.get());
+//                    }
+//                });
+
+                startActivity(new Intent(getContext(), TestListActivity.class));
+
             }
         });
 
-        TextView tv = (TextView) view.findViewById(R.id.tv);
+
+
+//        TextView tv = (TextView) view.findViewById(R.id.tv);
 
     }
 }

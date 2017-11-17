@@ -12,6 +12,7 @@ public class Constant {
 //    public static final String url = "http://192.168.43.62:8080/";
     public static final String url = "http://123.207.244.139:8080/trade/";
 //    public static final String url = "http://192.168.1.125:8000/";
+    public static final String url_python = "http://123.207.244.139:8082/";
 
     public static final String url_usermage = url + "usermage/";
     public static final String url_commodity = url + "commodity/";

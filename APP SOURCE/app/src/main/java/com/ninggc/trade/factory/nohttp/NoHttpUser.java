@@ -14,8 +14,8 @@ import static com.ninggc.trade.factory.constants.Constant.DEBUG;
 /**
  * Created by Ning on 7/28/2017 0028.
  */
-
-public class NoHttpUser implements ILoginStatus {
+@Deprecated
+class NoHttpUser implements ILoginStatus {
     public static final String url = Constant.url;
     public static final String TAG = "NoHttpUser";
     private static String result;

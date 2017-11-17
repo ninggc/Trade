@@ -1,4 +1,4 @@
-package com.ninggc.trade.test;
+package com.ninggc.trade.encrypt;
 
 import java.security.MessageDigest;
 

@@ -181,6 +181,7 @@
 
         <activity android:name=".activity.test.BannerAty"/>
         <activity android:name=".activity.test.PtrrvAty"/>
+        <activity android:name=".activity.test.TestListActivity"/>
     </application>
 
 </manifest>

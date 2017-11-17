@@ -2,12 +2,9 @@ package com.ninggc.trade;
 
 import com.google.gson.Gson;
 import com.ninggc.trade.DAO.Commodity;
-import com.ninggc.trade.test.EncryptionUtil;
+import com.ninggc.trade.encrypt.EncryptionUtil;
 
 import org.junit.Test;
-
-import static android.R.id.list;
-import static org.junit.Assert.*;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
