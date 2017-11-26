@@ -11,21 +11,22 @@
     <dimen name="text_margin">16dp</dimen>
 
     <!-- Margin -->
-
     <dimen name="little_margin_4">4dp</dimen>
     <dimen name="medium_margin_8">8dp</dimen>
     <dimen name="medium_margin_10">10dp</dimen>
     <dimen name="large_margin_16">16dp</dimen>
-
     <!-- Margin -->
 
     <!-- Image -->
-
     <dimen name="head_portrait_horizontal">50dp</dimen>
     <dimen name="head_portrait_vertical">50dp</dimen>
 
     <dimen name="big_image_horizontal">100dp</dimen>
     <dimen name="big_image_vertical">100dp</dimen>
-
     <!-- Image -->
+
+    <!--personal-->
+    <dimen name="scroll_layout_top_bottom">15dp</dimen>
+    <dimen name="scroll_text_size">15sp</dimen>
+    <!--personal-->
 </resources>

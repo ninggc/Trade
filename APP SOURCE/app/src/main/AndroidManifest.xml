@@ -157,11 +157,9 @@
         </activity>
 
         <activity android:name="com.ninggc.trade.activity.c_d_activity.DetailCommodityActivity"
-            android:parentActivityName=".activity.c_d_activity.CommodityList"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:parentActivityName=".activity.c_d_activity.CommodityList"/>
         <activity android:name=".activity.c_d_activity.DetailDelegationActivity"
-            android:parentActivityName=".activity.c_d_activity.DelegationList"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:parentActivityName=".activity.c_d_activity.DelegationList"/>
 
         <activity android:name="com.ninggc.trade.activity.c_d_activity.ReleaseCommodityActivity"
             android:parentActivityName=".activity.MainActivity"/>
@@ -185,7 +183,7 @@
 
         <activity android:name=".activity.test.BannerAty"/>
         <activity android:name=".activity.test.PtrrvAty"/>
-        <activity android:name=".activity.test.TestListFragment"/>
+        <!--<activity android:name=".activity.test.TestListFragment"/>-->
         <activity android:name=".activity.test.TestBottomBar"/>
     </application>
 

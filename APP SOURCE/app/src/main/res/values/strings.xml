@@ -169,6 +169,13 @@
     <string name="login_please_login">请登录</string>
     <string name="login_unlogin_tip">您好像还没有登录哦</string>
     <string name="main_menu_release_commodity">发布商品</string>
+    <string name="personal_my_release">我发布的</string>
+    <string name="personal_my_sell">我卖出的</string>
+    <string name="personal_my_purchase">我买到的</string>
+    <string name="personal_my_favorite">我收藏的</string>
+    <string name="personal_be_priased">获赞</string>
+    <string name="personal_following">粉丝数</string>
+    <string name="personal_followers">关注数</string>
 
     <!-- activity_detail_commodity -->
 </resources>

@@ -158,12 +158,14 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view) {
                 TextView tv_login = (TextView) nav_header.findViewById(R.id.main_tv_login);
                 String text = tv_login.getText().toString();
-                if (!AccountUtil.isLogin()) {
-                    startActivityForResult(new Intent(MainActivity.this, LoginActivity.class), IRequestCode.LOGIN);
-                } else {
-//                    Log.e(TAG, "onClick: " + text);
-                    startActivity(new Intent(MainActivity.this, UserinfoActivity.class));
-                }
+
+//                if (!AccountUtil.isLogin()) {
+//                    startActivityForResult(new Intent(MainActivity.this, LoginActivity.class), IRequestCode.LOGIN);
+//                } else {
+////                    Log.e(TAG, "onClick: " + text);
+//                    startActivity(new Intent(MainActivity.this, UserinfoActivity.class));
+//                }
+                startActivity(new Intent(MainActivity.this, ScrollingActivity.class));
             }
         });
 

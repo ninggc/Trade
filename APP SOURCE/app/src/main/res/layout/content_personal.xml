@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.ninggc.trade.activity.ScrollingActivity"
+    tools:showIn="@layout/-activity_personal">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/layout_1"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/scroll_layout_top_bottom"
+            android:paddingBottom="@dimen/scroll_layout_top_bottom"
+            android:paddingLeft="16dp">
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/panda" />
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="15dp"
+                android:layout_toEndOf="@+id/imageView1"
+                android:text="@string/personal_my_release"
+                android:textSize="@dimen/scroll_text_size" />
+
+            <ImageView
+                android:src="@drawable/back"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/imageView2" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="19dp"
+                android:layout_toStartOf="@+id/imageView2"
+                android:text="0"
+                android:textSize="@dimen/scroll_text_size" />
+
+        </RelativeLayout>
+
+        <include layout="@layout/line_horizontal" />
+
+        <RelativeLayout
+            android:id="@+id/layout_2"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/scroll_layout_top_bottom"
+            android:paddingBottom="@dimen/scroll_layout_top_bottom"
+            android:paddingLeft="16dp">
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/panda" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="15dp"
+                android:layout_toEndOf="@+id/imageView3"
+                android:text="@string/personal_my_sell"
+                android:textSize="@dimen/scroll_text_size" />
+
+            <ImageView
+                android:src="@drawable/back"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/imageView4" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="19dp"
+                android:layout_toStartOf="@+id/imageView4"
+                android:text="0"
+                android:textSize="@dimen/scroll_text_size" />
+        </RelativeLayout>
+
+        <include layout="@layout/line_horizontal" />
+
+        <RelativeLayout
+            android:id="@+id/layout_3"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/scroll_layout_top_bottom"
+            android:paddingBottom="@dimen/scroll_layout_top_bottom"
+            android:paddingLeft="16dp">
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/panda" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="15dp"
+                android:layout_toEndOf="@+id/imageView5"
+                android:text="@string/personal_my_purchase"
+                android:textSize="@dimen/scroll_text_size"/>
+            <ImageView
+                android:id="@+id/imageView6"
+                android:src="@drawable/back"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="16dp"/>
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="19dp"
+                android:layout_toStartOf="@+id/imageView6"
+                android:text="0"
+                android:textSize="@dimen/scroll_text_size" />
+        </RelativeLayout>
+
+        <include layout="@layout/line_horizontal" />
+
+        <RelativeLayout
+            android:id="@+id/layout_4"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/scroll_layout_top_bottom"
+            android:paddingBottom="@dimen/scroll_layout_top_bottom"
+            android:paddingLeft="16dp">
+
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/panda" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="15dp"
+                android:layout_toEndOf="@+id/imageView7"
+                android:text="@string/personal_my_favorite"
+                android:textSize="@dimen/scroll_text_size"/>
+            <ImageView
+                android:id="@+id/imageView8"
+                android:src="@drawable/back"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="16dp"/>
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="19dp"
+                android:layout_toStartOf="@+id/imageView8"
+                android:text="0"
+                android:textSize="@dimen/scroll_text_size" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:background="@color/LightGray"/>
+
+        <RelativeLayout
+            android:id="@+id/layout_setting"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/scroll_layout_top_bottom"
+            android:paddingBottom="@dimen/scroll_layout_top_bottom"
+            android:paddingLeft="16dp">
+
+            <ImageView
+                android:id="@+id/personal_iv_setting"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/panda" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="15dp"
+                android:layout_toEndOf="@+id/personal_iv_setting"
+                android:text="@string/setting"
+                android:textSize="@dimen/scroll_text_size"/>
+        </RelativeLayout>
+
+        <include layout="@layout/line_horizontal" />
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

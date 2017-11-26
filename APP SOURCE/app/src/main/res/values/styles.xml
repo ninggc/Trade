@@ -3,8 +3,8 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/themeOrange</item>
+        <item name="colorPrimaryDark">@color/themeOrangeDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <!--设置Toolbar上字体的颜色,以及返回和更多按钮的颜色-->
         <!--<item name="android:textColorPrimary">@color/white</item>-->
@@ -16,10 +16,12 @@
     <!-- Toolbar theme. -->
     <style name="ToolbarTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/themeOrange</item>
+        <item name="colorPrimaryDark">@color/themeOrangeDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <!--设置Toolbar上字体的颜色,以及返回和更多按钮的颜色-->
+        <item name="android:textColor">@color/white</item>
+        <item name="android:colorButtonNormal">@color/white</item>
         <item name="android:textColorPrimary">@color/white</item>
         <item name="android:colorControlNormal" tools:targetApi="lollipop">@color/white</item>
         <!--<item name="android:colorPrimary" tools:targetApi="lollipop">@color/white</item>-->
