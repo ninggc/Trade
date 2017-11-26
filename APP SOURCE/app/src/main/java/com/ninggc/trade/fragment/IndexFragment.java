@@ -104,7 +104,9 @@ public class IndexFragment extends Fragment implements View.OnClickListener {
 
     void initList() {
         Commodity c = new Commodity();
-        adapter.addItem(c);
+        c.setName("Ning-For test");
+        c.setNote(getResources().getString(R.string.large_text));
+        c.setPrice(50.0);
         adapter.addItem(c);
         // TODO: 11/1/2017 0001 列表初始化
         // REFACTOR: 11/1/2017 0001 wait for refactor

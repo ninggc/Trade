@@ -21,13 +21,12 @@
                 android:layout_marginBottom="@dimen/little_margin_4">
 
                 <TextView
-                    android:id="@+id/card_main_1_tv_time"
+                    android:id="@+id/card_main_1_tv_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="4dp"
-                    android:text="2017-9-15" />
+                    android:layout_marginRight="4dp" />
 
                 <ImageView
                     android:id="@+id/card_main_1_iv_head_portrait"

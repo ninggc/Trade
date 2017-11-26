@@ -5,6 +5,7 @@ import android.icu.util.Calendar;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -30,6 +31,7 @@ public class ReleaseDelegationActivity extends BaseActivity {
     EditText et_text;
     TextView tv_endTime;
     Button btn_release;
+    Toolbar toolbar;
 
     Commodity commodity = new Commodity();
 
@@ -44,6 +46,10 @@ public class ReleaseDelegationActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         et_title = (EditText) findViewById(R.id.et_title);
         et_text = (EditText) findViewById(R.id.et_body);
         tv_endTime = (TextView) findViewById(R.id.tv_endTime);

@@ -15,6 +15,7 @@ import com.yanzhenjie.nohttp.Logger;
 import com.yanzhenjie.nohttp.NoHttp;
 import com.yanzhenjie.nohttp.OkHttpNetworkExecutor;
 import com.yanzhenjie.nohttp.rest.RequestQueue;
+import com.zxy.tiny.Tiny;
 
 import java.util.Iterator;
 import java.util.List;
@@ -35,6 +36,7 @@ public class MyApplication extends MobApplication {
         context = this;
         initNoHttp();
         initIM();
+        initTiny();
     }
 
     private void initNoHttp() {
@@ -76,6 +78,10 @@ public class MyApplication extends MobApplication {
 
 //        EMChatManager.getInstance().getChatOptions().setUseRoster(true)
         EaseUI.getInstance().init(context, null);
+    }
+
+    void initTiny() {
+//        Tiny.getInstance().init(this);
     }
 
     private String getAppName(int pID) {

@@ -38,7 +38,7 @@
     <string name="NoHttp_status_failed">失败了...</string>
     <string name="NoHttp_status_success">成功！！！</string>
 
-    <string name="title_activity_scrolling">个人中心</string>
+    <string name="title_activity_scrolling">请登录</string>
 
 
 

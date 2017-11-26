@@ -47,7 +47,8 @@ public class DelegationRecycleViewAdapter extends RecyclerView.Adapter<Delegatio
                 context.startActivity(intent);
             }
         });
-        holder.tv_note.setText(delegation.getDescription());
+        holder.tv_note.setText(delegation.getDescription().length() > 20 ?
+                delegation.getDescription().substring(0, 60) + "..." : delegation.getDescription());
     }
 
     @Override

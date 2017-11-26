@@ -46,7 +46,10 @@ public class CommodityRecyclerViewAdapter extends RecyclerView.Adapter<Commodity
     public void onBindViewHolder(RecyclerViewHolder holder, int position) {
         holder.position = position;
         final Commodity commodity = list.get(position);
-        holder.tv_note.setText(commodity.getNote());
+        holder.tv_note.setText(commodity.getNote().length() > 20 ?
+                commodity.getNote().substring(0, 60) + "..." : commodity.getNote());
+        holder.tv_price.setText("￥" + commodity.getPrice().toString());
+        Log.e("ADAPTER", "onBindViewHolder: " + commodity.getNote().length());
 
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,12 +84,14 @@ public class CommodityRecyclerViewAdapter extends RecyclerView.Adapter<Commodity
     class RecyclerViewHolder extends RecyclerView.ViewHolder {
         private View view;
         private TextView tv_note;
+        private TextView tv_price;
         private int position;
 
         public RecyclerViewHolder(View itemView) {
             super(itemView);
             this.view = itemView;
             tv_note = (TextView) itemView.findViewById(R.id.card_main_1_tv_intro);
+            tv_price = (TextView) itemView.findViewById(R.id.card_main_1_tv_price);
         }
     }
 

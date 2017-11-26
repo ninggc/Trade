@@ -163,8 +163,10 @@
             android:parentActivityName=".activity.c_d_activity.DelegationList"
             android:theme="@style/AppTheme.NoActionBar"/>
 
-        <activity android:name="com.ninggc.trade.activity.c_d_activity.ReleaseCommodityActivity" />
-        <activity android:name="com.ninggc.trade.activity.c_d_activity.ReleaseDelegationActivity" />
+        <activity android:name="com.ninggc.trade.activity.c_d_activity.ReleaseCommodityActivity"
+            android:parentActivityName=".activity.MainActivity"/>
+        <activity android:name="com.ninggc.trade.activity.c_d_activity.ReleaseDelegationActivity"
+            android:parentActivityName=".activity.MainActivity"/>
         <activity android:name=".activity.c_d_activity.CommodityList"
             android:parentActivityName=".activity.MainActivity"/>
         <activity android:name=".activity.c_d_activity.DelegationList"

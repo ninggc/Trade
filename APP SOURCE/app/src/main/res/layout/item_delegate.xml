@@ -18,7 +18,7 @@
             android:layout_marginBottom="@dimen/little_margin_4">
 
             <TextView
-                android:id="@+id/card_main_1_tv_time"
+                android:id="@+id/card_main_1_tv_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"

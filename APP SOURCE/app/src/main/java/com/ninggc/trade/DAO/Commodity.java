@@ -14,6 +14,8 @@ public class Commodity implements IBean, Serializable {
     private Double price;
     private String note;
     private String img;
+    private String kind;
+    private String location;
 
     public int getId() {
         return id;
@@ -75,6 +77,22 @@ public class Commodity implements IBean, Serializable {
         this.img = img;
     }
 
+    public String getKind() {
+        return kind;
+    }
+
+    public void setKind(String kind) {
+        this.kind = kind;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -89,6 +107,8 @@ public class Commodity implements IBean, Serializable {
         if (price != null ? !price.equals(commodity.price) : commodity.price != null) return false;
         if (note != null ? !note.equals(commodity.note) : commodity.note != null) return false;
         if (img != null ? !img.equals(commodity.img) : commodity.img != null) return false;
+        if (kind != null ? !kind.equals(commodity.kind) : commodity.kind!= null) return false;
+        if (location != null ? !location.equals(commodity.location) : commodity.location != null) return false;
 
         return true;
     }
@@ -102,6 +122,8 @@ public class Commodity implements IBean, Serializable {
         result = 31 * result + (price != null ? price.hashCode() : 0);
         result = 31 * result + (note != null ? note.hashCode() : 0);
         result = 31 * result + (img != null ? img.hashCode() : 0);
+        result = 31 * result + (kind != null ? kind.hashCode() : 0);
+        result = 31 * result + (location != null ? location.hashCode() : 0);
         return result;
     }
 
