@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="sort_first">
+        <item>闲置衣物</item>
+        <item>数码设备</item>
+        <item>闲置书籍</item>
+    </string-array>
+
+    <string-array name="sort_clothes">
+        <item>上衣</item>
+        <item>裤子</item>
+        <item>鞋子</item>
+        <item>首饰</item>
+    </string-array>
+
+    <string-array name="sort_digital">
+        <item>电脑</item>
+        <item>手机</item>
+        <item>配件</item>
+    </string-array>
+
+    <string-array name="sort_book">
+        <item>教材</item>
+        <item>文学</item>
+        <item>小说</item>
+    </string-array>
+
+</resources>

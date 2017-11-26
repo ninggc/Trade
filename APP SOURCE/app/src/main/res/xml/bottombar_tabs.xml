@@ -1,0 +1,18 @@
+<tabs>
+    <tab
+        id="@+id/tab_home"
+        icon="@drawable/bottom_home"
+        title="Favorites" />
+    <tab
+        id="@+id/tab_chat"
+        icon="@drawable/bottom_chat"
+        title="Friends" />
+    <tab
+        id="@+id/tab_contact"
+        icon="@drawable/bottom_contact"
+        title="Nearby" />
+    <tab
+        id="@+id/tab_shop"
+        icon="@drawable/bottom_shop"
+        title="Friends" />
+</tabs>

@@ -1,10 +1,15 @@
 package com.ninggc.trade.factory;
 
+import android.util.Log;
+
 import com.ninggc.trade.factory.http.ResponseListener;
 import com.ninggc.trade.factory.nohttp.CallServer;
 import com.yanzhenjie.nohttp.NoHttp;
 import com.yanzhenjie.nohttp.RequestMethod;
 import com.yanzhenjie.nohttp.rest.Request;
+import com.yanzhenjie.nohttp.rest.Response;
+
+import java.util.Map;
 
 /**
  * Created by Ning on 11/16/2017 0016.
@@ -22,6 +27,7 @@ public class Server {
     public static Request<String> createStringRequest(String URL) {
         Request<String> request = NoHttp.createStringRequest(URL, RequestMethod.POST);
         request.set("type", "1");
+//        request.addHeader()
         return request;
     }
 
@@ -30,11 +36,13 @@ public class Server {
         return null;
     }
 
+    public static Request request = null;
     public static void login(String username, String password, ResponseListener<String> responseListener) {
         Request<String> request = createStringRequest(url + "usermage/login/");
         request.set("username", username);
         request.set("password", password);
         CallServer.getInstance().add(NO_WHAT, request, responseListener);
+        Server.request = request;
     }
 
     public static void addUser(String username, String password, ResponseListener<String> responseListener) {
@@ -68,6 +76,17 @@ public class Server {
     public static void showListWithSort(int sort_id) {
         Request request = createStringRequest(url + "market/look/sort//sortid");
         // FIXME: 11/16/2017 0016
+        CallServer.getInstance().add(0, request, new ResponseListener() {
+            @Override
+            public void onSucceed(int what, Response response) {
+                super.onSucceed(what, response);
+            }
+
+            @Override
+            public void onFailed(int what, Response response) {
+                super.onFailed(what, response);
+            }
+        });
     }
 
     public static void releaseComment(int commodity_id, String content, ResponseListener<String> responseListener) {

@@ -1,6 +1,7 @@
 package com.ninggc.trade.activity.account;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,23 +27,26 @@ import com.hyphenate.exceptions.HyphenateException;
 import com.ninggc.trade.DAO.User;
 import com.ninggc.trade.R;
 import com.ninggc.trade.activity.base.BaseActivity;
-import com.ninggc.trade.encrypt.MD5Util;
+import com.ninggc.trade.factory.Server;
 import com.ninggc.trade.factory.constants.Constant;
+import com.ninggc.trade.factory.constants.ILoginStatus;
 import com.ninggc.trade.factory.constants.IRequestCode;
 import com.ninggc.trade.factory.http.ResponseListener;
-import com.ninggc.trade.factory.constants.ILoginStatus;
-import com.ninggc.trade.factory.nohttp.MyStringRequest;
 import com.tencent.connect.UserInfo;
 import com.tencent.connect.common.Constants;
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
-import com.yanzhenjie.nohttp.RequestMethod;
+import com.yanzhenjie.loading.LoadingView;
+import com.yanzhenjie.loading.dialog.LoadingDialog;
+import com.yanzhenjie.nohttp.rest.Request;
 import com.yanzhenjie.nohttp.rest.Response;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.HttpCookie;
+import java.util.List;
 import java.util.Map;
 
 import cn.smssdk.EventHandler;
@@ -66,6 +70,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     TextView login_tv_register_now;
     Toolbar mToolbar;
     Button btn_QQLogin;
+    Dialog mWaitDialog;
 
     String result;
     String account;
@@ -97,7 +102,17 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     }
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (mWaitDialog.isShowing()) {
+            mWaitDialog.dismiss();
+        }
+    }
+
+    @Override
     protected void initView() {
+        LoadingView loadingView = new LoadingView(this);
+        mWaitDialog = new LoadingDialog(this);
         login_til_account = (TextInputLayout) findViewById(R.id.login_til_account);
         login_til_password = (TextInputLayout) findViewById(R.id.login_til_password);
         login_tv_register_now = (TextView) findViewById(R.id.login_tv_register_now);
@@ -155,6 +170,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
             }
         };
+
         QQUserInfoListener = new IUiListener() {
             @Override
             public void onComplete(Object o) {
@@ -278,13 +294,69 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
             case R.id.login_btn_login:
                 account = login_til_account.getEditText().getText().toString();
                 password = login_til_password.getEditText().getText().toString();
-                // EMC和MyServer同时登陆
-                User user = new User();
-                user.setId(1);
-                user.setName("Ning");
-                AccountUtil.login(user);
-                loginForEMC(account, password);
+                if (account == null || "".equals(account)) {
+                    Toast.makeText(this, getResources().getString(R.string.login_please_input_name), Toast.LENGTH_SHORT).show();
+                    break;
+                } else if (password == null || "".equals(password)) {
+                    Toast.makeText(this, getResources().getString(R.string.login_please_input_password), Toast.LENGTH_SHORT).show();
+                    break;
+                }
+//                 EMC和MyServer同时登陆
+//                User user = new User();
+//                user.setId(1);
+//                user.setName("Ning");
+//                AccountUtil.login(user);
                 // FIXME: 11/8/2017 0008 待更正为注册成功后创建账号
+                Server.login(account, password, new ResponseListener<String>() {
+                    @Override
+                    public void onStart(int what) {
+                        super.onStart(what);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                mWaitDialog.show();
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onSucceed(int what, Response<String> response) {
+                        super.onSucceed(what, response);
+                        if (response.responseCode() == 200) {
+                            loginForEMC(account, password);
+                            User user = new User();
+                            user.setName(account);
+
+                            String cookie = Server.request.getHeaders().getValue("Cookie");
+                            String[] i = cookie.split("=");
+                            String Cookie = i[1];
+
+                            AccountUtil.login(user, Cookie);
+                            if (AccountUtil.isLogin()) {
+                                loginSuccess();
+                            } else {
+                                Log.e(TAG, "onSucceed: " + "cookie is null");
+                                loginFailed();
+                            }
+                        } else {
+                            Log.e(TAG, "onSucceed: " + response.responseCode());
+                            loginFailed();
+                        }
+                    }
+
+                    @Override
+                    public void onFailed(int what, Response<String> response) {
+                        super.onFailed(what, response);
+                        Log.e(TAG, "onFailed: " + response.get());
+                        loginFailed();
+                    }
+
+                    @Override
+                    public void onFinish(int what) {
+                        super.onFinish(what);
+                        mWaitDialog.dismiss();
+                    }
+                });
                 /*
                 final MyStringRequest request = new MyStringRequest(url + "usermage/login/", RequestMethod.POST);
                 request.set("username", account);
@@ -473,6 +545,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     }
 
     public void loginFailed() {
+        Log.e(TAG, "loginFailed: ");
         Toast.makeText(this, getResources().getString(R.string.main_login_failed), Toast.LENGTH_SHORT).show();
     }
 

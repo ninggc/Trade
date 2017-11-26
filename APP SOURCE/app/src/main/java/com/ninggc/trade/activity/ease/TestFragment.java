@@ -1,9 +1,6 @@
 package com.ninggc.trade.activity.ease;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,25 +8,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
-import com.google.gson.Gson;
-import com.hyphenate.chat.EMClient;
-import com.hyphenate.easeui.EaseUI;
 import com.ninggc.trade.R;
-import com.ninggc.trade.activity.test.TestListActivity;
+import com.ninggc.trade.activity.test.TestListFragment;
 import com.ninggc.trade.factory.Server;
-import com.ninggc.trade.factory.constants.Constant;
-import com.ninggc.trade.factory.http.HttpGetSomething;
 import com.ninggc.trade.factory.http.ResponseListener;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import okhttp3.Response;
 
 /**
  * Created by Ning on 11/12/2017 0012.
@@ -114,7 +97,7 @@ public class TestFragment extends Fragment {
 //                    }
 //                });
 
-                startActivity(new Intent(getContext(), TestListActivity.class));
+                startActivity(new Intent(getContext(), TestListFragment.class));
 
             }
         });

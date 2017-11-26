@@ -2,6 +2,10 @@
 <resources>
     <string name="app_name">大学生互助平台</string>
 
+    <string name="address_select_title_name">地址选择</string>
+
+    <string name="select_please">请选择</string>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
@@ -29,7 +33,7 @@
     <string name="login_error_account_not_exist">账号不存在</string>
     <string name="login_error_password_incorrect">密码错误</string>
     <string name="main_login_success">登陆成功</string>
-    <string name="main_login_failed">登录异常</string>
+    <string name="main_login_failed">服务器异常</string>
 
     <string name="NoHttp_status_failed">失败了...</string>
     <string name="NoHttp_status_success">成功！！！</string>
@@ -129,11 +133,17 @@
     <string name="register_password_diff">密码不一致，请重新输入</string>
     <string name="register_password_invalid">密码不合法</string>
     <string name="aty_register">注册账号</string>
-    <string name="aty_user_info">登录</string>
+    <string name="aty_user_info">个人中心</string>
     <string name="header_main_edit_home_page">查看或编辑个人主页</string>
-    <string name="nav_purchase_record">购买记录</string>
-    <string name="nav_history_record">浏览历史</string>
-    <string name="nav_favorite">我的收藏</string>
+    <string name="main_menu_purchase_record">购买记录</string>
+    <string name="main_menu_history_record">浏览历史</string>
+    <string name="main_menu_favorite">我的收藏</string>
+    <string name="login_please_input_name">请输入用户名</string>
+    <string name="login_please_input_password">请输入密码</string>
+    <string name="login_error_incorrect">用户名或密码错误</string>
+    <string name="login_please_login">请登录</string>
+    <string name="login_unlogin_tip">您好像还没有登录哦</string>
+    <string name="main_menu_release_commodity">发布商品</string>
 
     <!-- activity_detail_commodity -->
 </resources>

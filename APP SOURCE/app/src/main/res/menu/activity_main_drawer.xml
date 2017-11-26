@@ -3,11 +3,17 @@
 
     <group>
         <item
-            android:title="@string/nav_favorite"/>
+            android:title="@string/main_menu_favorite"/>
         <item
-            android:title="@string/nav_history_record"/>
+            android:title="@string/main_menu_history_record"/>
         <item
-            android:title="@string/nav_purchase_record"/>
+            android:title="@string/main_menu_purchase_record"/>
+    </group>
+
+    <group>
+        <item
+            android:id="@+id/nav_release_commodity"
+            android:title="@string/main_menu_release_commodity"/>
     </group>
 
     <group android:checkableBehavior="single">
@@ -47,11 +53,18 @@
         <!--</menu>-->
     <!--</item>-->
 
-    <group android:menuCategory="container">
+    <group>
         <item
             android:id="@+id/nav_setting"
             android:icon="@drawable/ic_settings_black_24dp"
-            android:title="Setting"/>
+            android:title="@string/setting"/>
     </group>
+
+    <!--<group>-->
+        <!--<item-->
+            <!--android:id="@+id/nav_logout"-->
+            <!--android:icon="@color/gray_normal"-->
+            <!--android:title="@string/logout"/>-->
+    <!--</group>-->
 
 </menu>

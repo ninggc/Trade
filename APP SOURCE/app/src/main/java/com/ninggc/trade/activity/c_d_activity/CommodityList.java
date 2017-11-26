@@ -3,10 +3,15 @@ package com.ninggc.trade.activity.c_d_activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -22,7 +27,6 @@ import com.ninggc.trade.factory.http.HttpGetSomething;
 import com.ninggc.trade.factory.http.ResponseListener;
 import com.yanzhenjie.nohttp.rest.Response;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,9 +40,12 @@ public class CommodityList extends BaseActivity {
     RecyclerView recyclerView;
     SwipeRefreshLayout swipeRefreshLayout;
     CommodityRecyclerViewAdapter adapter;
+    LinearLayout linearLayout_selector;
+    AppCompatSpinner spinner;
+    AppCompatSpinner spinner_1;
 
     public String TAG = getClass().getSimpleName();
-    ArrayList<Commodity> commodities = new ArrayList<>();
+//    ArrayList<Commodity> commodities = new ArrayList<>();
     Gson gson = new Gson();
 
     String kind;
@@ -48,10 +55,10 @@ public class CommodityList extends BaseActivity {
         setContentView(R.layout.list_commodity);
         super.onCreate(savedInstanceState);
 //        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        kind = getIntent().getStringExtra("kind");
         initView();
         initData();
         initList();
-
     }
 
     @Override
@@ -62,11 +69,69 @@ public class CommodityList extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         recyclerView = (RecyclerView) findViewById(R.id.list_1_recyclerview);
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
+        linearLayout_selector = (LinearLayout) findViewById(R.id.linear_selector);
+        spinner = (AppCompatSpinner) findViewById(R.id.spinner);
+        //Spinner初始化时会自动调用一次OnItemSelectedListener事件
+        //spinner.setSelection(0, true) 可设置初始化时不调用
+        spinner.setSelection(0, true);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                String[] arr = getResources().getStringArray(R.array.sort_first);
+//                Toast.makeText(CommodityList.this, arr[position], Toast.LENGTH_SHORT).show();
+                //刷新列表
+//                initList();
+                generateSpinner(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    private void generateSpinner(int position) {
+        if (spinner_1 == null) {
+            //实例化，添加，设为不可见
+            spinner_1 = new AppCompatSpinner(CommodityList.this);
+            spinner_1.setSelection(0, false);
+            linearLayout_selector.addView(spinner_1);
+            spinner_1.setVisibility(View.INVISIBLE);
+        }
+        ArrayAdapter<String> adapter = null;
+        //动态添加的Spinner的数据集合
+        String[] arr = null;
+        switch (position) {
+            case 0:
+                arr = getResources().getStringArray(R.array.sort_clothes);
+                break;
+            case 1:
+                arr = getResources().getStringArray(R.array.sort_digital);
+                break;
+            case 2:
+                arr = getResources().getStringArray(R.array.sort_book);
+                break;
+        }
+        adapter = new ArrayAdapter<>(CommodityList.this, android.R.layout.simple_spinner_dropdown_item, arr);
+        spinner_1.setAdapter(adapter);
+        final String[] finalArr = arr;
+        spinner_1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(CommodityList.this, finalArr[position], Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        spinner_1.setVisibility(View.VISIBLE);
     }
 
     @Override
     protected void initData() {
-
         if (getIntent() != null) {
             this.kind = getIntent().getStringExtra("kind");
         }
@@ -90,7 +155,11 @@ public class CommodityList extends BaseActivity {
 
     }
 
+    //刷新列表
     void initList() {
+        if (!swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(true);
+        }
         Map<String, String> map = new HashMap<>();
         map.put("kind", kind);
         ResponseListener<String> responseListener = new ResponseListener<String>() {
@@ -116,6 +185,7 @@ public class CommodityList extends BaseActivity {
                 swipeRefreshLayout.setRefreshing(false);
             }
         };
+        // FIXME: 11/22/2017 0022 URL
         HttpGetSomething.getString(NO_WHAT, Constant.url + "commodity/select.php", responseListener, map);
     }
 

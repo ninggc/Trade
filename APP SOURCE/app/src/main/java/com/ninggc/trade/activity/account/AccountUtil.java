@@ -1,5 +1,6 @@
 package com.ninggc.trade.activity.account;
 
+import com.hyphenate.chat.EMClient;
 import com.ninggc.trade.DAO.User;
 
 /**
@@ -19,19 +20,26 @@ public class AccountUtil {
     private static User currentUser;
     private static EMCUser emcUser = new EMCUser();
     public static String MD5;
+    private static String cookie;
 
     public static boolean isLogin() {
         return loginStatus;
     }
 
-    public static void login(User user) {
+    public static void login(User user, String cookie) {
+        if (user == null || cookie == null || "".equals(cookie)) {
+            return;
+        }
         loginStatus = true;
         currentUser = user;
+        AccountUtil.cookie = cookie;
     }
 
     public static void logout() {
         loginStatus = false;
         currentUser = null;
+        cookie = null;
+        EMClient.getInstance().logout(true);
     }
 
     public static User getCurrentUser() {
@@ -45,6 +53,10 @@ public class AccountUtil {
     public static void setEMCUser(String username, String password) {
         emcUser.setUsername(username);
         emcUser.setPassword(password);
+    }
+
+    public static String getCookie() {
+        return cookie;
     }
 
     public static class EMCUser {

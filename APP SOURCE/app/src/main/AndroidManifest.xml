@@ -102,7 +102,8 @@
         <activity android:name=".activity.account.RegisterActivity"
             android:label="@string/aty_register"
             android:parentActivityName=".activity.account.LoginActivity"/>
-        <activity android:name="com.ninggc.trade.activity.UserinfoActivity"
+        <activity android:name="com.ninggc.trade.activity.account.UserinfoActivity"
+            android:parentActivityName=".activity.MainActivity"
             android:label="@string/aty_user_info"/>
         <activity
             android:name="com.mob.tools.MobUIShell"
@@ -168,6 +169,7 @@
             android:parentActivityName=".activity.MainActivity"/>
         <activity android:name=".activity.c_d_activity.DelegationList"
             android:parentActivityName=".activity.MainActivity"/>
+        <activity android:name=".address.AddressCheckActivity"/>
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
@@ -181,7 +183,8 @@
 
         <activity android:name=".activity.test.BannerAty"/>
         <activity android:name=".activity.test.PtrrvAty"/>
-        <activity android:name=".activity.test.TestListActivity"/>
+        <activity android:name=".activity.test.TestListFragment"/>
+        <activity android:name=".activity.test.TestBottomBar"/>
     </application>
 
 </manifest>

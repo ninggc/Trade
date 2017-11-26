@@ -43,4 +43,13 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="RadioButton" parent="Widget.AppCompat.CompoundButton.RadioButton"/>
+
+    <style name="RadioButton.WrapContent">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <!--<item name="buttonTint">@color/compound_gray_primary_color</item>-->
+        <item name="buttonTint">@color/gray_normal</item>
+    </style>
+
 </resources>
