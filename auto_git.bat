@@ -3,7 +3,7 @@ git add .
 echo;
 echo ============ add end ============
 echo;
-git commit -m "update"
+git commit -m 'auto-update'
 echo;
 echo ============ commit end ============
 echo;
