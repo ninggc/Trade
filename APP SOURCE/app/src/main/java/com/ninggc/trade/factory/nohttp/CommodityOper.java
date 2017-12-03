@@ -1,5 +1,6 @@
 package com.ninggc.trade.factory.nohttp;
 
+import com.ninggc.trade.factory.Server;
 import com.ninggc.trade.factory.constants.Constant;
 import com.ninggc.trade.factory.constants.ILoginStatus;
 import com.yanzhenjie.nohttp.NoHttp;
@@ -12,7 +13,7 @@ import com.yanzhenjie.nohttp.rest.Response;
  */
 @Deprecated
 class CommodityOper implements ILoginStatus {
-    public static final String url = Constant.url;
+    public static final String url = Server.url;
     public static final String TAG = CommodityOper.class.getSimpleName();
 
     public static void requestCommodityList() {

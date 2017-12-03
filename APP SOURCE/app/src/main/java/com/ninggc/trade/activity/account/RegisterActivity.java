@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.ninggc.trade.R;
 import com.ninggc.trade.activity.base.BaseActivity;
+import com.ninggc.trade.factory.Server;
 import com.ninggc.trade.factory.constants.Constant;
 import com.ninggc.trade.factory.http.HttpGetString;
 import com.ninggc.trade.factory.http.ResponseListener;
@@ -84,7 +85,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                     map.put("password", password);
                     // FIXME: 11/5/2017 0005 URL
                     Log.e(TAG, "onClick: " + "start http");
-                    HttpGetString.getInstance(Constant.url_usermage + "register/").setResponseListener(new ResponseListener() {
+                    HttpGetString.getInstance(Server.url + "usermage/register/").setResponseListener(new ResponseListener() {
                         @Override
                         public void onSucceed(int what, Response response) {
                             super.onSucceed(what, response);

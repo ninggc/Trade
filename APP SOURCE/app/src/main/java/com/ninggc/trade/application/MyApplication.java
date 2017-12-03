@@ -71,6 +71,8 @@ public class MyApplication extends MobApplication {
         options.setAutoTransferMessageAttachments(true);
         // 是否自动下载附件类消息的缩略图等，默认为 true 这里和上边这个参数相关联
         options.setAutoDownloadThumbnail(true);
+        //取消自动登录
+        options.setAutoLogin(false);
         //初始化
         EMClient.getInstance().init(context, options);
         //在做打包混淆时，关闭debug模式，避免消耗不必要的资源

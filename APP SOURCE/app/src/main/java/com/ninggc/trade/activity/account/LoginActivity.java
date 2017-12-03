@@ -61,7 +61,7 @@ import static com.ninggc.trade.factory.constants.Constant.DEBUG;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener, ILoginStatus {
     public final String TAG = getClass().getName();
-    public final String url = Constant.url;
+    public final String url = Server.url;
     public Gson gson = new Gson();
 
     TextInputLayout login_til_account;
@@ -444,7 +444,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         loginForEMC(account, password);
     }
 
-    private void loginForEMC(String account, String password) {
+    private void loginForEMC(final String account, final String password) {
         Log.e(TAG, "loginForEMC: " + "EMC开始登陆");
         EMClient.getInstance().login(account, password, new EMCallBack() {
             //3是EMC的服务器;31成功;-31失败
@@ -453,6 +453,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
             public void onSuccess() {
                 message.what = 31;
                 handler.sendMessage(message);
+                AccountUtil.setEMCUser(account, password);
                 Log.e(TAG, "onSuccess: " + "EMC登陆成功");
                 EMClient.getInstance().groupManager().loadAllGroups();
                 EMClient.getInstance().chatManager().loadAllConversations();

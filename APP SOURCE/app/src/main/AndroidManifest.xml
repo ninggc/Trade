@@ -15,8 +15,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
-
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
 
     <!-- Required -->
@@ -25,12 +24,12 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <!--<uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />-->
+    <!-- <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" /> -->
     <uses-permission
         android:name="android.permission.ACCESS_MOCK_LOCATION"
         tools:ignore="MockLocation" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -41,41 +40,50 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
-        android:name="com.ninggc.trade.application.MyApplication"
+        android:name=".application.MyApplication"
         android:allowBackup="true"
+        android:fullBackupContent="@xml/backup_descriptor"
         android:icon="@drawable/store"
         android:label="@string/app_name"
         android:roundIcon="@drawable/store"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:fullBackupContent="@xml/backup_descriptor">
-        <!--android:roundIcon="@mipmap/ic_launcher_round"-->
+        android:theme="@style/AppTheme">
+
+        <!-- android:roundIcon="@mipmap/ic_launcher_round" -->
+
 
         <!-- <application -->
         <!-- android:name=".application.MyApplication"> -->
         <!-- </application> -->
 
+
         <!-- 环信配置 -->
         <!-- 环信配置 -->
         <!-- 环信配置 -->
 
+
         <!-- 设置环信应用的AppKey -->
-        <meta-data android:name="EASEMOB_APPKEY"  android:value="1144171108115066#trade" />
-        <!-- 声明SDK所需的service SDK核心功能-->
-        <service android:name="com.hyphenate.chat.EMChatService" android:exported="true"/>
-        <service android:name="com.hyphenate.chat.EMJobService"
-            android:permission="android.permission.BIND_JOB_SERVICE"
+        <meta-data
+            android:name="EASEMOB_APPKEY"
+            android:value="1144171108115066#trade" />
+        <!-- 声明SDK所需的service SDK核心功能 -->
+        <service
+            android:name="com.hyphenate.chat.EMChatService"
+            android:exported="true" />
+        <service
+            android:name="com.hyphenate.chat.EMJobService"
             android:exported="true"
-            />
+            android:permission="android.permission.BIND_JOB_SERVICE" />
         <!-- 声明SDK所需的receiver -->
         <receiver android:name="com.hyphenate.chat.EMMonitorReceiver">
             <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_REMOVED"/>
-                <data android:scheme="package"/>
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
             </intent-filter>
             <!-- 可选filter -->
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.USER_PRESENT" />
             </intent-filter>
         </receiver>
@@ -83,13 +91,12 @@
         <!-- 环信配置 -->
         <!-- 环信配置 -->
         <!-- 环信配置 -->
-        
-        <activity android:name=".activity.ease.ChatActivity"/>
-        <activity android:name=".activity.ease.ContactActivity"/>
-        <activity android:name=".activity.ease.ConversationAvticity"/>
 
+        <activity android:name=".activity.ease.ChatActivity" />
+        <activity android:name=".activity.ease.ContactActivity" />
+        <activity android:name=".activity.ease.ConversationAvticity" />
         <activity
-            android:name="com.ninggc.trade.activity.MainActivity"
+            android:name=".activity.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -98,13 +105,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.ninggc.trade.activity.account.LoginActivity"/>
-        <activity android:name=".activity.account.RegisterActivity"
+        <activity android:name=".activity.account.LoginActivity" />
+        <activity
+            android:name=".activity.account.RegisterActivity"
             android:label="@string/aty_register"
-            android:parentActivityName=".activity.account.LoginActivity"/>
-        <activity android:name="com.ninggc.trade.activity.account.UserinfoActivity"
-            android:parentActivityName=".activity.MainActivity"
-            android:label="@string/aty_user_info"/>
+            android:parentActivityName=".activity.account.LoginActivity" />
+        <activity
+            android:name=".activity.account.UserLogoutActivity"
+            android:label="@string/aty_user_info"
+            android:parentActivityName=".activity.MainActivity" />
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -142,49 +151,58 @@
         <!-- QQ登录 -->
 
         <activity
-            android:name="com.ninggc.trade.activity.ScrollingActivity"
+            android:name=".activity.ScrollingActivity"
             android:label="@string/title_activity_scrolling"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.ninggc.trade.activity.SettingsActivity"
+            android:name=".activity.SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
-            android:launchMode="standard" >
+            android:launchMode="standard"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MANAGE_NETWORK_USAGE"/>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="android.intent.action.MANAGE_NETWORK_USAGE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
-        <activity android:name="com.ninggc.trade.activity.c_d_activity.DetailCommodityActivity"
-            android:parentActivityName=".activity.c_d_activity.CommodityList"/>
-        <activity android:name=".activity.c_d_activity.DetailDelegationActivity"
-            android:parentActivityName=".activity.c_d_activity.DelegationList"/>
-
-        <activity android:name="com.ninggc.trade.activity.c_d_activity.ReleaseCommodityActivity"
-            android:parentActivityName=".activity.MainActivity"/>
-        <activity android:name="com.ninggc.trade.activity.c_d_activity.ReleaseDelegationActivity"
-            android:parentActivityName=".activity.MainActivity"/>
-        <activity android:name=".activity.c_d_activity.CommodityList"
-            android:parentActivityName=".activity.MainActivity"/>
-        <activity android:name=".activity.c_d_activity.DelegationList"
-            android:parentActivityName=".activity.MainActivity"/>
-        <activity android:name=".address.AddressCheckActivity"/>
+        <activity
+            android:name=".activity.c_d_activity.DetailCommodityActivity"
+            android:parentActivityName=".activity.c_d_activity.CommodityList" />
+        <activity
+            android:name=".activity.c_d_activity.DetailDelegationActivity"
+            android:parentActivityName=".activity.c_d_activity.DelegationList" />
+        <activity
+            android:name=".activity.c_d_activity.ReleaseCommodityActivity"
+            android:parentActivityName=".activity.MainActivity" />
+        <activity
+            android:name=".activity.c_d_activity.ReleaseDelegationActivity"
+            android:parentActivityName=".activity.MainActivity" />
+        <activity
+            android:name=".activity.c_d_activity.CommodityList"
+            android:parentActivityName=".activity.MainActivity" />
+        <activity
+            android:name=".activity.c_d_activity.DelegationList"
+            android:parentActivityName=".activity.MainActivity" />
+        <activity android:name=".address.AddressCheckActivity" />
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="n8fOF6EWISU5ObrGIeXmPk6D3CkyjHry" />
-
         <meta-data
             android:name="com.ninggc.trade.factory.image.SimpleGlideModule"
             android:value="GlideModule" />
 
         <!-- test activity -->
 
-        <activity android:name=".activity.test.BannerAty"/>
-        <activity android:name=".activity.test.PtrrvAty"/>
-        <!--<activity android:name=".activity.test.TestListFragment"/>-->
-        <activity android:name=".activity.test.TestBottomBar"/>
+        <activity android:name=".activity.test.BannerAty" />
+        <activity android:name=".activity.test.PtrrvAty" />
+        <!-- <activity android:name=".activity.test.TestListFragment"/> -->
+        <activity android:name=".activity.test.TestBottomBar" />
+        <activity
+            android:name=".activity.account.PersonalInfoActivity"
+            android:parentActivityName=".activity.MainActivity"
+            android:label="@string/title_activity_personal_info"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.ninggc.trade.DAO.Commodity;
 import com.ninggc.trade.R;
 import com.ninggc.trade.activity.base.BaseActivity;
+import com.ninggc.trade.factory.Server;
 import com.yanzhenjie.nohttp.rest.OnResponseListener;
 import com.yanzhenjie.nohttp.rest.Request;
 import com.yanzhenjie.nohttp.rest.Response;
@@ -93,7 +94,7 @@ public class ReleaseDelegationActivity extends BaseActivity {
         btn_release.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Request<String> request = createStringRequest(url_commodity + "release");
+                Request<String> request = createStringRequest(Server.url + "commodity/release");
                 request(NO_WHAT, request, new OnResponseListener<String>() {
                     @Override
                     public void onStart(int what) {

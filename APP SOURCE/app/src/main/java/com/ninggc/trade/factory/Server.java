@@ -2,6 +2,7 @@ package com.ninggc.trade.factory;
 
 import android.util.Log;
 
+import com.ninggc.trade.DAO.Commodity;
 import com.ninggc.trade.factory.http.ResponseListener;
 import com.ninggc.trade.factory.nohttp.CallServer;
 import com.yanzhenjie.nohttp.NoHttp;
@@ -25,15 +26,15 @@ public class Server {
 
     //自动构建POST请求并且加入type=1
     public static Request<String> createStringRequest(String URL) {
-        Request<String> request = NoHttp.createStringRequest(URL, RequestMethod.POST);
+        return createStringRequest(URL, RequestMethod.POST);
+    }
+
+    //自动构建POST请求并且加入type=1
+    public static Request<String> createStringRequest(String URL, RequestMethod method) {
+        Request<String> request = NoHttp.createStringRequest(URL, method);
         request.set("type", "1");
 //        request.addHeader()
         return request;
-    }
-
-    public static Request create() {
-//        NoHttp.create
-        return null;
     }
 
     public static Request request = null;
@@ -73,20 +74,30 @@ public class Server {
         // FIXME: 11/16/2017 0016
     }
 
-    public static void showListWithSort(int sort_id) {
-        Request request = createStringRequest(url + "market/look/sort//sortid");
-        // FIXME: 11/16/2017 0016
-        CallServer.getInstance().add(0, request, new ResponseListener() {
-            @Override
-            public void onSucceed(int what, Response response) {
-                super.onSucceed(what, response);
-            }
+    public static void showCommodityListWithSort(int sort_id, ResponseListener<String> responseListener) {
+//        Request request = createStringRequest(url + "market/look/sort" + sort_id + "/1", RequestMethod.GET);
+//        // FIXME: 11/16/2017 0016
+//        CallServer.getInstance().add(NO_WHAT, request, responseListener);
 
-            @Override
-            public void onFailed(int what, Response response) {
-                super.onFailed(what, response);
-            }
-        });
+        Request<String> request = createStringRequest(url + "market/look/sort" + sort_id + "/1", RequestMethod.GET);
+        CallServer.getInstance().add(99, request, responseListener);
+
+//        Request<String> request = createStringRequest("http://123.207.244.139/GotWord/word/selectByGroup.php", RequestMethod.POST);
+//        request.set("word_group_id", "1");
+//        CallServer.getInstance().add(99, request, responseListener);
+    }
+
+    public static void releaseCommodity(Commodity commodity, ResponseListener<String> responseListener) {
+        Request request = createStringRequest("123.207.244.139:8082/" + "market/sell/", RequestMethod.POST);
+        request.set("country", "test");
+        request.set("province", "test");
+        request.set("cityname", commodity.getCityNumber());
+        request.set("extra", commodity.getDetail_location());
+        request.set("name", commodity.getName());
+        request.set("sort", "12");
+        request.set("price", "12");
+        request.set("note", commodity.getNote());
+        CallServer.getInstance().add(NO_WHAT, request, responseListener);
     }
 
     public static void releaseComment(int commodity_id, String content, ResponseListener<String> responseListener) {
@@ -95,7 +106,12 @@ public class Server {
         CallServer.getInstance().add(NO_WHAT, request, responseListener);
     }
 
-    public static void purchase(int commodity_id) {
+    public static void getDetailCommodity(int commodity_id, ResponseListener<String> responseListener) {
+        Request<String> request = createStringRequest(url + "market/look/commodity/" + commodity_id + "/", RequestMethod.POST);
+        CallServer.getInstance().add(NO_WHAT, request, responseListener);
+    }
+
+    public static void purchaseCommodity(int commodity_id) {
         Request request = createStringRequest(url + "ip/market/buy/" + commodity_id + "/");
         // FIXME: 11/16/2017 0016
     }

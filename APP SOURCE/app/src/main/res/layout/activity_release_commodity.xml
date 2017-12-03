@@ -11,23 +11,48 @@
         <include layout="@layout/toolbar"/>
 
         <LinearLayout
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="16dp">
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_weight="20"
                 android:layout_height="wrap_content"
-                android:text="标题："
-                android:id="@+id/textView" />
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp">
 
-            <EditText
-                android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="标题："
+                    android:id="@+id/textView" />
+
+                <EditText
+                    android:text="TEST"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/et_title" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_weight="10"
                 android:layout_height="wrap_content"
-                android:id="@+id/et_title" />
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp">
+
+                <Button
+                    android:id="@+id/release_btn_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:text="￥0" />
+            </RelativeLayout>
+
         </LinearLayout>
 
         <LinearLayout
@@ -41,10 +66,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="正文："
+                android:text="@string/release_detail_note"
                 android:id="@+id/textView7" />
 
             <EditText
+                android:text="TEST"
                 android:id="@+id/et_body"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -59,29 +85,29 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="16dp">
+        <!--<LinearLayout-->
+            <!--android:orientation="vertical"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="16dp"-->
+            <!--android:layout_marginRight="16dp"-->
+            <!--android:layout_marginTop="16dp">-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="截止时间："
-                android:id="@+id/textView5" />
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="截止时间："-->
+                <!--android:id="@+id/textView5" />-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Large Text"
-                android:id="@+id/tv_endTime"
-                android:textColor="#0000ff"
-                android:layout_marginTop="10dp" />
-        </LinearLayout>
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
+                <!--android:text="Large Text"-->
+                <!--android:id="@+id/tv_endTime"-->
+                <!--android:textColor="#0000ff"-->
+                <!--android:layout_marginTop="10dp" />-->
+        <!--</LinearLayout>-->
 
         <LinearLayout
             android:orientation="vertical"
@@ -95,6 +121,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/release_btn_choose_city"
+                    android:text="@string/choose_city"
+                    android:layout_width="0dp"
+                    android:layout_weight="20"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:text="TEST"
+                    android:id="@+id/release_et_detail_location"
+                    android:hint="@string/detail_location"
+                    android:layout_width="0dp"
+                    android:layout_weight="40"
+                    android:layout_marginLeft="8dp"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -102,6 +150,7 @@
                 android:id="@+id/btn_release"
                 android:layout_gravity="center_horizontal" />
         </LinearLayout>
+
 
     </LinearLayout>
 

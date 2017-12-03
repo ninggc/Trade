@@ -22,17 +22,15 @@ import com.ninggc.trade.DAO.Commodity;
 import com.ninggc.trade.R;
 import com.ninggc.trade.activity.base.BaseActivity;
 import com.ninggc.trade.adapter.CommodityRecyclerViewAdapter;
-import com.ninggc.trade.factory.constants.Constant;
-import com.ninggc.trade.factory.http.HttpGetSomething;
+import com.ninggc.trade.factory.Server;
 import com.ninggc.trade.factory.http.ResponseListener;
 import com.yanzhenjie.nohttp.rest.Response;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Ning on 7/31/2017 0031.
+ * 根据Intent传递的kind，从服务器动态获取信息列表
  */
 
 public class CommodityList extends BaseActivity {
@@ -48,16 +46,14 @@ public class CommodityList extends BaseActivity {
 //    ArrayList<Commodity> commodities = new ArrayList<>();
     Gson gson = new Gson();
 
-    String kind;
+    int kind;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         setContentView(R.layout.list_commodity);
         super.onCreate(savedInstanceState);
 //        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        kind = getIntent().getStringExtra("kind");
-        initView();
-        initData();
+
         initList();
     }
 
@@ -133,7 +129,11 @@ public class CommodityList extends BaseActivity {
     @Override
     protected void initData() {
         if (getIntent() != null) {
-            this.kind = getIntent().getStringExtra("kind");
+            this.kind = getIntent().getIntExtra("kind", 0);
+
+            if (kind == 0) {
+                kind = 12;
+            }
         }
 
         adapter = new CommodityRecyclerViewAdapter(CommodityList.this);
@@ -160,23 +160,20 @@ public class CommodityList extends BaseActivity {
         if (!swipeRefreshLayout.isRefreshing()) {
             swipeRefreshLayout.setRefreshing(true);
         }
-        Map<String, String> map = new HashMap<>();
-        map.put("kind", kind);
-        ResponseListener<String> responseListener = new ResponseListener<String>() {
+
+        Server.showCommodityListWithSort(kind, new ResponseListener<String>() {
             @Override
             public void onSucceed(int what, Response<String> response) {
                 super.onSucceed(what, response);
-                String result = (String) response.get();
-                Log.e(TAG, "onSucceed: " + result);
-                List<Commodity> list = parseJsonToList(result);
-                Log.e(TAG, "onSucceed: " + list.size());
-                adapter.addItem(list);
+
+                String s = response.get();
+                Log.e(TAG_NOHTTP + TAG_INFO, "onSucceed: " + s);
             }
 
             @Override
             public void onFailed(int what, Response<String> response) {
                 super.onFailed(what, response);
-                Toast.makeText(CommodityList.this, getString(R.string.NoHttp_status_failed), Toast.LENGTH_SHORT).show();
+                Log.e("NOHTTP", "onFailed: " + "服务器异常");
             }
 
             @Override
@@ -184,9 +181,31 @@ public class CommodityList extends BaseActivity {
                 super.onFinish(what);
                 swipeRefreshLayout.setRefreshing(false);
             }
-        };
-        // FIXME: 11/22/2017 0022 URL
-        HttpGetSomething.getString(NO_WHAT, Constant.url + "commodity/select.php", responseListener, map);
+        });
+//        Server.showCommodityListWithSort(kind, new ResponseListener<String>() {
+//            @Override
+//            public void onSucceed(int what, Response<String> response) {
+//                super.onSucceed(what, response);
+//                String result = (String) response.get();
+//                Log.e("NOHTTP-INFO", "onSucceed-result: " + result);
+//                // FIXME: 12/3/2017 0003 结果处理
+////                List<Commodity> list = parseJsonToList(result);
+////                Log.e(TAG, "onSucceed-list.size: " + list.size());
+////                adapter.addItem(list);
+//            }
+//
+//            @Override
+//            public void onFailed(int what, Response<String> response) {
+//                super.onFailed(what, response);
+//                Toast.makeText(CommodityList.this, getString(R.string.NoHttp_status_failed), Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onFinish(int what) {
+//                super.onFinish(what);
+//                swipeRefreshLayout.setRefreshing(false);
+//            }
+//        });
     }
 
     List<Commodity> parseJsonToList(String json) {

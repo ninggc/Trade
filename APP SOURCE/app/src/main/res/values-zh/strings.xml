@@ -151,6 +151,12 @@
     <string name="personal_be_priased">获赞</string>
     <string name="personal_following">粉丝数</string>
     <string name="personal_followers">关注数</string>
+    <string name="personal_edit_data">编辑资料</string>
+    <string name="personal_tv_introduce">这个用户喜欢保持神秘哦</string>
+    <string name="personal_credit_record">信誉记录</string>
+    <string name="choose_city">请选择城市</string>
+    <string name="detail_location">详细地址</string>
+    <string name="release_detail_note">详细介绍</string>
 
     <!-- activity_detail_commodity -->
 </resources>

@@ -5,7 +5,7 @@ package com.ninggc.trade.factory.constants;
  * @author Ning
  * @date 11/1/2017 0001
  */
-
+@Deprecated
 public interface IRequestCode {
     public static final int INSIGNIFICANCE = -1;
     public static final int MAIN = 0;

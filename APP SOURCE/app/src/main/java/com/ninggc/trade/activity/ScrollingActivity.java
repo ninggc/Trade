@@ -12,8 +12,8 @@ import android.widget.Toast;
 import com.ninggc.trade.R;
 import com.ninggc.trade.activity.account.AccountUtil;
 import com.ninggc.trade.activity.account.LoginActivity;
-import com.ninggc.trade.activity.account.UserinfoActivity;
-import com.tencent.connect.UserInfo;
+import com.ninggc.trade.activity.account.PersonalInfoActivity;
+import com.ninggc.trade.activity.account.UserLogoutActivity;
 
 public class ScrollingActivity extends AppCompatActivity {
 
@@ -94,6 +94,13 @@ public class ScrollingActivity extends AppCompatActivity {
             }
         });
 
+        iv_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ScrollingActivity.this, PersonalInfoActivity.class));
+            }
+        });
+
         findViewById(R.id.layout_1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,7 +128,7 @@ public class ScrollingActivity extends AppCompatActivity {
         findViewById(R.id.layout_setting).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ScrollingActivity.this, UserinfoActivity.class));
+                startActivity(new Intent(ScrollingActivity.this, UserLogoutActivity.class));
             }
         });
     }

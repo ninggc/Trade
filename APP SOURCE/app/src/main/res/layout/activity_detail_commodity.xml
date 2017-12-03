@@ -105,19 +105,9 @@
                     android:orientation="horizontal">
 
                     <com.sackcentury.shinebuttonlib.ShineButton
-                        android:id="@+id/shine_button11"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_centerInParent="true"
-                        android:layout_marginLeft="60dp"
-                        app:btn_color="@android:color/darker_gray"
-                        app:btn_fill_color="#999933"
-                        app:siShape="@raw/heart" />
-
-                    <com.sackcentury.shinebuttonlib.ShineButton
                         android:id="@+id/shine_button12"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="@dimen/detail_shine_button_size"
+                        android:layout_height="@dimen/detail_shine_button_size"
                         android:layout_centerInParent="true"
                         android:layout_marginLeft="20dp"
                         android:src="@android:color/darker_gray"
@@ -136,9 +126,19 @@
                         app:small_shine_offset_angle="20" />
 
                     <com.sackcentury.shinebuttonlib.ShineButton
+                        android:id="@+id/shine_button11"
+                        android:layout_width="@dimen/detail_shine_button_size"
+                        android:layout_height="@dimen/detail_shine_button_size"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="60dp"
+                        app:btn_color="@android:color/darker_gray"
+                        app:btn_fill_color="#999933"
+                        app:siShape="@raw/heart" />
+
+                    <com.sackcentury.shinebuttonlib.ShineButton
                         android:id="@+id/shine_button13"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="@dimen/detail_shine_button_size"
+                        android:layout_height="@dimen/detail_shine_button_size"
                         android:layout_centerInParent="true"
                         android:layout_marginLeft="20dp"
                         android:src="@android:color/darker_gray"
@@ -148,9 +148,9 @@
                         app:siShape="@raw/smile" />
 
                     <com.sackcentury.shinebuttonlib.ShineButton
-                        android:id="@+id/shine_button14"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:id="@+id/shine_button_collect"
+                        android:layout_width="@dimen/detail_shine_button_size"
+                        android:layout_height="@dimen/detail_shine_button_size"
                         android:layout_centerInParent="true"
                         android:layout_marginLeft="20dp"
                         app:btn_color="@android:color/darker_gray"

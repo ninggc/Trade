@@ -7,11 +7,15 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.ninggc.trade.DAO.Commodity;
 import com.ninggc.trade.R;
+import com.sackcentury.shinebuttonlib.ShineButton;
 
 /**
  * @author Ning
@@ -25,6 +29,7 @@ public class DetailCommodityActivity extends AppCompatActivity {
     TextView tv_price;
     LinearLayout linearLayout;
     Commodity commodity;
+    ShineButton shineButton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,6 +44,17 @@ public class DetailCommodityActivity extends AppCompatActivity {
         tv_name = (TextView) findViewById(R.id.detail_main_1_tv_name);
         tv_price = (TextView) findViewById(R.id.detail_main_1_tv_price);
         linearLayout = (LinearLayout) findViewById(R.id.image_container);
+        shineButton = (ShineButton) findViewById(R.id.shine_button_collect);
+        shineButton.setOnCheckStateChangeListener(new ShineButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(View view, boolean checked) {
+                if (checked) {
+                    Toast.makeText(DetailCommodityActivity.this, "Checked", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(DetailCommodityActivity.this, "UnChecked", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         initData();
     }
 

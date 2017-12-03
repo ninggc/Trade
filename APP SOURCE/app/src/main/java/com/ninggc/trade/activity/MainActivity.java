@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -32,9 +31,8 @@ import com.hyphenate.easeui.ui.EaseConversationListFragment;
 import com.ninggc.trade.DAO.User;
 import com.ninggc.trade.R;
 import com.ninggc.trade.activity.account.AccountUtil;
-import com.ninggc.trade.activity.account.LoginActivity;
+import com.ninggc.trade.activity.account.PersonalInfoActivity;
 import com.ninggc.trade.activity.account.PleaseLoginFragment;
-import com.ninggc.trade.activity.account.UserinfoActivity;
 import com.ninggc.trade.activity.c_d_activity.ReleaseCommodityActivity;
 import com.ninggc.trade.activity.c_d_activity.ReleaseDelegationActivity;
 import com.ninggc.trade.activity.ease.ChatActivity;
@@ -163,13 +161,19 @@ public class MainActivity extends AppCompatActivity
 //                    startActivityForResult(new Intent(MainActivity.this, LoginActivity.class), IRequestCode.LOGIN);
 //                } else {
 ////                    Log.e(TAG, "onClick: " + text);
-//                    startActivity(new Intent(MainActivity.this, UserinfoActivity.class));
+//                    startActivity(new Intent(MainActivity.this, UserLogoutActivity.class));
 //                }
                 startActivity(new Intent(MainActivity.this, ScrollingActivity.class));
             }
         });
 
         nav_header_iv_login = (ImageView) nav_header.findViewById(R.id.main_iv_login);
+        nav_header_iv_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, PersonalInfoActivity.class));
+            }
+        });
         nav_header_tv_login = (TextView) nav_header.findViewById(R.id.main_tv_login);
         nav_header_tv_tip = (TextView) nav_header.findViewById(R.id.nav_header_tv_tip);
 
@@ -177,19 +181,22 @@ public class MainActivity extends AppCompatActivity
 
     void initData() {
         accountSPUtil = new AccountSPUtil();
-        User user = accountSPUtil.getUserFromLocal();
+        final User user = accountSPUtil.getUserFromLocal();
         String cookie = accountSPUtil.getCookieFromLocal();
         if (user != null && cookie != null) {
             AccountUtil.login(user, cookie);
-            // FIXME: 11/12/2017 0012 TEST账号拟登陆
-            EMClient.getInstance().login("test", "test", new EMCallBack() {
+            // FIXME: 11/12/2017 0012 账号拟登陆
+            final String username = user.getName();
+            final String password = "123";
+            EMClient.getInstance().login(username, password, new EMCallBack() {
                 @Override
                 public void onSuccess() {
                     MainActivity.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             // FIXME: 11/12/2017 0012 未经测试
-                            Toast.makeText(MainActivity.this, "EMC登陆成功", Toast.LENGTH_SHORT).show();
+                            AccountUtil.setEMCUser(username, password);
+                            Toast.makeText(MainActivity.this, "EMC登陆成功 在initData()", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
@@ -375,7 +382,7 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_camera) {
             // Handle the camera action
-//            startActivity(new Intent(MainActivity.this, UserinfoActivity.class));
+//            startActivity(new Intent(MainActivity.this, UserLogoutActivity.class));
             startActivity(new Intent(MainActivity.this, ScrollingActivity.class));
 //        } else if (id == R.id.nav_gallery) {
 //            Snackbar.make(relativeLayout, "Message show", Snackbar.LENGTH_SHORT).setAction("ok", new View.OnClickListener() {

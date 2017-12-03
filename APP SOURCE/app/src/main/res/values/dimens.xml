@@ -28,5 +28,12 @@
     <!--personal-->
     <dimen name="scroll_layout_top_bottom">15dp</dimen>
     <dimen name="scroll_text_size">15sp</dimen>
+
+    <!--personal_info-->
+    <dimen name="personal_margin_left">14dp</dimen>
     <!--personal-->
+
+    <!--detail-->
+    <dimen name="detail_shine_button_size">30dp</dimen>
+
 </resources>

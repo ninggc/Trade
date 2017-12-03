@@ -1,6 +1,9 @@
 package com.ninggc.trade.DAO;
 
+import com.yanzhenjie.album.AlbumFile;
+
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by Ning on 7/24/2017 0024.
@@ -12,10 +15,14 @@ public class Commodity implements IBean, Serializable {
 //    private int userId;
 //    private int locationId;
     private Double price;
+    //详述
     private String note;
-    private String img;
+    //备注
+    private String detail_location;
+    private List<AlbumFile> images;
     private String kind;
     private String location;
+    private String cityNumber;
 
     public int getId() {
         return id;
@@ -69,12 +76,12 @@ public class Commodity implements IBean, Serializable {
         this.note = note;
     }
 
-    public String getImg() {
-        return img;
+    public List<AlbumFile> getImages() {
+        return images;
     }
 
-    public void setImg(String img) {
-        this.img = img;
+    public void setImages(List<AlbumFile> images) {
+        this.images = images;
     }
 
     public String getKind() {
@@ -106,8 +113,10 @@ public class Commodity implements IBean, Serializable {
         if (name != null ? !name.equals(commodity.name) : commodity.name != null) return false;
         if (price != null ? !price.equals(commodity.price) : commodity.price != null) return false;
         if (note != null ? !note.equals(commodity.note) : commodity.note != null) return false;
-        if (img != null ? !img.equals(commodity.img) : commodity.img != null) return false;
+        if (images != null ? !images.equals(commodity.images) : commodity.images != null) return false;
         if (kind != null ? !kind.equals(commodity.kind) : commodity.kind!= null) return false;
+        if (detail_location != null ? !detail_location.equals(commodity.detail_location) : commodity.detail_location != null) return false;
+        if (cityNumber != null ? !cityNumber.equals(commodity.cityNumber ) : commodity.cityNumber!= null) return false;
         if (location != null ? !location.equals(commodity.location) : commodity.location != null) return false;
 
         return true;
@@ -121,10 +130,27 @@ public class Commodity implements IBean, Serializable {
 //        result = 31 * result + locationId;
         result = 31 * result + (price != null ? price.hashCode() : 0);
         result = 31 * result + (note != null ? note.hashCode() : 0);
-        result = 31 * result + (img != null ? img.hashCode() : 0);
+        result = 31 * result + (images != null ? images.hashCode() : 0);
         result = 31 * result + (kind != null ? kind.hashCode() : 0);
+        result = 31 * result + (detail_location != null ? detail_location.hashCode() : 0);
+        result = 31 * result + (cityNumber != null ? cityNumber.hashCode() : 0);
         result = 31 * result + (location != null ? location.hashCode() : 0);
         return result;
     }
 
+    public String getDetail_location() {
+        return detail_location;
+    }
+
+    public void setDetail_location(String detail_location) {
+        this.detail_location = detail_location;
+    }
+
+    public String getCityNumber() {
+        return cityNumber;
+    }
+
+    public void setCityNumber(String cityNumber) {
+        this.cityNumber = cityNumber;
+    }
 }

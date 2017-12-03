@@ -2,8 +2,8 @@
 <resources>
     <!--<color name="colorPrimary">#3F51B5</color>-->
     <!--<color name="colorPrimaryDark">#303F9F</color>-->
-    <color name="colorPrimary">#FF5722</color>
-    <color name="colorPrimaryDark">#E64A19</color>
+    <color name="colorPrimary">#FB8C00</color>
+    <color name="colorPrimaryDark">#F57C00</color>
 
     <color name="colorAccent">#FF4081</color>
 
@@ -15,4 +15,9 @@
     <!--Theme-->
     <color name="themeOrange">#FF5722</color>
     <color name="themeOrangeDark">#E64A19</color>
+    
+    <color name="Orange_600">#FB8C00</color>
+    <color name="Orange_700">#F57C00</color>
+    <color name="Orange_800">#ef6c00</color>
+    <color name="Orange_900">#e65100</color>
 </resources>

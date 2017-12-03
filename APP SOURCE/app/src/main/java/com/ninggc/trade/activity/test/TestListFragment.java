@@ -1,18 +1,27 @@
 package com.ninggc.trade.activity.test;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.hyphenate.chat.EMClient;
 import com.ninggc.trade.R;
+import com.ninggc.trade.activity.account.AccountUtil;
+import com.ninggc.trade.activity.base.BaseActivity;
 import com.ninggc.trade.activity.ease.ContactActivity;
 import com.ninggc.trade.address.AddressCheckActivity;
 import com.ninggc.trade.address.City;
@@ -30,9 +39,9 @@ public class TestListFragment extends ListFragment {
 
         Adapter adapter = new Adapter();
         setListAdapter(adapter);
-        adapter.addItem("--测试Loading", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+//        adapter.addItem("--测试Loading", new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
 //                LoadingView loadingView = new LoadingView(getContext());
 //
 //                final Dialog mWaitDialog = new LoadingDialog(getContext());
@@ -45,12 +54,12 @@ public class TestListFragment extends ListFragment {
 //                    e.printStackTrace();
 //                }
 //                mWaitDialog.dismiss();
-            }
-        });
+//            }
+//        });
 
-        adapter.addItem("--测试登录", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+//        adapter.addItem("--测试登录", new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
 //                Server.login("ning", "123", new ResponseListener<String>() {
 //                    @Override
 //                    public void onSucceed(int what, Response<String> response) {
@@ -58,19 +67,19 @@ public class TestListFragment extends ListFragment {
 //                        Log.e("NOHTTP", "onSucceed: " + response.get());
 //                    }
 //                });
-            }
-        });
+//            }
+//        });
 
-        adapter.addItem("address", new View.OnClickListener() {
+        adapter.addItem("地址选择器", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 selectAddress();
             }
         });
 
-        adapter.addItem("--Cookie", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+//        adapter.addItem("--Cookie", new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
 //                Server.login("ning", "123", new ResponseListener<String>() {
 //                    @Override
 //                    public void onSucceed(int what, Response<String> response) {
@@ -87,20 +96,45 @@ public class TestListFragment extends ListFragment {
 //                        super.onFinish(what);
 //                    }
 //                });
-            }
-        });
+//            }
+//        });
 
-        adapter.addItem("BottomBar", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getContext(), TestBottomBar.class));
-            }
-        });
+//        adapter.addItem("BottomBar", new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(getContext(), TestBottomBar.class));
+//            }
+//        });
 
-        adapter.addItem("contact", new View.OnClickListener() {
+        adapter.addItem("联系人列表", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getContext(), ContactActivity.class));
+            }
+        });
+
+        adapter.addItem("状态信息", new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Gson gson = new Gson();
+                String s = new StringBuilder()
+                        .append("登录状态 : " + AccountUtil.isLogin()).append("\n")
+                        .append("当前用户 : " + gson.toJson(AccountUtil.getCurrentUser())).append("\n")
+                        .append("当前Cookie : " + gson.toJson(AccountUtil.getCookie())).append("\n")
+                        .append("当前EMC用户 : " + gson.toJson(AccountUtil.getEmcUser())).append("\n")
+                        .append("EMC内置用户 : " + gson.toJson(EMClient.getInstance().getCurrentUser())).append("\n")
+                        .toString();
+                Log.e("LongMsg", "onClick: " + s);
+                final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setMessage(s);
+                builder.setNegativeButton("", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.show();
             }
         });
     }

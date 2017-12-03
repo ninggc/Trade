@@ -17,6 +17,7 @@ import com.ninggc.trade.DAO.Delegation;
 import com.ninggc.trade.R;
 import com.ninggc.trade.activity.base.BaseActivity;
 import com.ninggc.trade.adapter.DelegationRecycleViewAdapter;
+import com.ninggc.trade.factory.Server;
 import com.ninggc.trade.factory.constants.Constant;
 import com.ninggc.trade.factory.nohttp.CallServer;
 import com.yanzhenjie.nohttp.NoHttp;
@@ -79,7 +80,7 @@ public class DelegationList extends BaseActivity {
 
 
     void initList() {
-        Request<String> request = NoHttp.createStringRequest(Constant.url + "delegation/select.php", RequestMethod.POST);
+        Request<String> request = NoHttp.createStringRequest(Server.url + "delegation/select.php", RequestMethod.POST);
         CallServer.getInstance().add(-1, request, new OnResponseListener() {
             @Override
             public void onStart(int what) {

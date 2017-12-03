@@ -37,6 +37,10 @@ android {
             jniLibs.srcDirs = ['libs']
         }
     }
+    lintOptions {
+        //忽略翻译
+        disable 'MissingTranslation'
+    }
 }
 
 

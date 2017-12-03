@@ -10,12 +10,12 @@ public class Constant {
 
     //url
 //    public static final String url = "http://192.168.43.62:8080/";
-    public static final String url = "http://123.207.244.139:8080/trade/";
+//    public static final String url = "http://123.207.244.139:8080/trade/";
 //    public static final String url = "http://192.168.1.125:8000/";
-    public static final String url_python = "http://123.207.244.139:8082/";
+//    public static final String url_python = "http://123.207.244.139:8082/";
 
-    public static final String url_usermage = url + "usermage/";
-    public static final String url_commodity = url + "commodity/";
+//    public static final String url_usermage = url + "usermage/";
+//    public static final String url_commodity = url + "commodity/";
 
     //image url, user for test_image
     public static final String image1 = "https://cdn0.iconfinder.com/data/icons/text-messaging-2-2/64/hello_everyone_smile-128.png";
@@ -46,6 +46,7 @@ public class Constant {
     public static final short REGISTER = 12;
     public static final short RELEASE_COMMODITY = 13;
     public static final short RELEASE_DELEGATION = 14;
+    public static final short ADDRESS = 99;
 
     //Kind code
     public static final short KIND_NONE = 50;

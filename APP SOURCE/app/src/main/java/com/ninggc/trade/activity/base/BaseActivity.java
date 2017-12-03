@@ -20,8 +20,10 @@ import static com.ninggc.trade.factory.constants.Constant.*;
 public abstract class BaseActivity extends AppCompatActivity {
     private Object cancelObject = new Object();
     public String TAG = getClass().getSimpleName();
+    public String TAG_NOHTTP = "NOHTTP";
+    public String TAG_INFO = "INFO";
     public Gson gson = new Gson();
-    public String url_commodity = url + "/commodity";
+//    public String url_commodity = url + "/commodity";
     public final int NO_WHAT = 0;
 
     public Request<String> createStringRequest(String url) {

@@ -2,6 +2,7 @@ package com.ninggc.trade.factory.nohttp;
 
 import android.util.Log;
 
+import com.ninggc.trade.factory.Server;
 import com.ninggc.trade.factory.constants.Constant;
 import com.ninggc.trade.factory.constants.ILoginStatus;
 import com.yanzhenjie.nohttp.Logger;
@@ -16,7 +17,7 @@ import static com.ninggc.trade.factory.constants.Constant.DEBUG;
  */
 @Deprecated
 class NoHttpUser implements ILoginStatus {
-    public static final String url = Constant.url;
+    public static final String url = Server.url;
     public static final String TAG = "NoHttpUser";
     private static String result;
 

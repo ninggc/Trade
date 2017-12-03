@@ -3,8 +3,8 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/themeOrange</item>
-        <item name="colorPrimaryDark">@color/themeOrangeDark</item>
+        <item name="colorPrimary">@color/Orange_600</item>
+        <item name="colorPrimaryDark">@color/Orange_700</item>
         <item name="colorAccent">@color/colorAccent</item>
         <!--设置Toolbar上字体的颜色,以及返回和更多按钮的颜色-->
         <!--<item name="android:textColorPrimary">@color/white</item>-->
@@ -32,8 +32,8 @@
 
     <!-- ToolBar菜单样式 -->
     <!--<style name="ToolbarTheme" parent="@style/AppTheme">-->
-        <!--<item name="actionMenuTextColor">@color/white</item> &lt;!&ndash;  敲定颜色&ndash;&gt;-->
-        <!--<item name="android:textSize">18sp</item> &lt;!&ndash;  搞掂字体大小&ndash;&gt;-->
+    <!--<item name="actionMenuTextColor">@color/white</item> &lt;!&ndash;  敲定颜色&ndash;&gt;-->
+    <!--<item name="android:textSize">18sp</item> &lt;!&ndash;  搞掂字体大小&ndash;&gt;-->
     <!--</style>-->
 
     <style name="AppTheme.NoActionBar">
@@ -45,7 +45,7 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="RadioButton" parent="Widget.AppCompat.CompoundButton.RadioButton"/>
+    <style name="RadioButton" parent="Widget.AppCompat.CompoundButton.RadioButton" />
 
     <style name="RadioButton.WrapContent">
         <item name="android:layout_width">wrap_content</item>
