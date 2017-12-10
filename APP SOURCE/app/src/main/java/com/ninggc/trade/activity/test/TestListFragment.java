@@ -33,8 +33,11 @@ import com.ninggc.trade.activity.base.BaseActivity;
 import com.ninggc.trade.activity.ease.ContactActivity;
 import com.ninggc.trade.address.AddressCheckActivity;
 import com.ninggc.trade.address.City;
+import com.ninggc.trade.factory.Server;
 import com.ninggc.trade.factory.constants.Constant;
+import com.ninggc.trade.factory.http.ResponseListener;
 import com.ninggc.trade.test.TestBaiduMap;
+import com.yanzhenjie.nohttp.rest.Response;
 
 import java.util.ArrayList;
 
@@ -176,6 +179,24 @@ public class TestListFragment extends ListFragment {
                         ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA}, 0);
                     }
                 }
+            }
+        });
+
+        adapter.addItem("Show list", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Server.showList(1, new ResponseListener<String>() {
+                    @Override
+                    public void onSucceed(int what, Response<String> response) {
+                        super.onSucceed(what, response);
+                        Log.e("NOHTTP_INFO", "onSucceed: " + response.get());
+                    }
+
+                    @Override
+                    public void onFailed(int what, Response<String> response) {
+                        super.onFailed(what, response);
+                    }
+                });
             }
         });
     }

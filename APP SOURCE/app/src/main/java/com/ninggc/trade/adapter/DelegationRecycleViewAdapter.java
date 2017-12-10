@@ -70,22 +70,20 @@ public class DelegationRecycleViewAdapter extends RecyclerView.Adapter<Delegatio
 
 
     public void addItem(Delegation d) {
-        int position = -1;
         for (int i = 0; i < list.size(); i++) {
             if (d.getId() == list.get(i).getId()) {
-                position = i;
-                break;
+                if (d.equals(list.get(i))) {
+                    list.set(i, d);
+                    notifyItemChanged(i);
+                    return;
+                } else {
+                    return;
+                }
             }
         }
-        //通过id比对信息，如果已经存在，就不添加
-        //if is already exist, not add
-        if (position == -1) {
-            this.list.add(d);
-            notifyItemInserted(this.list.size());
-        } else {
-            this.list.set(position, d);
-            notifyItemChanged(position);
-        }
+
+        this.list.add(d);
+        notifyItemChanged(list.size());
     }
 
     public void addItem(List<Delegation> list) {

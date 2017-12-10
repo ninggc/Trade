@@ -12,7 +12,7 @@
         icon="@drawable/bottom_contact"
         title="Nearby" />
     <tab
-        id="@+id/tab_shop"
-        icon="@drawable/bottom_shop"
+        id="@+id/tab_campus"
+        icon="@drawable/bottom_campus"
         title="Friends" />
 </tabs>

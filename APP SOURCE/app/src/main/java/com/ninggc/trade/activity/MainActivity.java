@@ -43,6 +43,7 @@ import com.ninggc.trade.address.AddressCheckActivity;
 import com.ninggc.trade.address.City;
 import com.ninggc.trade.factory.constants.Constant;
 import com.ninggc.trade.factory.constants.IRequestCode;
+import com.ninggc.trade.fragment.CampusMarketFragment;
 import com.ninggc.trade.fragment.IndexFragment;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
@@ -198,14 +199,19 @@ public class MainActivity extends AppCompatActivity
                         public void run() {
                             // FIXME: 11/12/2017 0012 未经测试
                             AccountUtil.setEMCUser(username, password);
-                            Toast.makeText(MainActivity.this, "EMC登陆成功 在initData()", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "TEST MEG: EMC登陆成功 在initData()", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
 
                 @Override
-                public void onError(int i, String s) {
-
+                public void onError(int i, final String s) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(MainActivity.this, "TEST MEG: EMC登录失败 " + s, Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
 
                 @Override
@@ -286,6 +292,7 @@ public class MainActivity extends AppCompatActivity
         final IndexFragment indexFragment = new IndexFragment();
         final TestListFragment testListFragment = new TestListFragment();
         final ConversationListFragment conversationListFragment = new ConversationListFragment();
+        final CampusMarketFragment campusMarketFragment = new CampusMarketFragment();
         conversationListFragment.setConversationListItemClickListener(new EaseConversationListFragment.EaseConversationListItemClickListener() {
             @Override
             public void onListItemClicked(EMConversation conversation) {
@@ -318,9 +325,9 @@ public class MainActivity extends AppCompatActivity
                         fragmentTransaction.replace(R.id.contentContainer, conversationListFragment);
                     }
                     fragmentTransaction.commit();
-                } else if (tabId == R.id.tab_shop) {
+                } else if (tabId == R.id.tab_campus) {
                     FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.contentContainer, conversationListFragment);
+                    fragmentTransaction.replace(R.id.contentContainer, campusMarketFragment);
                     fragmentTransaction.commit();
                 }
             }

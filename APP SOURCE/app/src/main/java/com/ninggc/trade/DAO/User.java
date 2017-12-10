@@ -7,9 +7,6 @@ package com.ninggc.trade.DAO;
 public class User implements IBean {
     private int id;
     private String name;
-//    private int campusId;
-//    private int locationId;
-//    private int addressId;
     private String gender;
     private Integer age;
     private String introduce;
@@ -32,36 +29,6 @@ public class User implements IBean {
     public void setName(String name) {
         this.name = name;
     }
-
-//    @Basic
-//    @Column(name = "campus_id", nullable = false)
-//    public int getCampusId() {
-//        return campusId;
-//    }
-//
-//    public void setCampusId(int campusId) {
-//        this.campusId = campusId;
-//    }
-//
-//    @Basic
-//    @Column(name = "location_id", nullable = false)
-//    public int getLocationId() {
-//        return locationId;
-//    }
-//
-//    public void setLocationId(int locationId) {
-//        this.locationId = locationId;
-//    }
-//
-//    @Basic
-//    @Column(name = "address_id", nullable = false)
-//    public int getAddressId() {
-//        return addressId;
-//    }
-//
-//    public void setAddressId(int addressId) {
-//        this.addressId = addressId;
-//    }
 
     public String getGender() {
         return gender;
@@ -119,32 +86,27 @@ public class User implements IBean {
         User user = (User) o;
 
         if (id != user.id) return false;
-//        if (campusId != user.campusId) return false;
-//        if (locationId != user.locationId) return false;
-//        if (addressId != user.addressId) return false;
         if (name != null ? !name.equals(user.name) : user.name != null) return false;
         if (gender != null ? !gender.equals(user.gender) : user.gender != null) return false;
         if (age != null ? !age.equals(user.age) : user.age != null) return false;
-        if (introduce != null ? !introduce.equals(user.introduce) : user.introduce != null) return false;
+        if (introduce != null ? !introduce.equals(user.introduce) : user.introduce != null)
+            return false;
         if (unique != null ? !unique.equals(user.unique) : user.unique != null) return false;
-        if (portrait != null ? !portrait.equals(user.portrait) : user.portrait != null) return false;
-
-        return true;
+        if (portrait != null ? !portrait.equals(user.portrait) : user.portrait != null)
+            return false;
+        return MD5 != null ? MD5.equals(user.MD5) : user.MD5 == null;
     }
 
     @Override
     public int hashCode() {
         int result = id;
         result = 31 * result + (name != null ? name.hashCode() : 0);
-//        result = 31 * result + campusId;
-//        result = 31 * result + locationId;
-//        result = 31 * result + addressId;
         result = 31 * result + (gender != null ? gender.hashCode() : 0);
         result = 31 * result + (age != null ? age.hashCode() : 0);
         result = 31 * result + (introduce != null ? introduce.hashCode() : 0);
         result = 31 * result + (unique != null ? unique.hashCode() : 0);
         result = 31 * result + (portrait != null ? portrait.hashCode() : 0);
+        result = 31 * result + (MD5 != null ? MD5.hashCode() : 0);
         return result;
     }
-
 }

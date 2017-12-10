@@ -96,23 +96,20 @@ public class CommodityRecyclerViewAdapter extends RecyclerView.Adapter<Commodity
     }
 
     public void addItem(Commodity c) {
-        int position = -1;
         for (int i = 0; i < list.size(); i++) {
             if (c.getId() == list.get(i).getId()) {
-                position = i;
-                break;
+                if (c.equals(list.get(i))) {
+                    list.set(i, c);
+                    notifyItemChanged(i);
+                    return;
+                } else {
+                    return;
+                }
             }
         }
-        //如果已经存在，就不添加
-        //if is already exist, not add
-        if (position == -1) {
-            this.list.add(c);
-            notifyItemInserted(this.list.size());
-        } else {
-             this.list.set(position, c);
-            notifyItemChanged(position);
-            //如果存在,就替换
-        }
+
+        this.list.add(c);
+        notifyItemChanged(list.size());
     }
 
     public void addItem(List<Commodity> list) {

@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,21 +18,31 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
 import com.ninggc.trade.DAO.Commodity;
 import com.ninggc.trade.R;
 import com.ninggc.trade.activity.c_d_activity.CommodityList;
 import com.ninggc.trade.adapter.CommodityRecyclerViewAdapter;
+import com.ninggc.trade.factory.Server;
 import com.ninggc.trade.factory.constants.Constant;
+import com.ninggc.trade.factory.http.ResponseListener;
 import com.ninggc.trade.factory.image.GlideImageLoader;
 import com.ninggc.trade.factory.constants.IRequestCode;
 import com.yanzhenjie.album.Action;
 import com.yanzhenjie.album.Album;
 import com.yanzhenjie.album.AlbumFile;
+import com.yanzhenjie.nohttp.rest.Response;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by Ning on 10/18/2017 0018.
@@ -116,13 +127,62 @@ public class IndexFragment extends Fragment implements View.OnClickListener {
     }
 
     void initList() {
-        Commodity c = new Commodity();
-        c.setName("Ning-For test");
-        c.setNote(getResources().getString(R.string.large_text));
-        c.setPrice(50.0);
-        adapter.addItem(c);
+        Server.showList(1, new ResponseListener<String>() {
+            @Override
+            public void onSucceed(int what, Response<String> response) {
+                super.onSucceed(what, response);
+                String s = response.get();
+                try {
+                    List<Commodity> list = parseJsonToList(s);
+                    adapter.addItem(list);
+                } catch (JsonSyntaxException e) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            //json解析失败
+                            Toast.makeText(getContext(), "服务器异常", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onFailed(int what, Response<String> response) {
+                super.onFailed(what, response);
+            }
+
+            @Override
+            public void onFinish(int what) {
+                super.onFinish(what);
+            }
+        });
+//        Commodity c = new Commodity();
+//        c.setName("Ning-For test");
+//        c.setNote(getResources().getString(R.string.large_text));
+//        c.setPrice(50.0);
+//        adapter.addItem(c);
         // TODO: 11/1/2017 0001 列表初始化
         // REFACTOR: 11/1/2017 0001 wait for refactor
+    }
+
+    List<Commodity> parseJsonToList(String json) throws JsonSyntaxException {
+        List<Commodity> list = new ArrayList<>();
+
+        JsonArray jsonArray = new JsonParser().parse(json).getAsJsonArray();
+        for (JsonElement element : jsonArray) {
+            Commodity c = new Commodity();
+            JsonObject jsonObject = element.getAsJsonObject();
+
+            c.setName(jsonObject.get("物品名").getAsString());
+            c.setNote(jsonObject.get("说明").getAsString());
+            c.setSeller_id(jsonObject.get("出售者id").getAsInt());
+            c.setPrice(jsonObject.get("价格").getAsDouble());
+            c.setKind(jsonObject.get("种类").getAsString());
+            list.add(c);
+        }
+
+        Log.e("NOHTTP_GSON", "parseJsonToList: " + new Gson().toJson(list));
+        return list;
     }
 
     @Override

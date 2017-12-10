@@ -23,6 +23,7 @@ public class Commodity implements IBean, Serializable {
     private String kind;
     private String location;
     private String cityNumber;
+    private int seller_id;
 
     public int getId() {
         return id;
@@ -100,6 +101,14 @@ public class Commodity implements IBean, Serializable {
         this.location = location;
     }
 
+    public int getSeller_id() {
+        return seller_id;
+    }
+
+    public void setSeller_id(int seller_id) {
+        this.seller_id = seller_id;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -108,33 +117,32 @@ public class Commodity implements IBean, Serializable {
         Commodity commodity = (Commodity) o;
 
         if (id != commodity.id) return false;
-//        if (userId != commodity.userId) return false;
-//        if (locationId != commodity.locationId) return false;
+        if (seller_id != commodity.seller_id) return false;
         if (name != null ? !name.equals(commodity.name) : commodity.name != null) return false;
         if (price != null ? !price.equals(commodity.price) : commodity.price != null) return false;
         if (note != null ? !note.equals(commodity.note) : commodity.note != null) return false;
-        if (images != null ? !images.equals(commodity.images) : commodity.images != null) return false;
-        if (kind != null ? !kind.equals(commodity.kind) : commodity.kind!= null) return false;
-        if (detail_location != null ? !detail_location.equals(commodity.detail_location) : commodity.detail_location != null) return false;
-        if (cityNumber != null ? !cityNumber.equals(commodity.cityNumber ) : commodity.cityNumber!= null) return false;
-        if (location != null ? !location.equals(commodity.location) : commodity.location != null) return false;
-
-        return true;
+        if (detail_location != null ? !detail_location.equals(commodity.detail_location) : commodity.detail_location != null)
+            return false;
+        if (images != null ? !images.equals(commodity.images) : commodity.images != null)
+            return false;
+        if (kind != null ? !kind.equals(commodity.kind) : commodity.kind != null) return false;
+        if (location != null ? !location.equals(commodity.location) : commodity.location != null)
+            return false;
+        return cityNumber != null ? cityNumber.equals(commodity.cityNumber) : commodity.cityNumber == null;
     }
 
     @Override
     public int hashCode() {
         int result = id;
         result = 31 * result + (name != null ? name.hashCode() : 0);
-//        result = 31 * result + userId;
-//        result = 31 * result + locationId;
         result = 31 * result + (price != null ? price.hashCode() : 0);
         result = 31 * result + (note != null ? note.hashCode() : 0);
+        result = 31 * result + (detail_location != null ? detail_location.hashCode() : 0);
         result = 31 * result + (images != null ? images.hashCode() : 0);
         result = 31 * result + (kind != null ? kind.hashCode() : 0);
-        result = 31 * result + (detail_location != null ? detail_location.hashCode() : 0);
-        result = 31 * result + (cityNumber != null ? cityNumber.hashCode() : 0);
         result = 31 * result + (location != null ? location.hashCode() : 0);
+        result = 31 * result + (cityNumber != null ? cityNumber.hashCode() : 0);
+        result = 31 * result + seller_id;
         return result;
     }
 

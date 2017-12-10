@@ -51,11 +51,10 @@ public class City implements IBean {
         City city1 = (City) o;
 
         if (id != city1.id) return false;
-        if (province != null ? !province.equals(city1.province) : city1.province != null) return false;
+        if (province != null ? !province.equals(city1.province) : city1.province != null)
+            return false;
         if (country != null ? !country.equals(city1.country) : city1.country != null) return false;
-        if (city != null ? !city.equals(city1.city) : city1.city != null) return false;
-
-        return true;
+        return city != null ? city.equals(city1.city) : city1.city == null;
     }
 
     @Override
@@ -66,5 +65,4 @@ public class City implements IBean {
         result = 31 * result + (city != null ? city.hashCode() : 0);
         return result;
     }
-
 }

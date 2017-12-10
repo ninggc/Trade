@@ -253,10 +253,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
             super.handleMessage(msg);
             // TEST: 11/12/2017 0012 测试阶段只要为31就算作成功
             Log.e(TAG, "handleMessage: " + msg.what);
-            if (msg.what == 31) {
-                loginSuccess();
-                return;
-            }
+//            if (msg.what == 31) {
+//                loginSuccess();
+//                return;
+//            }
             //2是我的服务器;21成功;-21失败
             //3是EMC的服务器;31成功;-31失败
             switch (msg.what) {

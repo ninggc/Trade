@@ -90,11 +90,13 @@ public class Location implements IBean {
 
         if (id != location.id) return false;
         if (extra != null ? !extra.equals(location.extra) : location.extra != null) return false;
+        if (address != null ? !address.equals(location.address) : location.address != null)
+            return false;
         if (country != null ? !country.equals(location.country) : location.country != null)
             return false;
         if (province != null ? !province.equals(location.province) : location.province != null)
             return false;
-        if (!city.equals(location.city)) return false;
+        if (city != null ? !city.equals(location.city) : location.city != null) return false;
         if (district != null ? !district.equals(location.district) : location.district != null)
             return false;
         return street != null ? street.equals(location.street) : location.street == null;
@@ -104,9 +106,10 @@ public class Location implements IBean {
     public int hashCode() {
         int result = id;
         result = 31 * result + (extra != null ? extra.hashCode() : 0);
+        result = 31 * result + (address != null ? address.hashCode() : 0);
         result = 31 * result + (country != null ? country.hashCode() : 0);
         result = 31 * result + (province != null ? province.hashCode() : 0);
-        result = 31 * result + city.hashCode();
+        result = 31 * result + (city != null ? city.hashCode() : 0);
         result = 31 * result + (district != null ? district.hashCode() : 0);
         result = 31 * result + (street != null ? street.hashCode() : 0);
         return result;

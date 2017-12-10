@@ -229,6 +229,8 @@
             android:label="@string/title_activity_personal_info"
             android:theme="@style/AppTheme" />
 
+        <activity android:name=".activity.StartupActivity">
+        </activity>
         <!--activity-->
     </application>
 </manifest>

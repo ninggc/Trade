@@ -1,5 +1,6 @@
 package com.ninggc.trade.factory;
 
+import android.telecom.Call;
 import android.util.Log;
 
 import com.ninggc.trade.DAO.Commodity;
@@ -69,9 +70,9 @@ public class Server {
         // FIXME: 11/16/2017 0016
     }
 
-    public static void showList() {
-        Request request = createStringRequest(url + "market/look/all// page");
-        // FIXME: 11/16/2017 0016
+    public static void showList(int page, ResponseListener<String> responseListener) {
+        Request request = createStringRequest(url + "market/look/all/" + page + "/");
+        CallServer.getInstance().add(NO_WHAT, request, responseListener);
     }
 
     public static void showCommodityListWithSort(int sort_id, ResponseListener<String> responseListener) {
@@ -88,14 +89,12 @@ public class Server {
     }
 
     public static void releaseCommodity(Commodity commodity, ResponseListener<String> responseListener) {
-        Request request = createStringRequest("123.207.244.139:8082/" + "market/sell/", RequestMethod.POST);
-        request.set("country", "test");
-        request.set("province", "test");
+        Request request = createStringRequest(url + "market/sell/", RequestMethod.POST);
         request.set("cityname", commodity.getCityNumber());
         request.set("extra", commodity.getDetail_location());
         request.set("name", commodity.getName());
         request.set("sort", "12");
-        request.set("price", "12");
+        request.set("price", String.valueOf(commodity.getPrice()));
         request.set("note", commodity.getNote());
         CallServer.getInstance().add(NO_WHAT, request, responseListener);
     }

@@ -51,11 +51,10 @@ public class Security implements IBean {
         Security security = (Security) o;
 
         if (userId != security.userId) return false;
-        if (password != null ? !password.equals(security.password) : security.password != null) return false;
+        if (password != null ? !password.equals(security.password) : security.password != null)
+            return false;
         if (email != null ? !email.equals(security.email) : security.email != null) return false;
-        if (tel != null ? !tel.equals(security.tel) : security.tel != null) return false;
-
-        return true;
+        return tel != null ? tel.equals(security.tel) : security.tel == null;
     }
 
     @Override
@@ -66,5 +65,4 @@ public class Security implements IBean {
         result = 31 * result + (tel != null ? tel.hashCode() : 0);
         return result;
     }
-
 }

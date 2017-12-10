@@ -34,34 +34,22 @@ public class Campus implements IBean {
 //        this.locationId = locationId;
 //    }
 
+
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
         Campus campus = (Campus) o;
 
-        if (id != campus.id) {
-            return false;
-        }
-//        if (locationId != campus.locationId) return false;
-        if (name != null ? !name.equals(campus.name) : campus.name != null) {
-            return false;
-        }
-
-        return true;
+        if (id != campus.id) return false;
+        return name != null ? name.equals(campus.name) : campus.name == null;
     }
 
     @Override
     public int hashCode() {
         int result = id;
         result = 31 * result + (name != null ? name.hashCode() : 0);
-//        result = 31 * result + locationId;
         return result;
     }
-
 }

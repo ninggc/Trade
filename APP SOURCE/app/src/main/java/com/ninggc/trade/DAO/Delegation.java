@@ -55,20 +55,15 @@ public class Delegation implements IBean, Serializable {
         Delegation that = (Delegation) o;
 
         if (id != that.id) return false;
-//        if (publisherId != that.publisherId) return false;
         if (title != null ? !title.equals(that.title) : that.title != null) return false;
-        if (description != null ? !description.equals(that.description) : that.description != null) return false;
-
-        return true;
+        return description != null ? description.equals(that.description) : that.description == null;
     }
 
     @Override
     public int hashCode() {
         int result = id;
-//        result = 31 * result + publisherId;
         result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
         return result;
     }
-
 }

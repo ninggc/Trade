@@ -75,25 +75,17 @@ public class Indent implements IBean {
 
         Indent indent = (Indent) o;
 
-//        if (purchaseId != indent.purchaseId) return false;
-//        if (commodityId != indent.commodityId) return false;
-//        if (locationId != indent.locationId) return false;
         if (number != null ? !number.equals(indent.number) : indent.number != null) return false;
-        if (datetime != null ? !datetime.equals(indent.datetime) : indent.datetime != null) return false;
-        if (remark != null ? !remark.equals(indent.remark) : indent.remark != null) return false;
-
-        return true;
+        if (datetime != null ? !datetime.equals(indent.datetime) : indent.datetime != null)
+            return false;
+        return remark != null ? remark.equals(indent.remark) : indent.remark == null;
     }
 
     @Override
     public int hashCode() {
         int result = number != null ? number.hashCode() : 0;
-//        result = 31 * result + purchaseId;
-//        result = 31 * result + commodityId;
-//        result = 31 * result + locationId;
         result = 31 * result + (datetime != null ? datetime.hashCode() : 0);
         result = 31 * result + (remark != null ? remark.hashCode() : 0);
         return result;
     }
-
 }
