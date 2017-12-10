@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity
     final String TAG = getClass().getName();
 
 //    ViewPager main_view_pager;
-    BottomBar bottomBar;
+    public BottomBar bottomBar;
 //    TabLayout main_tabLayout;
     RelativeLayout relativeLayout;
     FloatingActionButton fab;
@@ -79,9 +79,11 @@ public class MainActivity extends AppCompatActivity
     AccountSPUtil accountSPUtil;
 
     private int mCurrentViewPagerPosition = 0;
+    public static MainActivity mainActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mainActivity = this;
         setContentView(R.layout.activity_main);
         super.onCreate(savedInstanceState);
         initBaiduMap();
@@ -303,7 +305,7 @@ public class MainActivity extends AppCompatActivity
                 } else if (tabId == R.id.tab_contact) {
                     FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                     if (!AccountUtil.isLogin()) {
-                        fragmentTransaction.replace(R.id.contentContainer, new PleaseLoginFragment());
+                        fragmentTransaction.replace(R.id.contentContainer, new PleaseLoginFragment(indexFragment));
                     } else {
                         fragmentTransaction.replace(R.id.contentContainer, testListFragment);
                     }
@@ -311,7 +313,7 @@ public class MainActivity extends AppCompatActivity
                 } else if (tabId == R.id.tab_chat) {
                     FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                     if (!AccountUtil.isLogin()) {
-                        fragmentTransaction.replace(R.id.contentContainer, new PleaseLoginFragment());
+                        fragmentTransaction.replace(R.id.contentContainer, new PleaseLoginFragment(indexFragment));
                     } else {
                         fragmentTransaction.replace(R.id.contentContainer, conversationListFragment);
                     }
@@ -473,6 +475,7 @@ public class MainActivity extends AppCompatActivity
             nav_header_tv_login.setText(AccountUtil.getCurrentUser().getName());
             nav_header_tv_tip.setVisibility(View.INVISIBLE);
             accountSPUtil.saveUserToLocal();
+//            Toast.makeText(this, "登陆成功", Toast.LENGTH_SHORT).show();
         } else {
             nav_header_tv_login.setText(getResources().getString(R.string.header_main_login_tip));
             nav_header_tv_tip.setVisibility(View.INVISIBLE);

@@ -1,13 +1,18 @@
 package com.ninggc.trade.activity.test;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.DataSetObserver;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ListFragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,14 +22,19 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baidu.location.LocationClient;
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.hyphenate.chat.EMClient;
+import com.hyphenate.easeui.ui.EaseBaiduMapActivity;
 import com.ninggc.trade.R;
 import com.ninggc.trade.activity.account.AccountUtil;
 import com.ninggc.trade.activity.base.BaseActivity;
 import com.ninggc.trade.activity.ease.ContactActivity;
 import com.ninggc.trade.address.AddressCheckActivity;
 import com.ninggc.trade.address.City;
+import com.ninggc.trade.factory.constants.Constant;
+import com.ninggc.trade.test.TestBaiduMap;
 
 import java.util.ArrayList;
 
@@ -135,6 +145,37 @@ public class TestListFragment extends ListFragment {
                     }
                 });
                 builder.show();
+            }
+        });
+
+        adapter.addItem("百度Map", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), TestBaiduMap.class));
+            }
+        });
+
+        adapter.addItem("百度在Base", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), BaiduMapAty.class));
+            }
+        });
+
+        adapter.addItem("权限检测", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (!shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)) {
+                        Toast.makeText(getContext(), "您已经点击不再提醒，无法获得操作权限", Toast.LENGTH_SHORT).show();
+                    }
+                    if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                        Toast.makeText(getContext(), "恭喜你有CAMERA权限", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getContext(), "没有CAMERA权限", Toast.LENGTH_SHORT).show();
+                        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA}, 0);
+                    }
+                }
             }
         });
     }

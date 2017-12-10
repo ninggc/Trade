@@ -1,6 +1,7 @@
 package com.ninggc.trade.fragment;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,7 +11,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.ninggc.trade.DAO.Commodity;
 import com.ninggc.trade.R;
 import com.ninggc.trade.activity.c_d_activity.CommodityList;
@@ -44,6 +50,8 @@ public class IndexFragment extends Fragment implements View.OnClickListener {
 //    EditText et_url;
 //    ImageView img;
 
+    ImageView iv_11;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -65,6 +73,11 @@ public class IndexFragment extends Fragment implements View.OnClickListener {
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
         initData();
         view.findViewById(R.id.index_layout_book).setOnClickListener(this);
+
+        iv_11 = (ImageView) view.findViewById(R.id.index_iv_11);
+
+        //ImageView init
+        Glide.with(getContext()).load(Constant.image2).asBitmap().into(iv_11);
     }
 
     private void initData() {
@@ -75,7 +88,7 @@ public class IndexFragment extends Fragment implements View.OnClickListener {
                 // TEST: 11/1/2017 0001 TEST something
                 Album.album(getContext()) // 图片和视频混选。
                         .multipleChoice() // 多选模式，单选模式为：singleChoice()。
-                        .requestCode(IRequestCode.INSIGNIFICANCE) // 请求码，会在listener中返回。
+                        .requestCode(Constant.INSIGNIFICANCE) // 请求码，会在listener中返回。
                         .columnCount(3) // 页面列表的列数。
                         .selectCount(5)  // 最多选择几张图片。
                         .camera(true) // 是否在Item中出现相机。

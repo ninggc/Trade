@@ -6,11 +6,13 @@ import android.content.pm.PackageManager;
 import android.os.Process;
 import android.util.Log;
 
+import com.baidu.mapapi.SDKInitializer;
 import com.hyphenate.chat.EMChatManager;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMOptions;
 import com.hyphenate.easeui.EaseUI;
 import com.mob.MobApplication;
+import com.ninggc.trade.R;
 import com.yanzhenjie.nohttp.Logger;
 import com.yanzhenjie.nohttp.NoHttp;
 import com.yanzhenjie.nohttp.OkHttpNetworkExecutor;
@@ -37,6 +39,13 @@ public class MyApplication extends MobApplication {
         initNoHttp();
         initIM();
         initTiny();
+        initBaiduSDK();
+    }
+
+    private void initBaiduSDK() {
+        //在使用SDK各组件之前初始化context信息，传入ApplicationContext
+        //注意该方法要再setContentView方法之前实现
+        SDKInitializer.initialize(getApplicationContext());
     }
 
     private void initNoHttp() {

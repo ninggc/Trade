@@ -95,7 +95,7 @@ public class ReleaseDelegationActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Request<String> request = createStringRequest(Server.url + "commodity/release");
-                request(NO_WHAT, request, new OnResponseListener<String>() {
+                request(Server.NO_WHAT, request, new OnResponseListener<String>() {
                     @Override
                     public void onStart(int what) {
 

@@ -141,6 +141,7 @@
             android:layout_height="wrap_content">
 
             <TextView
+                android:id="@+id/personal_info_tv_from"
                 android:textSize="@dimen/scroll_text_size"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -149,8 +150,19 @@
                 android:layout_marginStart="@dimen/personal_margin_left"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="@string/personal_tv_introduce"
+                android:text="@string/personal_tv_from"
                 android:textColor="@color/black_deep" />
+
+            <TextView
+                android:id="@+id/personal_info_tv_introduce"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_alignStart="@+id/personal_info_tv_from"
+                android:layout_below="@+id/personal_info_tv_from"
+                android:text="@string/personal_tv_introduce"
+                android:textColor="@color/black_deep"
+                android:textSize="@dimen/scroll_text_size" />
         </RelativeLayout>
 
         <View

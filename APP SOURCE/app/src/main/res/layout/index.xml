@@ -43,6 +43,7 @@
                         android:text="卖闲置" />
 
                     <ImageView
+                        android:id="@+id/index_iv_11"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/nothing" />

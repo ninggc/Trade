@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.ninggc.trade.DAO.Commodity;
 import com.ninggc.trade.R;
+import com.ninggc.trade.activity.base.BaseActivity;
 import com.sackcentury.shinebuttonlib.ShineButton;
 
 /**
@@ -22,7 +23,7 @@ import com.sackcentury.shinebuttonlib.ShineButton;
  * Created by Ning on 8/16/2017 0016.
  */
 
-public class DetailCommodityActivity extends AppCompatActivity {
+public class DetailCommodityActivity extends BaseActivity {
     Toolbar toolbar;
     TextView tv_name;
     TextView tv_note;
@@ -38,7 +39,7 @@ public class DetailCommodityActivity extends AppCompatActivity {
         initView();
     }
 
-    private void initView() {
+    protected void initView() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         tv_note = (TextView) findViewById(R.id.detail_main_1_tv_intro);
         tv_name = (TextView) findViewById(R.id.detail_main_1_tv_name);
@@ -59,7 +60,7 @@ public class DetailCommodityActivity extends AppCompatActivity {
     }
 
     @SuppressLint("SetTextI18n")
-    private void initData() {
+    protected void initData() {
         commodity = (Commodity) getIntent().getSerializableExtra("commodity");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
