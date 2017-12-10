@@ -4,22 +4,49 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.google.gson.annotations.SerializedName;
 import com.ninggc.trade.address.IEntity;
+
+import java.util.List;
 
 /**
  * Created by Ning on 7/24/2017 0024.
  */
-public class Campus implements IBean, Parcelable, IEntity {
-    @JSONField(name = "id")
+public class Province implements IBean, Parcelable, IEntity {
+    @SerializedName("id")
     private String id;
 
     @JSONField(name = "name")
     private String name;
-    
+
+    /**
+     * 子项。
+     */
+    @SerializedName("children")
+    private List<String> children;
     /**
      * 是否选中。
      */
     private boolean isSelect;
+
+    protected Province(Parcel in) {
+        id = in.readString();
+        name = in.readString();
+        children = in.createStringArrayList();
+        isSelect = in.readByte() != 0;
+    }
+
+    public static final Creator<Province> CREATOR = new Creator<Province>() {
+        @Override
+        public Province createFromParcel(Parcel in) {
+            return new Province(in);
+        }
+
+        @Override
+        public Province[] newArray(int size) {
+            return new Province[size];
+        }
+    };
 
     public String getId() {
         return id;
@@ -45,17 +72,23 @@ public class Campus implements IBean, Parcelable, IEntity {
         isSelect = select;
     }
 
+    public List<String> getCampusList() {
+        return children;
+    }
+
+    public void setCampusList(List<String> children) {
+        this.children = children;
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Campus campus = (Campus) o;
+        Province province = (Province) o;
 
-        if (isSelect != campus.isSelect) return false;
-        if (id != null ? !id.equals(campus.id) : campus.id != null) return false;
-        return name != null ? name.equals(campus.name) : campus.name == null;
+        if (id != province.id) return false;
+        return name != null ? name.equals(province.name) : province.name == null;
     }
 
     @Override
@@ -66,12 +99,8 @@ public class Campus implements IBean, Parcelable, IEntity {
         return result;
     }
 
-    public Campus() {}
 
-    protected Campus(Parcel in) {
-        id = in.readString();
-        name = in.readString();
-    }
+    public Province() {}
 
     @Override
     public int describeContents() {
@@ -82,26 +111,16 @@ public class Campus implements IBean, Parcelable, IEntity {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(id);
         dest.writeString(name);
+        dest.writeStringList(children);
+        dest.writeByte((byte) (isSelect ? 1 : 0));
     }
 
-    public static final Creator<Campus> CREATOR = new Creator<Campus>() {
-
-        @Override
-        public Campus createFromParcel(Parcel source) {
-            return new Campus(source);
-        }
-
-        @Override
-        public Campus[] newArray(int size) {
-            return new Campus[size];
-        }
-    };
 
 //    @Override
 //    public void writeToParcel(Parcel dest, int flags) {
 //        dest.writeString(id);
 //        dest.writeString(name);
-//        dest.writeTypedList(campusList);
+//        dest.writeTypedList(children);
 //        dest.writeByte((byte) (isSelect ? 1 : 0));
 //    }
 
@@ -110,7 +129,7 @@ public class Campus implements IBean, Parcelable, IEntity {
 //        return 0;
 //    }
 //
-//    public static final Creator<String> CREATOR = new Creator<Campus>() {
+//    public static final Creator<String> CREATOR = new Creator<Province>() {
 //        @Override
 //        public String createFromParcel(Parcel in) {
 //            return new String(in);

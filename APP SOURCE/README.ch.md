@@ -1,6 +1,6 @@
 # APP-Trade
 
-## trade in campus
+## trade in province
 
 ### structure
 - Android的客户端

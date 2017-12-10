@@ -234,11 +234,11 @@ public class AddressCheckActivity extends AppCompatActivity {
     /**
      * 选中。
      */
-    private void setResultFinish(City province, City city, City district) {
+    private void setResultFinish(City province, City campus, City district) {
         ArrayList<City> cityArrayList = new ArrayList<>();
         cityArrayList.add(province);
-        if (city != null)
-            cityArrayList.add(city);
+        if (campus != null)
+            cityArrayList.add(campus);
         if (district != null)
             cityArrayList.add(district);
 

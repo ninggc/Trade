@@ -1,8 +1,8 @@
 package com.ninggc.trade.activity.test;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -19,25 +19,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.baidu.location.LocationClient;
-import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.hyphenate.chat.EMClient;
-import com.hyphenate.easeui.ui.EaseBaiduMapActivity;
+import com.ninggc.trade.DAO.Campus;
+import com.ninggc.trade.DAO.Province;
 import com.ninggc.trade.R;
 import com.ninggc.trade.activity.account.AccountUtil;
-import com.ninggc.trade.activity.base.BaseActivity;
 import com.ninggc.trade.activity.ease.ContactActivity;
 import com.ninggc.trade.address.AddressCheckActivity;
 import com.ninggc.trade.address.City;
-import com.ninggc.trade.factory.Server;
-import com.ninggc.trade.factory.constants.Constant;
-import com.ninggc.trade.factory.http.ResponseListener;
+import com.ninggc.trade.address.CampusCheckActivity;
 import com.ninggc.trade.test.TestBaiduMap;
-import com.yanzhenjie.nohttp.rest.Response;
 
 import java.util.ArrayList;
 
@@ -46,6 +40,8 @@ import java.util.ArrayList;
  */
 
 public class TestListFragment extends ListFragment {
+    Gson gson = new Gson();
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -182,23 +178,17 @@ public class TestListFragment extends ListFragment {
             }
         });
 
-        adapter.addItem("Show list", new View.OnClickListener() {
+        adapter.addItem("City Check", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Server.showList(1, new ResponseListener<String>() {
-                    @Override
-                    public void onSucceed(int what, Response<String> response) {
-                        super.onSucceed(what, response);
-                        Log.e("NOHTTP_INFO", "onSucceed: " + response.get());
-                    }
-
-                    @Override
-                    public void onFailed(int what, Response<String> response) {
-                        super.onFailed(what, response);
-                    }
-                });
+                selectCampus();
             }
         });
+    }
+
+    private void selectCampus() {
+        Intent intent = new Intent(getContext(), CampusCheckActivity.class);
+        startActivityForResult(intent, 777);
     }
 
 
@@ -219,9 +209,9 @@ public class TestListFragment extends ListFragment {
         String tvAddress = "", lastId = "";
         if (cityList != null) {
             for (int i = 0; i < cityList.size(); i++) {
-                City city = cityList.get(i);
-                lastId = city.getId();
-                tvAddress += city.getName();
+                City campus = cityList.get(i);
+                lastId = campus.getId();
+                tvAddress += campus.getName();
             }
         }
         Toast.makeText(getContext(), tvAddress + "id : " + lastId, Toast.LENGTH_SHORT).show();
@@ -337,4 +327,28 @@ public class TestListFragment extends ListFragment {
 //            }
 //        }
 //    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.e("CAMPUS", "onActivityResult: " + requestCode);
+
+        if (resultCode != Activity.RESULT_OK) {
+            return;
+        }
+
+        switch (requestCode) {
+            case 777:
+                Province province = gson.fromJson(data.getStringExtra("province"), Province.class);
+                Campus campus = gson.fromJson(data.getStringExtra("campus"), Campus.class);
+
+                Log.e("CAMPUS", "onActivityResult: " + gson.toJson(province));
+                Log.e("CAMPUS", "onActivityResult: " + gson.toJson(campus));
+                break;
+            case 666:
+                break;
+            default:break;
+        }
+    }
 }

@@ -6,16 +6,23 @@ import android.os.Parcelable;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.ninggc.trade.address.IEntity;
 
+import java.util.List;
+
 /**
  * Created by Ning on 7/24/2017 0024.
  */
-public class Campus implements IBean, Parcelable, IEntity {
+public class _Province implements IBean, Parcelable, IEntity {
     @JSONField(name = "id")
     private String id;
 
     @JSONField(name = "name")
     private String name;
-    
+
+    /**
+     * 子项。
+     */
+    @JSONField(name = "children")
+    private List<Campus> campusList;
     /**
      * 是否选中。
      */
@@ -45,17 +52,23 @@ public class Campus implements IBean, Parcelable, IEntity {
         isSelect = select;
     }
 
+    public List<Campus> getCampusList() {
+        return campusList;
+    }
+
+    public void setCampusList(List<Campus> campusList) {
+        this.campusList = campusList;
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Campus campus = (Campus) o;
+        _Province province = (_Province) o;
 
-        if (isSelect != campus.isSelect) return false;
-        if (id != null ? !id.equals(campus.id) : campus.id != null) return false;
-        return name != null ? name.equals(campus.name) : campus.name == null;
+        if (id != province.id) return false;
+        return name != null ? name.equals(province.name) : province.name == null;
     }
 
     @Override
@@ -66,11 +79,13 @@ public class Campus implements IBean, Parcelable, IEntity {
         return result;
     }
 
-    public Campus() {}
 
-    protected Campus(Parcel in) {
+    public _Province() {}
+
+    protected _Province(Parcel in) {
         id = in.readString();
         name = in.readString();
+        campusList = in.createTypedArrayList(Campus.CREATOR);
     }
 
     @Override
@@ -82,18 +97,19 @@ public class Campus implements IBean, Parcelable, IEntity {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(id);
         dest.writeString(name);
+        dest.writeTypedList(campusList);
     }
 
-    public static final Creator<Campus> CREATOR = new Creator<Campus>() {
+    public static final Creator<_Province> CREATOR = new Creator<_Province>() {
 
         @Override
-        public Campus createFromParcel(Parcel source) {
-            return new Campus(source);
+        public _Province createFromParcel(Parcel source) {
+            return new _Province(source);
         }
 
         @Override
-        public Campus[] newArray(int size) {
-            return new Campus[size];
+        public _Province[] newArray(int size) {
+            return new _Province[size];
         }
     };
 
@@ -110,7 +126,7 @@ public class Campus implements IBean, Parcelable, IEntity {
 //        return 0;
 //    }
 //
-//    public static final Creator<String> CREATOR = new Creator<Campus>() {
+//    public static final Creator<String> CREATOR = new Creator<Province>() {
 //        @Override
 //        public String createFromParcel(Parcel in) {
 //            return new String(in);

@@ -515,9 +515,9 @@ public class MainActivity extends AppCompatActivity
         String tvAddress = "", lastId = "";
         if (cityList != null) {
             for (int i = 0; i < cityList.size(); i++) {
-                City city = cityList.get(i);
-                lastId = city.getId();
-                tvAddress += city.getName();
+                City campus = cityList.get(i);
+                lastId = campus.getId();
+                tvAddress += campus.getName();
             }
         }
 //        mTextView.setText(tvAddress + "\n提交到服务器的id是：" + lastId);

@@ -231,6 +231,7 @@
 
         <activity android:name=".activity.StartupActivity">
         </activity>
+        <activity android:name=".address.CampusCheckActivity"/>
         <!--activity-->
     </application>
 </manifest>

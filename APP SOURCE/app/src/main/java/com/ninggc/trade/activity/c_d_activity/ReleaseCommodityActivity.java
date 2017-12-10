@@ -1,6 +1,5 @@
 package com.ninggc.trade.activity.c_d_activity;
 
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -14,7 +13,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ninggc.trade.DAO.Commodity;
@@ -35,7 +33,6 @@ import com.zxy.tiny.callback.FileCallback;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -292,9 +289,9 @@ public class ReleaseCommodityActivity extends BaseActivity implements View.OnCli
         String tvAddress = "", lastId = "";
         if (cityList != null) {
             for (int i = 0; i < cityList.size(); i++) {
-                City city = cityList.get(i);
-                lastId = city.getId();
-                tvAddress += city.getName();
+                City campus = cityList.get(i);
+                lastId = campus.getId();
+                tvAddress += campus.getName();
             }
         }
         cityNumber = lastId;

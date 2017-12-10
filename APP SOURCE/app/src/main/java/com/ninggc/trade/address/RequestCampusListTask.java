@@ -17,8 +17,11 @@ package com.ninggc.trade.address;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
-import com.alibaba.fastjson.JSON;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.ninggc.trade.DAO.Province;
 import com.yanzhenjie.loading.dialog.LoadingDialog;
 
 import java.io.ByteArrayOutputStream;
@@ -30,11 +33,13 @@ import java.util.List;
  * <p>请求区域列表，这里是从asset读取，实际上可以从服务器读取。</p>
  * Created by YanZhenjie on 2017/6/1.
  */
-public class RequestCampusListTask extends AsyncTask<Void, Void, List<City>> {
+public class RequestCampusListTask extends AsyncTask<Void, Void, List<Province>> {
 
     private Context mContext;
     private Callback mCallback;
     private LoadingDialog mLoadingDialog;
+
+    public static final String TAG = "CAMPUS";
 
     public RequestCampusListTask(Context context, Callback callback) {
         this.mContext = context;
@@ -49,15 +54,15 @@ public class RequestCampusListTask extends AsyncTask<Void, Void, List<City>> {
     }
 
     @Override
-    protected void onPostExecute(List<City> cities) {
+    protected void onPostExecute(List<Province> provinces) {
         if (mLoadingDialog.isShowing())
             mLoadingDialog.dismiss();
         if (mCallback != null)
-            mCallback.callback(cities);
+            mCallback.callback(provinces);
     }
 
     @Override
-    protected List<City> doInBackground(Void... params) {
+    protected List<Province> doInBackground(Void... params) {
         try {
             InputStream inputStream = mContext.getAssets().open("campus_list.json");
             ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();
@@ -71,13 +76,18 @@ public class RequestCampusListTask extends AsyncTask<Void, Void, List<City>> {
             inputStream.close();
 
             String json = new String(arrayOutputStream.toByteArray());
-            return JSON.parseArray(json, City.class);
+//            Log.e(TAG, "doInBackground: " + json);
+            List<Province> provinces = new Gson().fromJson(json, new TypeToken<List<Province>>(){}.getType());
+//            List<Province> provinces = JSON.parseArray(json, Province.class);
+            Log.e(TAG, "doInBackground: " + provinces.size());
+            Log.e(TAG, "doInBackground: " + new Gson().toJson(provinces.get(0)));
+            return provinces;
         } catch (Exception e) {
             return Collections.emptyList();
         }
     }
 
     public interface Callback {
-        void callback(List<City> cities);
+        void callback(List<Province> provinces);
     }
 }

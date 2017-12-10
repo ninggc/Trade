@@ -23,16 +23,17 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.ninggc.trade.R;
+
 import java.util.List;
 
 /**
- * <p>地址列表的适配器。</p>
+ * <p>学校列表的适配器。</p>
  * Created by YanZhenjie on 2017/6/1.
  */
 public class CampusListAdapter extends RecyclerView.Adapter<CampusListAdapter.CampusViewHolder> {
 
     private LayoutInflater mLayoutInflater;
-    private List<City> mCityList;
+    private List<? extends IEntity> mProvinceList;
     private OnCompatItemClickListener mItemClickListener;
 
     public CampusListAdapter(LayoutInflater layoutInflater, OnCompatItemClickListener itemClickListener) {
@@ -40,8 +41,8 @@ public class CampusListAdapter extends RecyclerView.Adapter<CampusListAdapter.Ca
         this.mItemClickListener = itemClickListener;
     }
 
-    public void notifyDataSetChanged(List<City> mCityList) {
-        this.mCityList = mCityList;
+    public void notifyDataSetChanged(List<? extends IEntity> mProvinceList) {
+        this.mProvinceList = mProvinceList;
         super.notifyDataSetChanged();
     }
 
@@ -54,12 +55,12 @@ public class CampusListAdapter extends RecyclerView.Adapter<CampusListAdapter.Ca
 
     @Override
     public void onBindViewHolder(CampusViewHolder holder, int position) {
-        holder.setData(mCityList.get(position));
+        holder.setData(mProvinceList.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return mCityList == null ? 0 : mCityList.size();
+        return mProvinceList == null ? 0 : mProvinceList.size();
     }
 
     static class CampusViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -77,7 +78,7 @@ public class CampusListAdapter extends RecyclerView.Adapter<CampusListAdapter.Ca
             itemView.setOnClickListener(this);
         }
 
-        public void setData(City mData) {
+        public <T extends IEntity> void setData(T mData) {
             mTvCampus.setText(mData.getName());
             mRadioButton.setChecked(mData.isSelect());
         }

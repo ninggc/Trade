@@ -1,10 +1,8 @@
 package com.ninggc.trade.address;
 
-import android.content.Context;
 import android.content.Intent;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Ning on 11/19/2017 0019.
@@ -31,9 +29,9 @@ public class AddressUtil {
         String tvAddress = "", lastId = "";
         if (cityList != null) {
             for (int i = 0; i < cityList.size(); i++) {
-                City city = cityList.get(i);
-                lastId = city.getId();
-                tvAddress += city.getName();
+                City campus = cityList.get(i);
+                lastId = campus.getId();
+                tvAddress += campus.getName();
             }
         }
 //        mTextView.setText(tvAddress + "\n提交到服务器的id是：" + lastId);

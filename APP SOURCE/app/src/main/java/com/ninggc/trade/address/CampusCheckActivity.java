@@ -21,15 +21,18 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ninggc.trade.DAO.Campus;
+import com.ninggc.trade.DAO.Province;
 import com.ninggc.trade.R;
+import com.ninggc.trade.activity.base.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,27 +41,28 @@ import java.util.List;
  * <p>选择地址的页面。</p>
  * Created by YanZhenjie on 2017/6/1.
  */
-public class CampusCheckActivity extends AppCompatActivity {
+public class CampusCheckActivity extends BaseActivity {
 
-    private static final String KEY_OUTPUT_PROVINCE_CITY_DISTRICT = "KEY_OUTPUT_PROVINCE_CITY_DISTRICT";
+//    private static final String KEY_OUTPUT_PROVINCE_CITY_DISTRICT = "KEY_OUTPUT_PROVINCE_CITY_DISTRICT";
+    private static final String KEY_OUTPUT_CAMPUS = "KEY_OUTPUT_CAAMPUS";
 
-    public static ArrayList<City> parse(Intent data) {
-        return data.getParcelableArrayListExtra(KEY_OUTPUT_PROVINCE_CITY_DISTRICT);
+    public static ArrayList<Province> parse(Intent data) {
+        return data.getParcelableArrayListExtra(KEY_OUTPUT_CAMPUS);
     }
 
     TabLayout mTabLayout;
     ViewPager mViewPager;
 
     CampusListAdapter mOneListAdapter;
-    List<City> mOneList;
+    List<Province> mOneList;
     int mCurrentOneSelect = -1;
 
     CampusListAdapter mTwoListAdapter;
-    List<City> mTwoList;
+    List<IEntity> mTwoList;
     int mCurrentTwoSelect = -1;
 
-    CampusListAdapter mThreeListAdapter;
-    List<City> mThreeList;
+//    CampusListAdapter mThreeListAdapter;
+//    List<Province> mThreeList;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -94,16 +98,16 @@ public class CampusCheckActivity extends AppCompatActivity {
 
         twoView.setLayoutParams(new ViewGroup.LayoutParams(-1, -1));
         twoView.setLayoutManager(new LinearLayoutManager(this));
-        mTwoListAdapter = new CampusListAdapter(getLayoutInflater(), mCityItemClickListener);
+        mTwoListAdapter = new CampusListAdapter(getLayoutInflater(), mCampusItemClickListener);
         twoView.setAdapter(mTwoListAdapter);
 
         threeView.setLayoutParams(new ViewGroup.LayoutParams(-1, -1));
         threeView.setLayoutManager(new LinearLayoutManager(this));
-        mThreeListAdapter = new CampusListAdapter(getLayoutInflater(), mDistrictItemClickListener);
-        threeView.setAdapter(mThreeListAdapter);
+//        mThreeListAdapter = new CampusListAdapter(getLayoutInflater(), mDistrictItemClickListener);
+//        threeView.setAdapter(mThreeListAdapter);
 
-        RequestCityListTask requestCityTask = new RequestCityListTask(this, callback);
-        requestCityTask.execute();
+        RequestCampusListTask requestCampusTask = new RequestCampusListTask(this, callback);
+        requestCampusTask.execute();
     }
 
     private TabLayout.OnTabSelectedListener tabSelectedListener = new TabLayout.OnTabSelectedListener() {
@@ -121,13 +125,13 @@ public class CampusCheckActivity extends AppCompatActivity {
                     }
                     break;
                 }
-                case 2: {
-                    if (mThreeList == null) {
-                        mTabLayout.getTabAt(mCurrentPosition).select();
-                        return;
-                    }
-                    break;
-                }
+//                case 2: {
+//                    if (mThreeList == null) {
+//                        mTabLayout.getTabAt(mCurrentPosition).select();
+//                        return;
+//                    }
+//                    break;
+//                }
             }
             this.mCurrentPosition = tab.getPosition();
         }
@@ -144,10 +148,12 @@ public class CampusCheckActivity extends AppCompatActivity {
     /**
      * 请求服务器数据回来。(我这里是从asset中的json中读取的，模拟从服务器请求。)
      */
-    private RequestCityListTask.Callback callback = new RequestCityListTask.Callback() {
+    private RequestCampusListTask.Callback callback = new RequestCampusListTask.Callback() {
         @Override
-        public void callback(List<City> cities) {
-            mOneList = cities;
+        public void callback(List<Province> provinces) {
+            Log.e("CAMPUS", "callback: " + provinces.size());
+            Log.e("CAMPUS", "callback: " + gson.toJson(provinces.get(0)));
+            mOneList = provinces;
             mOneListAdapter.notifyDataSetChanged(mOneList);
         }
     };
@@ -171,10 +177,20 @@ public class CampusCheckActivity extends AppCompatActivity {
             mOneList.get(mCurrentOneSelect).setSelect(true);
             mOneListAdapter.notifyItemChanged(mCurrentOneSelect);
 
-            City one = mOneList.get(mCurrentOneSelect);
-            mTwoList = one.getCityList();
+            Province one = mOneList.get(mCurrentOneSelect);
+            List<String> campusList = one.getCampusList();
+            mTwoList = new ArrayList<>(campusList.size());
+            for (int i = 0; i < campusList.size(); i++) {
+                mTwoList.add((IEntity) new Campus());
+            }
+            for (int i = 0; i < campusList.size(); i++) {
+                Campus campus = new Campus();
+                campus.setName(campusList.get(i));
+                mTwoList.set(i, (IEntity) campus);
+            }
+
             if (mTwoList == null || mTwoList.size() == 0) { // 选定一级。
-                setResultFinish(one, null, null);
+//                setResultFinish(one, null, null);
             } else {
                 // 更新二级的content和title。
                 mTwoListAdapter.notifyDataSetChanged(mTwoList);
@@ -182,17 +198,18 @@ public class CampusCheckActivity extends AppCompatActivity {
                 mViewPager.setCurrentItem(1, true);
 
                 // 三级置空。
-                mTabLayout.getTabAt(2).setText(null);
-                mThreeList = null;
-                mCurrentTwoSelect = -1;
+//                mTabLayout.getTabAt(2).setText(null);
+//                mThreeList = null;
+//                mCurrentTwoSelect = -1;
             }
         }
     };
 
     /**
      * 市的item被点击。
+     *  学校的item被点击
      */
-    private OnCompatItemClickListener mCityItemClickListener = new OnCompatItemClickListener() {
+    private OnCompatItemClickListener mCampusItemClickListener = new OnCompatItemClickListener() {
         @Override
         public void onItemClick(View view, int position) {
             if (mCurrentTwoSelect == position) {
@@ -209,41 +226,54 @@ public class CampusCheckActivity extends AppCompatActivity {
             mTwoList.get(mCurrentTwoSelect).setSelect(true);
             mTwoListAdapter.notifyItemChanged(mCurrentTwoSelect);
 
-            City two = mTwoList.get(mCurrentTwoSelect);
-            mThreeList = two.getCityList();
-            if (mThreeList == null || mThreeList.size() == 0) { // 选定二级。
-                setResultFinish(mOneList.get(mCurrentOneSelect), two, null);
-            } else {
-                mThreeListAdapter.notifyDataSetChanged(mThreeList);
-                mTabLayout.getTabAt(2).setText(two.getName());
-                mViewPager.setCurrentItem(2, true);
-            }
+            Campus two = (Campus) mTwoList.get(mCurrentTwoSelect);
+            setResultFinish((Province) mOneList.get(mCurrentOneSelect), two);
+//            mThreeList = two.getCampusList();
+//            if (mThreeList == null || mThreeList.size() == 0) { // 选定二级。
+//                setResultFinish(mOneList.get(mCurrentOneSelect), two, null);
+//            } else {
+//                mThreeListAdapter.notifyDataSetChanged(mThreeList);
+//                mTabLayout.getTabAt(2).setText(two.getName());
+//                mViewPager.setCurrentItem(2, true);
+//            }
         }
     };
 
     /**
      * 区的item被点击。
      */
-    private OnCompatItemClickListener mDistrictItemClickListener = new OnCompatItemClickListener() {
-        @Override
-        public void onItemClick(View view, int position) {
-            setResultFinish(mOneList.get(mCurrentOneSelect), mTwoList.get(mCurrentTwoSelect), mThreeList.get(position));
-        }
-    };
+//    private OnCompatItemClickListener mDistrictItemClickListener = new OnCompatItemClickListener() {
+//        @Override
+//        public void onItemClick(View view, int position) {
+//            setResultFinish(mOneList.get(mCurrentOneSelect), mTwoList.get(mCurrentTwoSelect), mThreeList.get(position));
+//        }
+//    };
 
     /**
      * 选中。
      */
-    private void setResultFinish(City province, City city, City district) {
-        ArrayList<City> cityArrayList = new ArrayList<>();
-        cityArrayList.add(province);
-        if (city != null)
-            cityArrayList.add(city);
-        if (district != null)
-            cityArrayList.add(district);
+//    private void setResultFinish(Province province, Province campus, Province district) {
+//        ArrayList<Province> provinceArrayList = new ArrayList<>();
+//        provinceArrayList.add(province);
+//        if (campus != null)
+//            provinceArrayList.add(campus);
+//        if (district != null)
+//            provinceArrayList.add(district);
+//
+//        Intent intent = new Intent();
+//        intent.putParcelableArrayListExtra(KEY_OUTPUT_CAMPUS, provinceArrayList);
+//        setResult(RESULT_OK, intent);
+//        finish();
+//    }
+
+    private void setResultFinish(Province province, Campus campus) {
+        ArrayList<Province> provinceArrayList = new ArrayList<>();
 
         Intent intent = new Intent();
-        intent.putParcelableArrayListExtra(KEY_OUTPUT_PROVINCE_CITY_DISTRICT, cityArrayList);
+        intent.putExtra("province", gson.toJson(province));
+        intent.putExtra("campus", gson.toJson(campus));
+        Log.e("CAMPUS", "setResultFinish: " + gson.toJson(province));
+        Log.e("CAMPUS", "setResultFinish: " + gson.toJson(campus));
         setResult(RESULT_OK, intent);
         finish();
     }
