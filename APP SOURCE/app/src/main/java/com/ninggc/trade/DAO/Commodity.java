@@ -27,7 +27,8 @@ public class Commodity implements IBean, Serializable {
     private String kind;
     private String location;
     private String cityNumber;
-    private int seller_id;
+    private int sellerId;
+    private String sellerName;
 
     public int getId() {
         return id;
@@ -45,26 +46,6 @@ public class Commodity implements IBean, Serializable {
         this.name = name;
     }
 
-//    @Basic
-//    @Column(name = "user_id", nullable = false)
-//    public int getUserId() {
-//        return userId;
-//    }
-//
-//    public void setUserId(int userId) {
-//        this.userId = userId;
-//    }
-//
-//    @Basic
-//    @Column(name = "location_id", nullable = false)
-//    public int getLocationId() {
-//        return locationId;
-//    }
-//
-//    public void setLocationId(int locationId) {
-//        this.locationId = locationId;
-//    }
-
     public Double getPrice() {
         return price;
     }
@@ -79,6 +60,14 @@ public class Commodity implements IBean, Serializable {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public String getDetailLocation() {
+        return detailLocation;
+    }
+
+    public void setDetailLocation(String detailLocation) {
+        this.detailLocation = detailLocation;
     }
 
     public List<AlbumFile> getAlbumFiles() {
@@ -113,12 +102,28 @@ public class Commodity implements IBean, Serializable {
         this.location = location;
     }
 
-    public int getSeller_id() {
-        return seller_id;
+    public String getCityNumber() {
+        return cityNumber;
     }
 
-    public void setSeller_id(int seller_id) {
-        this.seller_id = seller_id;
+    public void setCityNumber(String cityNumber) {
+        this.cityNumber = cityNumber;
+    }
+
+    public int getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(int sellerId) {
+        this.sellerId = sellerId;
+    }
+
+    public String getSellerName() {
+        return sellerName;
+    }
+
+    public void setSellerName(String sellerName) {
+        this.sellerName = sellerName;
     }
 
     @Override
@@ -129,7 +134,8 @@ public class Commodity implements IBean, Serializable {
         Commodity commodity = (Commodity) o;
 
         if (id != commodity.id) return false;
-        if (seller_id != commodity.seller_id) return false;
+        if (sellerId != commodity.sellerId) return false;
+        if (sellerName != commodity.sellerName) return false;
         if (name != null ? !name.equals(commodity.name) : commodity.name != null) return false;
         if (price != null ? !price.equals(commodity.price) : commodity.price != null) return false;
         if (note != null ? !note.equals(commodity.note) : commodity.note != null) return false;
@@ -157,24 +163,9 @@ public class Commodity implements IBean, Serializable {
         result = 31 * result + (kind != null ? kind.hashCode() : 0);
         result = 31 * result + (location != null ? location.hashCode() : 0);
         result = 31 * result + (cityNumber != null ? cityNumber.hashCode() : 0);
-        result = 31 * result + seller_id;
+        result = 31 * result + sellerId;
+        result = 31 * result + (sellerName != null ? sellerName.hashCode() : 0);
         return result;
-    }
-
-    public String getDetailLocation() {
-        return detailLocation;
-    }
-
-    public void setDetailLocation(String detailLocation) {
-        this.detailLocation = detailLocation;
-    }
-
-    public String getCityNumber() {
-        return cityNumber;
-    }
-
-    public void setCityNumber(String cityNumber) {
-        this.cityNumber = cityNumber;
     }
 
     /**
@@ -183,6 +174,7 @@ public class Commodity implements IBean, Serializable {
     public static Commodity getTestInstance() {
         Commodity commodity = new Commodity();
         commodity.setPrice(0.01);
+        commodity.setNote("什么都没有");
         commodity.setImages(Arrays.asList(Constant.image1, Constant.image1, Constant.image1, Constant.image1));
         commodity.setId((int) new Date().getTime());
         return commodity;

@@ -42,7 +42,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="4dp"
-                    android:text="@string/card_main_1_init_time" />
+                    android:text="@string/item_commodity_init_time" />
 
                 <ImageView
                     android:id="@+id/detail_main_1_iv_head_portrait"
@@ -87,7 +87,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/card_main_1_intro"
+                    android:text="@string/item_commodity_intro"
                     android:textSize="18sp" />
             </LinearLayout>
 

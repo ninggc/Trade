@@ -46,8 +46,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_marginStart="14dp"
-                    android:layout_toEndOf="@+id/item_commodity_iv_head_portrait"
-                    android:text="TextView" />
+                    android:layout_toEndOf="@+id/item_commodity_iv_head_portrait" />
             </RelativeLayout>
 
             <HorizontalScrollView

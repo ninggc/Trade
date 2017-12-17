@@ -52,6 +52,8 @@ public class CommodityRecyclerViewAdapter extends RecyclerView.Adapter<Commodity
         holder.position = position;
         final Commodity commodity = list.get(position);
 
+        holder.tv_username.setText(commodity.getSellerName());
+
         String note = commodity.getNote();
         if (note != null) {
             holder.tv_note.setText(note.length() > 20 ?
@@ -69,7 +71,7 @@ public class CommodityRecyclerViewAdapter extends RecyclerView.Adapter<Commodity
             }
         });
 
-        List<String> images = list.get(position).getImages();
+        List<String> images = commodity.getImages();
         // FIXME: 12/17/2017 0017 IMAGE size
         for (int i = 0; i < (images == null ? 10 : images.size()); i++) {
             ImageView imageView = new ImageView(context);
@@ -111,6 +113,7 @@ public class CommodityRecyclerViewAdapter extends RecyclerView.Adapter<Commodity
         private TextView tv_note;
         private TextView tv_price;
         private LinearLayout layout_image;
+        private TextView tv_username;
         private int position;
 
         public RecyclerViewHolder(View itemView) {
@@ -119,6 +122,7 @@ public class CommodityRecyclerViewAdapter extends RecyclerView.Adapter<Commodity
             tv_note = (TextView) itemView.findViewById(R.id.item_commodity_tv_intro);
             tv_price = (TextView) itemView.findViewById(R.id.item_commodity_tv_price);
             layout_image = (LinearLayout) itemView.findViewById(R.id.layout_image);
+            tv_username = (TextView) itemView.findViewById(R.id.item_commodity_tv_username);
         }
     }
 

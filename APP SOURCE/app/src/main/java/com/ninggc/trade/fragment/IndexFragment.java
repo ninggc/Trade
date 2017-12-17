@@ -1,7 +1,6 @@
 package com.ninggc.trade.fragment;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,8 +15,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -32,7 +29,6 @@ import com.ninggc.trade.factory.Server;
 import com.ninggc.trade.factory.constants.Constant;
 import com.ninggc.trade.factory.http.ResponseListener;
 import com.ninggc.trade.factory.image.GlideImageLoader;
-import com.ninggc.trade.factory.constants.IRequestCode;
 import com.yanzhenjie.album.Action;
 import com.yanzhenjie.album.Album;
 import com.yanzhenjie.album.AlbumFile;
@@ -175,7 +171,7 @@ public class IndexFragment extends Fragment implements View.OnClickListener {
 
             c.setName(jsonObject.get("物品名").getAsString());
             c.setNote(jsonObject.get("说明").getAsString());
-            c.setSeller_id(jsonObject.get("出售者id").getAsInt());
+            c.setSellerId(jsonObject.get("出售者id").getAsInt());
             c.setPrice(jsonObject.get("价格").getAsDouble());
             c.setKind(jsonObject.get("种类").getAsString());
             list.add(c);
