@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,8 +28,10 @@ import java.util.List;
 public class PersonalInfoActivity extends BaseActivity {
 
     CollapsingToolbarLayout collapsingToolbarLayout;
+    TextView tv_username;
     TextView tv_from;
     TextView tv_campus;
+    View layout_edit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +55,16 @@ public class PersonalInfoActivity extends BaseActivity {
         super.initView();
 
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
+        tv_username = (TextView) findViewById(R.id.personal_tv_username);
         tv_from = (TextView) findViewById(R.id.personal_info_tv_from);
         tv_campus = (TextView) findViewById(R.id.personal_info_tv_campus);
+        layout_edit = findViewById(R.id.layout_edit);
+        layout_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(PersonalInfoActivity.this, "修改个人信息界面，尚未完成", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -81,6 +92,9 @@ public class PersonalInfoActivity extends BaseActivity {
                 .start();
         mLocationClient.start();
 
+        if (AccountUtil.isLogin()) {
+            tv_username.setText(AccountUtil.getCurrentUser().getName());
+        }
         User user = AccountUtil.getCurrentUser();
         if (user != null && user.getCampus() != null) {
             tv_campus.setText("学校：" + user.getCampus().getName());

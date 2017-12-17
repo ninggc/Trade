@@ -2,11 +2,15 @@ package com.ninggc.trade.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -60,6 +64,20 @@ public class CommodityRecyclerViewAdapter extends RecyclerView.Adapter<Commodity
                 context.startActivity(intent);
             }
         });
+
+        for (int i = 0; i < 5; i++) {
+            ImageView imageView = new ImageView(context);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                imageView.setImageDrawable(context.getDrawable(R.drawable.iphone));
+            }
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            WindowManager windowManager = (WindowManager) context.getSystemService(context.WINDOW_SERVICE);
+            int width = windowManager.getDefaultDisplay().getWidth();
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) ((width / 3.0) - 8),(int) ((width / 3.0) - 8));
+            params.setMargins(8, 0, 0, 0);
+            imageView.setLayoutParams(params);
+            holder.layout_image.addView(imageView);
+        }
     }
 
     @Override
@@ -86,6 +104,7 @@ public class CommodityRecyclerViewAdapter extends RecyclerView.Adapter<Commodity
         private View view;
         private TextView tv_note;
         private TextView tv_price;
+        private LinearLayout layout_image;
         private int position;
 
         public RecyclerViewHolder(View itemView) {
@@ -93,6 +112,7 @@ public class CommodityRecyclerViewAdapter extends RecyclerView.Adapter<Commodity
             this.view = itemView;
             tv_note = (TextView) itemView.findViewById(R.id.card_main_1_tv_intro);
             tv_price = (TextView) itemView.findViewById(R.id.card_main_1_tv_price);
+            layout_image = (LinearLayout) itemView.findViewById(R.id.layout_image);
         }
     }
 

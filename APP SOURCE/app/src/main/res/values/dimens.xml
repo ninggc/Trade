@@ -21,8 +21,8 @@
     <dimen name="head_portrait_horizontal">50dp</dimen>
     <dimen name="head_portrait_vertical">50dp</dimen>
 
-    <dimen name="big_image_horizontal">100dp</dimen>
-    <dimen name="big_image_vertical">100dp</dimen>
+    <dimen name="big_image_horizontal">120dp</dimen>
+    <dimen name="big_image_vertical">120dp</dimen>
     <!-- Image -->
 
     <!--personal-->

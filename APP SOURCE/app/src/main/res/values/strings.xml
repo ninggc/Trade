@@ -185,6 +185,7 @@
     <string name="release_detail_note">详细介绍</string>
     <string name="personal_tv_from">来自：火星</string>
     <string name="personal_tv_campus">学校：无</string>
+    <string name="campus_notice">【公告】 敬请关注</string>
 
     <!-- activity_detail_commodity -->
 </resources>

@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ninggc.trade.DAO.Commodity;
@@ -39,6 +40,7 @@ public class CampusMarketFragment extends Fragment {
     RecyclerView recyclerView;
     CommodityRecyclerViewAdapter adapter;
     SwipeRefreshLayout swipeRefreshLayout;
+    TextView tv_notice;
 
     List<Commodity> commodities = new ArrayList<>();
 
@@ -46,6 +48,14 @@ public class CampusMarketFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         this.view = inflater.inflate(R.layout.fragment_campus_market, container, false);
+
+        initView();
+        initList();
+
+        return view;
+    }
+
+    private void initView() {
         banner = (Banner) view.findViewById(R.id.banner);
         banner.setImageLoader(new GlideImageLoader());
         banner.setImages(Arrays.asList(Constant.image1, Constant.image2, Constant.image3));
@@ -58,9 +68,7 @@ public class CampusMarketFragment extends Fragment {
                 syncList();
             }
         });
-
-        initList();
-        return view;
+        tv_notice = (TextView) view.findViewById(R.id.campus_market_notice);
     }
 
     private void initList() {
