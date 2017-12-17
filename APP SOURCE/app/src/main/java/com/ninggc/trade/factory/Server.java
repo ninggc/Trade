@@ -98,14 +98,14 @@ public class Server {
     public static void showCommodityListWithSort(int sort_id, ResponseListener<String> responseListener) {
 //        Request request = createStringRequest(url + "market/look/sort" + sort_id + "/1", RequestMethod.GET);
 //        // FIXME: 11/16/2017 0016
-//        CallServer.getInstance().add(NO_WHAT, request, responseListener);
+//        CallServer.getTestInstance().add(NO_WHAT, request, responseListener);
 
         Request<String> request = createStringRequest(url + "market/look/sort" + sort_id + "/1", RequestMethod.GET);
         CallServer.getInstance().add(COMMODITY_SHOW_BY_SORT, request, responseListener);
 
 //        Request<String> request = createStringRequest("http://123.207.244.139/GotWord/word/selectByGroup.php", RequestMethod.POST);
 //        request.set("word_group_id", "1");
-//        CallServer.getInstance().add(99, request, responseListener);
+//        CallServer.getTestInstance().add(99, request, responseListener);
     }
 
     public static void showCommodityListWithCampus(int id, ResponseListener<String> responseListener) throws NotSupportNowException {
@@ -117,7 +117,7 @@ public class Server {
     public static void releaseCommodity(Commodity commodity, ResponseListener<String> responseListener) {
         Request request = createStringRequest(url + "market/sell/", RequestMethod.POST);
         request.set("cityname", commodity.getCityNumber());
-        request.set("extra", commodity.getDetail_location());
+        request.set("extra", commodity.getDetailLocation());
         request.set("name", commodity.getName());
         request.set("sort", "12");
         request.set("price", String.valueOf(commodity.getPrice()));
@@ -133,7 +133,7 @@ public class Server {
 
 //    public static void getDetailCommodity(int commodity_id, ResponseListener<String> responseListener) {
 //        Request<String> request = createStringRequest(url + "market/look/commodity/" + commodity_id + "/", RequestMethod.POST);
-//        CallServer.getInstance().add(NO_WHAT, request, responseListener);
+//        CallServer.getTestInstance().add(NO_WHAT, request, responseListener);
 //    }
 
     public static void purchaseCommodity(int commodity_id, ResponseListener<String> listener) {

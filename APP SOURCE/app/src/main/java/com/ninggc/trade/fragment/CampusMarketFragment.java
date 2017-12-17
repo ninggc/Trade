@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ninggc.trade.DAO.Commodity;
 import com.ninggc.trade.R;
@@ -27,7 +26,6 @@ import com.youth.banner.Banner;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -73,17 +71,14 @@ public class CampusMarketFragment extends Fragment {
 
     private void initList() {
         List<Commodity> commodities = new ArrayList<>(10);
+        // TEST: 12/17/2017 0017 TEST 添加10个测试元素
         for (int i = 0; i < 10; i++) {
-            commodities.add(i, new Commodity());
-            commodities.get(i).setPrice(10.0);
-            commodities.get(i).setNote("Hello");
-            commodities.get(i).setId(i);
+            commodities.add(i, Commodity.getTestInstance());
         }
 
         adapter = new CommodityRecyclerViewAdapter(getContext(), commodities);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
-        // TEST: 12/17/2017 0017 TEST 添加10个测试元素
     }
 
     private void syncList() {

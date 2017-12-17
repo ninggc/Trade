@@ -138,12 +138,12 @@
 
     <string name="pref_title_vibrate">Vibrate</string>
 
-    <!-- card_main_1 -->
+    <!-- item_commodity -->
 
-    <string name="card_main_1_init_time">0000-00-00</string>
-    <string name="card_main_1_intro">introduce</string>
+    <string name="item_commodity_init_time">0000-00-00</string>
+    <string name="item_commodity_intro">introduce</string>
 
-    <!-- card_main_1 -->
+    <!-- item_commodity -->
 
     <!-- activity_detail_commodity -->
 
@@ -181,7 +181,7 @@
     <string name="personal_tv_introduce">这个用户喜欢保持神秘哦</string>
     <string name="personal_credit_record">信誉记录</string>
     <string name="choose_city">请选择城市</string>
-    <string name="detail_location">详细地址</string>
+    <string name="detailLocation">详细地址</string>
     <string name="release_detail_note">详细介绍</string>
     <string name="personal_tv_from">来自：火星</string>
     <string name="personal_tv_campus">学校：无</string>

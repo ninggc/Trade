@@ -51,10 +51,14 @@ public class CommodityRecyclerViewAdapter extends RecyclerView.Adapter<Commodity
     public void onBindViewHolder(RecyclerViewHolder holder, int position) {
         holder.position = position;
         final Commodity commodity = list.get(position);
-        holder.tv_note.setText(commodity.getNote().length() > 20 ?
-                commodity.getNote().substring(0, 60) + "..." : commodity.getNote());
+
+        String note = commodity.getNote();
+        if (note != null) {
+            holder.tv_note.setText(note.length() > 20 ?
+                    note.substring(0, 60) + "..." : note);
+        }
+
         holder.tv_price.setText("￥" + commodity.getPrice().toString());
-        Log.e("ADAPTER", "onBindViewHolder: " + commodity.getNote().length());
 
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,7 +69,9 @@ public class CommodityRecyclerViewAdapter extends RecyclerView.Adapter<Commodity
             }
         });
 
-        for (int i = 0; i < 5; i++) {
+        List<String> images = list.get(position).getImages();
+        // FIXME: 12/17/2017 0017 IMAGE size
+        for (int i = 0; i < (images == null ? 10 : images.size()); i++) {
             ImageView imageView = new ImageView(context);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 imageView.setImageDrawable(context.getDrawable(R.drawable.iphone));
@@ -110,8 +116,8 @@ public class CommodityRecyclerViewAdapter extends RecyclerView.Adapter<Commodity
         public RecyclerViewHolder(View itemView) {
             super(itemView);
             this.view = itemView;
-            tv_note = (TextView) itemView.findViewById(R.id.card_main_1_tv_intro);
-            tv_price = (TextView) itemView.findViewById(R.id.card_main_1_tv_price);
+            tv_note = (TextView) itemView.findViewById(R.id.item_commodity_tv_intro);
+            tv_price = (TextView) itemView.findViewById(R.id.item_commodity_tv_price);
             layout_image = (LinearLayout) itemView.findViewById(R.id.layout_image);
         }
     }

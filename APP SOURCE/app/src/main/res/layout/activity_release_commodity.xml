@@ -137,7 +137,7 @@
                 <EditText
                     android:text="TEST"
                     android:id="@+id/release_et_detail_location"
-                    android:hint="@string/detail_location"
+                    android:hint="@string/detailLocation"
                     android:layout_width="0dp"
                     android:layout_weight="40"
                     android:layout_marginLeft="8dp"

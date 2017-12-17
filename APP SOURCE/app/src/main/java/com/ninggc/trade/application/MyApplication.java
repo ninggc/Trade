@@ -87,12 +87,12 @@ public class MyApplication extends MobApplication {
         //在做打包混淆时，关闭debug模式，避免消耗不必要的资源
         EMClient.getInstance().setDebugMode(true);
 
-//        EMChatManager.getInstance().getChatOptions().setUseRoster(true)
+//        EMChatManager.getTestInstance().getChatOptions().setUseRoster(true)
         EaseUI.getInstance().init(context, null);
     }
 
     void initTiny() {
-//        Tiny.getInstance().init(this);
+//        Tiny.getTestInstance().init(this);
     }
 
     private String getAppName(int pID) {

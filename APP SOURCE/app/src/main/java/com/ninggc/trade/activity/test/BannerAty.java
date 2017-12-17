@@ -58,7 +58,7 @@ public class BannerAty extends BaseActivity {
 //                    banner.setImageLoader(new GliderImageloader());
 //                    banner.setDelayTime(2000);
 //                    //设置图片集合
-//                    banner.setImages(images);
+//                    banner.setAlbumFiles(images);
 //                    //banner设置方法全部调用完毕时最后调用
 //                    banner.isAutoPlay(true);
 //                    banner.start();

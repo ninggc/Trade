@@ -95,8 +95,8 @@ public class ReleaseCommodityActivity extends BaseActivity implements View.OnCli
 //            {
 //                Calendar now = null;
 //                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-//                    now = Calendar.getInstance(Locale.CHINA);
-//                    final Calendar c = Calendar.getInstance(Locale.CHINA);
+//                    now = Calendar.getTestInstance(Locale.CHINA);
+//                    final Calendar c = Calendar.getTestInstance(Locale.CHINA);
 //                    new DatePickerDialog(ReleaseCommodityActivity.this,
 //                            new DatePickerDialog.OnDateSetListener() {
 //                                @Override
@@ -246,12 +246,12 @@ public class ReleaseCommodityActivity extends BaseActivity implements View.OnCli
             Toast.makeText(this, "请选择至少一张图片", Toast.LENGTH_SHORT).show();
             return null;
         } else {
-            commodity.setImages(images);
+            commodity.setAlbumFiles(images);
         }
 
         commodity.setCityNumber(cityNumber);
-        commodity.setDetail_location(et_detail_location.getText().toString());
-        if (cityNumber == null || "".equals(cityNumber) || commodity.getDetail_location() == null || "".equals(commodity.getDetail_location())) {
+        commodity.setDetailLocation(et_detail_location.getText().toString());
+        if (cityNumber == null || "".equals(cityNumber) || commodity.getDetailLocation() == null || "".equals(commodity.getDetailLocation())) {
             Toast.makeText(this, "请选择地址", Toast.LENGTH_SHORT).show();
             return null;
         }

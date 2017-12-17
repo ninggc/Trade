@@ -24,7 +24,7 @@
                 android:layout_marginBottom="@dimen/little_margin_4">
 
                 <TextView
-                    android:id="@+id/card_main_1_tv_price"
+                    android:id="@+id/item_commodity_tv_price"
                     android:text="￥0"
                     android:textSize="15sp"
                     android:layout_width="wrap_content"
@@ -34,15 +34,24 @@
                     android:layout_marginEnd="4dp" />
 
                 <ImageView
-                    android:id="@+id/card_main_1_iv_head_portrait"
+                    android:id="@+id/item_commodity_iv_head_portrait"
                     android:layout_width="@dimen/head_portrait_horizontal"
                     android:layout_height="@dimen/head_portrait_vertical"
                     android:scaleType="centerCrop"
                     app:srcCompat="@drawable/panda" />
 
+                <TextView
+                    android:id="@+id/item_commodity_tv_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="14dp"
+                    android:layout_toEndOf="@+id/item_commodity_iv_head_portrait"
+                    android:text="TextView" />
             </RelativeLayout>
 
-            <android.support.v4.widget.NestedScrollView
+            <HorizontalScrollView
+                android:layout_marginTop="4dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
@@ -54,14 +63,14 @@
                     android:layout_marginBottom="@dimen/little_margin_4">
 
                 </LinearLayout>
-            </android.support.v4.widget.NestedScrollView>
+            </HorizontalScrollView>
 
             <TextView
-                android:id="@+id/card_main_1_tv_intro"
+                android:id="@+id/item_commodity_tv_intro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/card_main_1_intro"
+                android:text="@string/item_commodity_intro"
                 android:textSize="18sp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"/>
