@@ -64,7 +64,7 @@ public class DetailCommodityActivity extends BaseActivity {
         commodity = (Commodity) getIntent().getSerializableExtra("commodity");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+//        layout_toolbar.setNavigationOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
 //                finish();

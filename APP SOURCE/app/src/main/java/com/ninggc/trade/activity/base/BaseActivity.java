@@ -25,12 +25,13 @@ import com.yanzhenjie.nohttp.rest.Request;
 public abstract class BaseActivity extends AppCompatActivity {
 //    private Object cancelObject = new Object();
 
-    public String TAG = getClass().getSimpleName();
-    public String TAG_NOHTTP = "NOHTTP";
-    public String TAG_INFO = "INFO";
-    public String TAG_BaiduMap = "BaiduMap";
+    @Deprecated public String TAG = getClass().getSimpleName();
+    public static final String TAG_NOHTTP = "NOHTTP";
+    public static final String TAG_INFO = "INFO";
+    public static final String TAG_BaiduMap = "BaiduMap";
+    public static final String TAG_CAMPUS = "CAMPUS";
 
-    public Gson gson = new Gson();
+    public static Gson gson = new Gson();
 //    public String url_commodity = url + "/commodity";
 
     public LocationClient mLocationClient = null;
@@ -58,18 +59,14 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * 初始化视图,在onCreate调用
      */
-    protected void initView() {
-
-    }
+    protected void initView() { }
 
     /**
      * 初始化数据
      * 在onCreate调用
      * initView调用之后调用
      */
-    protected void initData() {
-
-    }
+    protected void initData() { }
 
     protected void initBaiduMapLocation(BDAbstractLocationListener listener) {
         mLocationClient = new LocationClient(getApplicationContext());

@@ -4,6 +4,10 @@
         icon="@drawable/bottom_home"
         title="Favorites" />
     <tab
+        id="@+id/tab_campus"
+        icon="@drawable/bottom_campus"
+        title="Friends" />
+    <tab
         id="@+id/tab_chat"
         icon="@drawable/bottom_chat"
         title="Friends" />
@@ -11,8 +15,4 @@
         id="@+id/tab_contact"
         icon="@drawable/bottom_contact"
         title="Nearby" />
-    <tab
-        id="@+id/tab_campus"
-        icon="@drawable/bottom_campus"
-        title="Friends" />
 </tabs>

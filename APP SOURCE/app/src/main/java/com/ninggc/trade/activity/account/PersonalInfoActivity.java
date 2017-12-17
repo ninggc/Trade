@@ -1,6 +1,7 @@
 package com.ninggc.trade.activity.account;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -9,14 +10,25 @@ import android.widget.Toast;
 
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
+import com.ninggc.trade.DAO.Campus;
 import com.ninggc.trade.DAO.Location;
+import com.ninggc.trade.DAO.User;
 import com.ninggc.trade.R;
 import com.ninggc.trade.activity.base.BaseActivity;
+import com.yanzhenjie.alertdialog.AlertDialog;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.Permission;
+import com.yanzhenjie.permission.PermissionListener;
+import com.yanzhenjie.permission.Rationale;
+import com.yanzhenjie.permission.RationaleListener;
+
+import java.util.List;
 
 public class PersonalInfoActivity extends BaseActivity {
 
     CollapsingToolbarLayout collapsingToolbarLayout;
     TextView tv_from;
+    TextView tv_campus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +53,7 @@ public class PersonalInfoActivity extends BaseActivity {
 
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
         tv_from = (TextView) findViewById(R.id.personal_info_tv_from);
+        tv_campus = (TextView) findViewById(R.id.personal_info_tv_campus);
     }
 
     @Override
@@ -61,7 +74,31 @@ public class PersonalInfoActivity extends BaseActivity {
                 tv_from.setText("来自: " + addr);
             }
         });
-
+        AndPermission.with(this)
+                .requestCode(100)
+                .permission(Permission.LOCATION)
+                .callback(permissionListener)
+                .start();
         mLocationClient.start();
+
+        User user = AccountUtil.getCurrentUser();
+        if (user != null && user.getCampus() != null) {
+            tv_campus.setText("学校：" + user.getCampus().getName());
+        } else {
+            tv_campus.setText("学校：无");
+        }
     }
+
+    private PermissionListener permissionListener = new PermissionListener() {
+        @Override
+        public void onSucceed(int requestCode, @NonNull List<String> grantPermissions) {
+            Log.e("PERMISSION", "onSucceed: " + requestCode);
+        }
+
+        @Override
+        public void onFailed(int requestCode, @NonNull List<String> deniedPermissions) {
+            Toast.makeText(PersonalInfoActivity.this, "无法获取定位权限", Toast.LENGTH_SHORT).show();
+            Log.e("PERMISSION", "onFailed: " + gson.toJson(deniedPermissions));
+        }
+    };
 }

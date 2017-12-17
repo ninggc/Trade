@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity
     TextView nav_header_tv_login;
     TextView nav_header_tv_tip;
 
-    MyFragmentPagerAdapter myFragmentPagerAdapter;
+//    MyFragmentPagerAdapter myFragmentPagerAdapter;
     Tencent mTencent;
     IUiListener QQUIListener;
 
@@ -290,9 +290,9 @@ public class MainActivity extends AppCompatActivity
 //        });
 
         final IndexFragment indexFragment = new IndexFragment();
+        final CampusMarketFragment campusMarketFragment = new CampusMarketFragment();
         final TestListFragment testListFragment = new TestListFragment();
         final ConversationListFragment conversationListFragment = new ConversationListFragment();
-        final CampusMarketFragment campusMarketFragment = new CampusMarketFragment();
         conversationListFragment.setConversationListItemClickListener(new EaseConversationListFragment.EaseConversationListItemClickListener() {
             @Override
             public void onListItemClicked(EMConversation conversation) {

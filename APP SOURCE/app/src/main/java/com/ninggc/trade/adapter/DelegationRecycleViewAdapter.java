@@ -13,6 +13,7 @@ import com.ninggc.trade.DAO.Delegation;
 import com.ninggc.trade.R;
 import com.ninggc.trade.activity.c_d_activity.DetailDelegationActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,11 +24,15 @@ public class DelegationRecycleViewAdapter extends RecyclerView.Adapter<Delegatio
     Context context;
     List<Delegation> list;
 
-    public DelegationRecycleViewAdapter(Context context, List<Delegation> list) {
+    public DelegationRecycleViewAdapter(Context context) {
         this.context = context;
-        this.list = list;
+        this.list = new ArrayList<>();
     }
 
+    public DelegationRecycleViewAdapter(Context context, List<Delegation> list) {
+        this.context = context;
+        this.list = (list == null ? new ArrayList<>() : list);
+    }
 
     @Override
     public RecyclerViewHoler onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -71,8 +76,10 @@ public class DelegationRecycleViewAdapter extends RecyclerView.Adapter<Delegatio
 
     public void addItem(Delegation d) {
         for (int i = 0; i < list.size(); i++) {
+            //id 相同则比较
             if (d.getId() == list.get(i).getId()) {
-                if (d.equals(list.get(i))) {
+                //不一样就替换
+                if (!d.equals(list.get(i))) {
                     list.set(i, d);
                     notifyItemChanged(i);
                     return;

@@ -8,7 +8,7 @@
 
     <include
         android:id="@+id/include"
-        layout="@layout/toolbar" />
+        layout="@layout/layout_toolbar" />
 
     <Button
         android:id="@+id/login_btn_logout"

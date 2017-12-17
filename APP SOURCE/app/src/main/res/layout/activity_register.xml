@@ -15,7 +15,7 @@
         tools:layout_editor_absoluteY="0dp"
         tools:ignore="MissingConstraints">
 
-        <include layout="@layout/toolbar" />
+        <include layout="@layout/layout_toolbar" />
 
         <android.support.design.widget.TextInputLayout
             android:layout_marginTop="50dp"

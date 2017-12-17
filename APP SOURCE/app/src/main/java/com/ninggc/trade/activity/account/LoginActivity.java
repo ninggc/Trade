@@ -322,25 +322,31 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                     @Override
                     public void onSucceed(int what, Response<String> response) {
                         super.onSucceed(what, response);
-                        if (response.responseCode() == 200) {
-                            loginForEMC(account, password);
-                            User user = new User();
-                            user.setName(account);
+                        try {
+                            if (response.responseCode() == 200) {
+                                loginForEMC(account, password);
+                                User user = new User();
+                                user.setName(account);
 
-                            String cookie = Server.request.getHeaders().getValue("Cookie");
-                            String[] i = cookie.split("=");
-                            String Cookie = i[1];
+                                String cookie = Server.request.getHeaders().getValue("Cookie");
+                                String[] i = cookie.split("=");
+                                String Cookie = i[1];
 
-                            AccountUtil.login(user, Cookie);
-                            if (AccountUtil.isLogin()) {
-                                loginSuccess();
+                                AccountUtil.login(user, Cookie);
+                                if (AccountUtil.isLogin()) {
+                                    loginSuccess();
+                                } else {
+                                    Log.e(TAG, "onSucceed: " + "cookie is null");
+                                    loginFailed();
+                                }
                             } else {
-                                Log.e(TAG, "onSucceed: " + "cookie is null");
+                                Log.e(TAG, "onSucceed: " + response.responseCode());
                                 loginFailed();
                             }
-                        } else {
-                            Log.e(TAG, "onSucceed: " + response.responseCode());
-                            loginFailed();
+
+                        } catch (Exception e) {
+                            Toast.makeText(LoginActivity.this, "登录异常，请重新登录", Toast.LENGTH_SHORT).show();
+                            e.printStackTrace();
                         }
                     }
 

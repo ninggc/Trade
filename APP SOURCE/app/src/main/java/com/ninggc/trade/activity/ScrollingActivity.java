@@ -38,7 +38,7 @@ public class ScrollingActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 //        app_bar_layout.setSubtitle("Hello");
-//        toolbar.setTitle("title");
+//        layout_toolbar.setTitle("title");
 
 
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

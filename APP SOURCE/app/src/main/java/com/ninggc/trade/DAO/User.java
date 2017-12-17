@@ -13,6 +13,7 @@ public class User implements IBean {
     private String unique;
     private String portrait;
     private String MD5;
+    private Campus campus;
 
     public int getId() {
         return id;
@@ -76,6 +77,14 @@ public class User implements IBean {
 
     public void setMD5(String MD5) {
         this.MD5 = MD5;
+    }
+
+    public Campus getCampus() {
+        return campus;
+    }
+
+    public void setCampus(Campus campus) {
+        this.campus = campus;
     }
 
     @Override

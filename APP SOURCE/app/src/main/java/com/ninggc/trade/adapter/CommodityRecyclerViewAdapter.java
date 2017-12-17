@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.ninggc.trade.DAO.Commodity;
 import com.ninggc.trade.R;
 import com.ninggc.trade.activity.c_d_activity.DetailCommodityActivity;
@@ -29,7 +30,7 @@ public class CommodityRecyclerViewAdapter extends RecyclerView.Adapter<Commodity
 
     public CommodityRecyclerViewAdapter(Context context, List<Commodity> commodities) {
         this.context = context;
-        this.list = commodities;
+        list = commodities == null ? list = new ArrayList<>() : commodities;
     }
 
     public CommodityRecyclerViewAdapter(Context context) {
@@ -97,8 +98,10 @@ public class CommodityRecyclerViewAdapter extends RecyclerView.Adapter<Commodity
 
     public void addItem(Commodity c) {
         for (int i = 0; i < list.size(); i++) {
+            //id 相同则比较
             if (c.getId() == list.get(i).getId()) {
-                if (c.equals(list.get(i))) {
+                //不一样就替换
+                if (!c.equals(list.get(i))) {
                     list.set(i, c);
                     notifyItemChanged(i);
                     return;
@@ -110,11 +113,19 @@ public class CommodityRecyclerViewAdapter extends RecyclerView.Adapter<Commodity
 
         this.list.add(c);
         notifyItemChanged(list.size());
+        Log.e("ADAPTER", "addItem: " + new Gson().toJson(this.list));
     }
 
     public void addItem(List<Commodity> list) {
         for (Commodity c : list) {
             addItem(c);
         }
+        Log.e("ADAPTER", "addAllItem: " + new Gson().toJson(this.list));
+    }
+
+    public void changeList(List<Commodity> list) {
+        this.list = list;
+        notifyDataSetChanged();
+        Log.e("ADAPTER", "changeList: " + new Gson().toJson(this.list));
     }
 }

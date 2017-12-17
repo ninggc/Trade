@@ -60,7 +60,7 @@ public class CommodityList extends BaseActivity {
     @Override
     protected void initView() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        toolbar.setTitleTextColor(getResources().getColor(R.color.white));
+//        layout_toolbar.setTitleTextColor(getResources().getColor(R.color.white));
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         recyclerView = (RecyclerView) findViewById(R.id.list_1_recyclerview);
