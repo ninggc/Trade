@@ -311,11 +311,7 @@ public class MainActivity extends AppCompatActivity
                     fragmentTransaction.commit();
                 } else if (tabId == R.id.tab_contact) {
                     FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    if (!AccountUtil.isLogin()) {
-                        fragmentTransaction.replace(R.id.contentContainer, new PleaseLoginFragment(indexFragment));
-                    } else {
-                        fragmentTransaction.replace(R.id.contentContainer, testListFragment);
-                    }
+                    fragmentTransaction.replace(R.id.contentContainer, testListFragment);
                     fragmentTransaction.commit();
                 } else if (tabId == R.id.tab_chat) {
                     FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();

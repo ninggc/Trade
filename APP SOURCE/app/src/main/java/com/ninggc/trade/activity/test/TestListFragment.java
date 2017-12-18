@@ -27,11 +27,18 @@ import com.ninggc.trade.DAO.Campus;
 import com.ninggc.trade.DAO.Province;
 import com.ninggc.trade.R;
 import com.ninggc.trade.activity.account.AccountUtil;
+import com.ninggc.trade.activity.base.BaseActivity;
 import com.ninggc.trade.activity.ease.ContactActivity;
 import com.ninggc.trade.address.AddressCheckActivity;
 import com.ninggc.trade.address.City;
 import com.ninggc.trade.address.CampusCheckActivity;
+import com.ninggc.trade.factory.nohttp.CallServer;
 import com.ninggc.trade.test.TestBaiduMap;
+import com.yanzhenjie.nohttp.NoHttp;
+import com.yanzhenjie.nohttp.RequestMethod;
+import com.yanzhenjie.nohttp.rest.Request;
+import com.yanzhenjie.nohttp.rest.Response;
+import com.yanzhenjie.nohttp.rest.SimpleResponseListener;
 
 import java.util.ArrayList;
 
@@ -165,14 +172,15 @@ public class TestListFragment extends ListFragment {
             @Override
             public void onClick(View v) {
                 if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (!shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)) {
-                        Toast.makeText(getContext(), "您已经点击不再提醒，无法获得操作权限", Toast.LENGTH_SHORT).show();
-                    }
                     if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
                         Toast.makeText(getContext(), "恭喜你有CAMERA权限", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(getContext(), "没有CAMERA权限", Toast.LENGTH_SHORT).show();
-                        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA}, 0);
+                        if (!shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)) {
+                            Toast.makeText(getContext(), "您已经点击不再提醒，无法获得操作权限", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getContext(), "没有CAMERA权限", Toast.LENGTH_SHORT).show();
+                            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA}, 0);
+                        }
                     }
                 }
             }
@@ -182,6 +190,33 @@ public class TestListFragment extends ListFragment {
             @Override
             public void onClick(View v) {
                 selectCampus();
+            }
+        });
+
+        adapter.addItem("TestURL === 一次性的小测试", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Request<String> request = NoHttp.createStringRequest("http://123.207.244.139:8082/usermage/login/", RequestMethod.POST);
+                request.set("type", "1");
+                request.set("username", "ning");
+                request.set("password", "123");
+                CallServer.getInstance().add(0, request, new SimpleResponseListener() {
+                    @Override
+                    public void onSucceed(int what, Response response) {
+                        Log.e(BaseActivity.TAG_NOHTTP, "onSucceed: " + response.get());
+                        super.onSucceed(what, response);
+                    }
+
+                    @Override
+                    public void onFailed(int what, Response response) {
+                        super.onFailed(what, response);
+                    }
+
+                    @Override
+                    public void onFinish(int what) {
+                        super.onFinish(what);
+                    }
+                });
             }
         });
     }
