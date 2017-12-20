@@ -22,6 +22,8 @@ public class Constant {
     public static final String image2 = "https://cdn1.iconfinder.com/data/icons/green-business/720/customer-care-128.png";
     public static final String image3 = "https://cdn2.iconfinder.com/data/icons/message-1-line/64/Chat_greeting_hello_message-128.png";
 
+    public static final String localImage = "/storage/emulated/0/DCIM/P71220-092808.jpg";
+
 
     public static final String QQ_APP_ID = "1106325208";
     public static final String QQ_APP_KEY = "DmwXgfjPfNXjMI3E";

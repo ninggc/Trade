@@ -25,4 +25,11 @@
         <item>小说</item>
     </string-array>
 
+    <string-array name="title_book">
+        <item>计算机</item>
+        <item>机械设计</item>
+        <item>经济管理</item>
+        <item>材料科学</item>
+        <item>其他</item>
+    </string-array>
 </resources>

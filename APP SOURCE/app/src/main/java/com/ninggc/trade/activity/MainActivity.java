@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -53,6 +54,7 @@ import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.ninggc.trade.factory.constants.Constant.CANCEL;
 import static com.ninggc.trade.factory.constants.Constant.DEBUG;
@@ -81,6 +83,7 @@ public class MainActivity extends AppCompatActivity
 
     private int mCurrentViewPagerPosition = 0;
     public static MainActivity mainActivity;
+    public static List<Fragment> fragments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -259,7 +262,7 @@ public class MainActivity extends AppCompatActivity
 //        fragments.add(conversationListFragment);
 //        fragments.add(new TestFragment());
 //        myFragmentPagerAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), fragments, titles);
-//        main_view_pager.setAdapter(myFragmentPagerAdapter);
+//        main_view_pager.asetAdapter(myFragmentPagerAdapter);
 //        main_tabLayout.setupWithViewPager(main_view_pager);
 //        main_tabLayout.setTabsFromPagerAdapter(myFragmentPagerAdapter);
         //set fab init status
@@ -289,10 +292,16 @@ public class MainActivity extends AppCompatActivity
 //            }
 //        });
 
+        fragments = new ArrayList<>();
         final IndexFragment indexFragment = new IndexFragment();
         final CampusMarketFragment campusMarketFragment = new CampusMarketFragment();
-        final TestListFragment testListFragment = new TestListFragment();
         final ConversationListFragment conversationListFragment = new ConversationListFragment();
+        final TestListFragment testListFragment = new TestListFragment();
+        fragments.add(indexFragment);
+        fragments.add(campusMarketFragment);
+        fragments.add(conversationListFragment);
+        fragments.add(testListFragment);
+
         conversationListFragment.setConversationListItemClickListener(new EaseConversationListFragment.EaseConversationListItemClickListener() {
             @Override
             public void onListItemClicked(EMConversation conversation) {

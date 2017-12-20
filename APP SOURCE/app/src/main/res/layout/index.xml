@@ -40,7 +40,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="15sp"
                         android:layout_gravity="center_horizontal"
-                        android:text="卖闲置" />
+                        android:text="大一" />
 
                     <ImageView
                         android:id="@+id/index_iv_11"
@@ -62,7 +62,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="15sp"
                         android:layout_gravity="center_horizontal"
-                        android:text="逛同城" />
+                        android:text="大二" />
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -82,7 +82,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="15sp"
                         android:layout_gravity="center_horizontal"
-                        android:text="租房子" />
+                        android:text="大三大四" />
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -103,7 +103,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="15sp"
                         android:layout_gravity="center_horizontal"
-                        android:text="淘书籍" />
+                        android:text="研究生" />
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -127,7 +127,7 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:text="捡漏"
+                        android:text="淘书籍"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
@@ -156,7 +156,7 @@
                             android:layout_height="match_parent"
                             android:layout_marginTop="20dp"
                             android:layout_marginLeft="20dp"
-                            android:text="七折转手"/>
+                            android:text="文学"/>
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -176,7 +176,7 @@
                             android:layout_height="match_parent"
                             android:layout_marginTop="20dp"
                             android:layout_marginLeft="20dp"
-                            android:text="法院卖货"/>
+                            android:text="科学"/>
                     </LinearLayout>
                 </LinearLayout>
                 <!--竖分割线-->
@@ -197,7 +197,7 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:text="猎奇"
+                        android:text="日常用品"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
@@ -226,7 +226,7 @@
                             android:layout_height="match_parent"
                             android:layout_marginTop="20dp"
                             android:layout_marginLeft="20dp"
-                            android:text="仅此一件"/>
+                            android:text="文具"/>
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -246,7 +246,7 @@
                             android:layout_height="match_parent"
                             android:layout_marginTop="20dp"
                             android:layout_marginLeft="20dp"
-                            android:text="明星周边"/>
+                            android:text="衣物"/>
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>

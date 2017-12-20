@@ -36,12 +36,33 @@
                 android:layout_width="match_parent"
                 android:layout_height="10dp"/>
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerview"
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tab_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-            </android.support.v7.widget.RecyclerView>
+            </android.support.design.widget.TabLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <com.ninggc.trade.view.MyViewPager
+                    android:id="@+id/view_pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp">
+
+                </com.ninggc.trade.view.MyViewPager>
+
+                <!--<ImageView-->
+                    <!--android:src="@drawable/panda"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent" />-->
+            </LinearLayout>
+
+            <!--<include layout="@layout/layout_recyclerview"/>-->
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </android.support.v4.widget.SwipeRefreshLayout>
