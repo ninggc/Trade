@@ -129,8 +129,8 @@ public class MainActivity extends AppCompatActivity
     protected void onResume() {
         super.onResume();
         if (AccountUtil.isLogin()) {
-            AccountUtil.getCurrentUser().getName();
-            nav_header_tv_login.setText(AccountUtil.getCurrentUser().getName());
+            AccountUtil.getCurrentUser().getUsername();
+            nav_header_tv_login.setText(AccountUtil.getCurrentUser().getUsername());
             nav_header_tv_tip.setVisibility(View.VISIBLE);
         } else {
             nav_header_tv_login.setText(getResources().getString(R.string.header_main_login_tip));
@@ -192,7 +192,7 @@ public class MainActivity extends AppCompatActivity
         if (user != null && cookie != null) {
             AccountUtil.login(user, cookie);
             // FIXME: 11/12/2017 0012 账号拟登陆
-            final String username = user.getName();
+            final String username = user.getUsername();
             final String password = "123";
             EMClient.getInstance().login(username, password, new EMCallBack() {
                 @Override
@@ -484,7 +484,7 @@ public class MainActivity extends AppCompatActivity
         //修改首页显示的用户名
         if (AccountUtil.isLogin()) {
             Log.e(TAG, "onActivityResult: " + "登陆成功");
-            nav_header_tv_login.setText(AccountUtil.getCurrentUser().getName());
+            nav_header_tv_login.setText(AccountUtil.getCurrentUser().getUsername());
             nav_header_tv_tip.setVisibility(View.INVISIBLE);
             accountSPUtil.saveUserToLocal();
 //            Toast.makeText(this, "登陆成功", Toast.LENGTH_SHORT).show();

@@ -63,7 +63,7 @@ public class ScrollingActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if (AccountUtil.isLogin()) {
-            tv_username.setText(AccountUtil.getCurrentUser().getName());
+            tv_username.setText(AccountUtil.getCurrentUser().getUsername());
         } else {
             tv_username.setText(getResources().getString(R.string.login_please_login));
         }

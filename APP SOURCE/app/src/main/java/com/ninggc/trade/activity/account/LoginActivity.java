@@ -322,17 +322,24 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                     @Override
                     public void onSucceed(int what, Response<String> response) {
                         super.onSucceed(what, response);
+                        String s = response.get();
+                        Log.e(TAG_NOHTTP + TAG_INFO, "onSucceed: " + s);
+                        if ("006".equals(s)) {
+                            Toast.makeText(LoginActivity.this, "用户名或密码错误", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
                         try {
                             if (response.responseCode() == 200) {
                                 loginForEMC(account, password);
                                 User user = new User();
-                                user.setName(account);
+                                user = gson.fromJson(s, User.class);
 
                                 String cookie = Server.request.getHeaders().getValue("Cookie");
                                 String[] i = cookie.split("=");
                                 String Cookie = i[1];
 
                                 AccountUtil.login(user, Cookie);
+
                                 if (AccountUtil.isLogin()) {
                                     loginSuccess();
                                 } else {

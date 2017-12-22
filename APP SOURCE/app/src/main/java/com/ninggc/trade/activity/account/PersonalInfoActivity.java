@@ -93,7 +93,7 @@ public class PersonalInfoActivity extends BaseActivity {
         mLocationClient.start();
 
         if (AccountUtil.isLogin()) {
-            tv_username.setText(AccountUtil.getCurrentUser().getName());
+            tv_username.setText(AccountUtil.getCurrentUser().getUsername());
         }
         User user = AccountUtil.getCurrentUser();
         if (user != null && user.getCampus() != null) {
