@@ -170,7 +170,7 @@
         <!-- QQ登录 -->
 
         <activity
-            android:name=".activity.ScrollingActivity"
+            android:name=".activity.account.PersonalActivity"
             android:label="@string/title_activity_scrolling"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

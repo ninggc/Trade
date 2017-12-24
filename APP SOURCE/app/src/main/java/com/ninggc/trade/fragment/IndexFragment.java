@@ -172,7 +172,7 @@ public class IndexFragment extends Fragment implements View.OnClickListener, IGs
 //
 //            c.setName(jsonObject.get("物品名").getAsString());
 //            c.setNote(jsonObject.get("说明").getAsString());
-//            c.setSellerId(jsonObject.get("出售者id").getAsInt());
+//            c.setUserId(jsonObject.get("出售者id").getAsInt());
 //            c.setPrice(jsonObject.get("价格").getAsDouble());
 //            c.setSort(jsonObject.get("种类").getAsString());
 //            list.add(c);

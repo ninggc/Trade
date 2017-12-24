@@ -1,0 +1,412 @@
+{
+	"info": {
+		"name": "Trade",
+		"_postman_id": "540d86b2-b085-108e-a4d9-52381defc23d",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "trade",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": ""
+				},
+				"description": "test trade api"
+			},
+			"response": []
+		},
+		{
+			"name": "123.207.244.139:8082",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "123.207.244.139:8082",
+					"host": [
+						"123",
+						"207",
+						"244",
+						"139"
+					],
+					"port": "8082"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "123.207.244.139:8082/usermage",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "123.207.244.139:8082/usermage",
+					"host": [
+						"123",
+						"207",
+						"244",
+						"139"
+					],
+					"port": "8082",
+					"path": [
+						"usermage"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "1",
+							"equals": true,
+							"disabled": true
+						}
+					]
+				},
+				"description": "test trade api"
+			},
+			"response": []
+		},
+		{
+			"name": "登录",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "type",
+							"value": "1",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "ning",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "1234",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "123.207.244.139:8082/usermage/login/",
+					"host": [
+						"123",
+						"207",
+						"244",
+						"139"
+					],
+					"port": "8082",
+					"path": [
+						"usermage",
+						"login",
+						""
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "添加用户",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "ning",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "ageinpassword",
+							"value": "123",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "phone",
+							"value": "12345678902",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "123456797@qq.com",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "schoolid_id",
+							"value": "1",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "123.207.244.139:8082/usermage/adduser/",
+					"host": [
+						"123",
+						"207",
+						"244",
+						"139"
+					],
+					"port": "8082",
+					"path": [
+						"usermage",
+						"adduser",
+						""
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "123.207.244.139:8082/market/comment/2/",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "123.207.244.139:8082/market/comment/2/",
+					"host": [
+						"123",
+						"207",
+						"244",
+						"139"
+					],
+					"port": "8082",
+					"path": [
+						"market",
+						"comment",
+						"2",
+						""
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "添加商品",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "sessionid",
+						"value": "zr6qo91grfj9iz1tn5pv9utxcehsp9jt"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "type",
+							"value": "1",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "country",
+							"value": "China",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "province",
+							"value": "LiaoNing",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "cityname",
+							"value": "ShenYang",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "Phone",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "sort",
+							"value": "2",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "price",
+							"value": "12.3",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "note",
+							"value": "none",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "123.207.244.139:8082/market/sell/",
+					"host": [
+						"123",
+						"207",
+						"244",
+						"139"
+					],
+					"port": "8082",
+					"path": [
+						"market",
+						"sell",
+						""
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "123.207.244.139:8082/market/look/commodity/1/",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "123.207.244.139:8082/market/look/commodity/1/",
+					"host": [
+						"123",
+						"207",
+						"244",
+						"139"
+					],
+					"port": "8082",
+					"path": [
+						"market",
+						"look",
+						"commodity",
+						"1",
+						""
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "查看所有商品",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "type",
+							"value": "1",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "123.207.244.139:8082/market/look/all/1",
+					"host": [
+						"123",
+						"207",
+						"244",
+						"139"
+					],
+					"port": "8082",
+					"path": [
+						"market",
+						"look",
+						"all",
+						"1"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "商品 购买",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "123.207.244.139:8082/market/buy/1",
+					"host": [
+						"123",
+						"207",
+						"244",
+						"139"
+					],
+					"port": "8082",
+					"path": [
+						"market",
+						"buy",
+						"1"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "商品 查看 类别",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "123.207.244.139:8082/market/look/sort12/1",
+					"host": [
+						"123",
+						"207",
+						"244",
+						"139"
+					],
+					"port": "8082",
+					"path": [
+						"market",
+						"look",
+						"sort12",
+						"1"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

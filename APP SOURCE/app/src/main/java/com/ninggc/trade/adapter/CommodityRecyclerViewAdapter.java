@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.ninggc.trade.DAO.Commodity;
 import com.ninggc.trade.R;
+import com.ninggc.trade.activity.account.PersonalActivity;
 import com.ninggc.trade.activity.base.BaseActivity;
 import com.ninggc.trade.activity.c_d_activity.DetailCommodityActivity;
 import com.ninggc.trade.util.constants.Constant;
@@ -44,7 +45,7 @@ public class CommodityRecyclerViewAdapter extends RecyclerView.Adapter<Commodity
     }
 
     public CommodityRecyclerViewAdapter(Context context) {
-        this(context, new ArrayList<Commodity>());
+        this(context, new ArrayList<>());
     }
 
     @Override
@@ -77,46 +78,47 @@ public class CommodityRecyclerViewAdapter extends RecyclerView.Adapter<Commodity
             }
         });
 
+        holder.iv_head_portrait.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.startActivity(new Intent(context, PersonalActivity.class).putExtra("user_id", commodity.getUserId()));
+            }
+        });
+
         List<String> images = commodity.getImages();
-        if (images == null) {
-            images = new ArrayList<>();
-        }
-        if (images.size() == 0) {
-            commodity.setImages(Arrays.asList(Constant.localImage, Constant.localImage, Constant.localImage, Constant.localImage));
-        }
 
-        // FIXME: 12/17/2017 0017 IMAGE size
-        Log.e(BaseActivity.TAG_INFO, "onBindViewHolder: image.size : " + images.size());
-        for (int i = 0; i < ( images.size()); i++) {
-            ImageView imageView = new ImageView(context);
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//                Drawable drawable = context.getDrawable(R.drawable.thinking);
-//                Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.thinking);
-//            }
-            Tiny.BitmapCompressOptions options = new Tiny.BitmapCompressOptions();
-            options.height = 50;
-            options.width = 50;
-            Tiny.getInstance().source(Constant.localImage).asBitmap().withOptions(options).compress(new BitmapCallback() {
-                @Override
-                public void callback(boolean isSuccess, Bitmap bitmap, Throwable t) {
-                    imageView.setImageBitmap(bitmap);
-                }
-            });
-            imageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(context, "height" + imageView.getMaxHeight(), Toast.LENGTH_SHORT).show();
-                }
-            });
+        // FIXME: 12/24/2017 0024 THREAD
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (String image : images) {
+                    ImageView imageView = new ImageView(context);
+                    Tiny.BitmapCompressOptions options = new Tiny.BitmapCompressOptions();
+                    options.height = 50;
+                    options.width = 50;
+                    Tiny.getInstance().source(Constant.localImage).asBitmap().withOptions(options).compress(new BitmapCallback() {
+                        @Override
+                        public void callback(boolean isSuccess, Bitmap bitmap, Throwable t) {
+                            imageView.setImageBitmap(bitmap);
+                        }
+                    });
+                    imageView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Toast.makeText(context, "height" + imageView.getMaxHeight(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
 
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-            int width = windowManager.getDefaultDisplay().getWidth();
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) ((width / 3.0) - 8),(int) ((width / 3.0) - 8));
-            params.setMargins(8, 0, 0, 0);
-            imageView.setLayoutParams(params);
-            holder.layout_image.addView(imageView);
-        }
+                    imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                    WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+                    int width = windowManager.getDefaultDisplay().getWidth();
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) ((width / 3.0) - 8),(int) ((width / 3.0) - 8));
+                    params.setMargins(8, 0, 0, 0);
+                    imageView.setLayoutParams(params);
+                    holder.layout_image.addView(imageView);
+                }
+            }
+        }).start();
     }
 
     @Override
@@ -145,6 +147,7 @@ public class CommodityRecyclerViewAdapter extends RecyclerView.Adapter<Commodity
         private TextView tv_price;
         private LinearLayout layout_image;
         private TextView tv_username;
+        private ImageView iv_head_portrait;
         private int position;
 
         public RecyclerViewHolder(View itemView) {
@@ -154,6 +157,7 @@ public class CommodityRecyclerViewAdapter extends RecyclerView.Adapter<Commodity
             tv_price = (TextView) itemView.findViewById(R.id.item_commodity_tv_price);
             layout_image = (LinearLayout) itemView.findViewById(R.id.layout_image);
             tv_username = (TextView) itemView.findViewById(R.id.item_commodity_tv_username);
+            iv_head_portrait = (ImageView) itemView.findViewById(R.id.item_commodity_iv_head_portrait);
         }
     }
 

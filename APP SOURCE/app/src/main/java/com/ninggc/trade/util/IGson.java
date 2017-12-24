@@ -7,5 +7,5 @@ import com.google.gson.Gson;
  */
 
 public interface IGson {
-    static Gson gson = new Gson();
+    Gson gson = new Gson();
 }

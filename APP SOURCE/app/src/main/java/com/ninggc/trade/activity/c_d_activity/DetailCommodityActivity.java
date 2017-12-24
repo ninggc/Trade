@@ -65,6 +65,10 @@ public class DetailCommodityActivity extends BaseActivity {
     @SuppressLint("SetTextI18n")
     protected void initData() {
         commodity = (Commodity) getIntent().getSerializableExtra("commodity");
+        if (commodity == null) {
+            Toast.makeText(this, "您传了一个空的商品哦", Toast.LENGTH_SHORT).show();
+            return;
+        }
         Log.e("INTENT", "initData: " + gson.toJson(commodity));
 
         setSupportActionBar(toolbar);
@@ -120,4 +124,5 @@ public class DetailCommodityActivity extends BaseActivity {
         imageView.setLayoutParams(params);
         linearLayout.addView(imageView);
     }
+
 }

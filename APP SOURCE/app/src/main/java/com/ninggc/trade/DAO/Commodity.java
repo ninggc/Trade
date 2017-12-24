@@ -1,5 +1,6 @@
 package com.ninggc.trade.DAO;
 
+import com.google.gson.annotations.SerializedName;
 import com.ninggc.trade.util.constants.Constant;
 import com.yanzhenjie.album.AlbumFile;
 
@@ -27,7 +28,8 @@ public class Commodity implements IBean, Serializable {
     private String sort;
     private String location;
     private String cityNumber;
-    private int sellerId;
+    @SerializedName("user_id")
+    private int userId;
     private String sellerName;
 
     public int getId() {
@@ -110,12 +112,12 @@ public class Commodity implements IBean, Serializable {
         this.cityNumber = cityNumber;
     }
 
-    public int getSellerId() {
-        return sellerId;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setSellerId(int sellerId) {
-        this.sellerId = sellerId;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getSellerName() {
@@ -134,7 +136,7 @@ public class Commodity implements IBean, Serializable {
         Commodity commodity = (Commodity) o;
 
         if (id != commodity.id) return false;
-        if (sellerId != commodity.sellerId) return false;
+        if (userId != commodity.userId) return false;
         if (sellerName != commodity.sellerName) return false;
         if (name != null ? !name.equals(commodity.name) : commodity.name != null) return false;
         if (price != null ? !price.equals(commodity.price) : commodity.price != null) return false;
@@ -163,7 +165,7 @@ public class Commodity implements IBean, Serializable {
         result = 31 * result + (sort != null ? sort.hashCode() : 0);
         result = 31 * result + (location != null ? location.hashCode() : 0);
         result = 31 * result + (cityNumber != null ? cityNumber.hashCode() : 0);
-        result = 31 * result + sellerId;
+        result = 31 * result + userId;
         result = 31 * result + (sellerName != null ? sellerName.hashCode() : 0);
         return result;
     }

@@ -1,4 +1,4 @@
-package com.ninggc.trade.activity;
+package com.ninggc.trade.activity.account;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,12 +10,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ninggc.trade.R;
-import com.ninggc.trade.activity.account.AccountUtil;
-import com.ninggc.trade.activity.account.LoginActivity;
-import com.ninggc.trade.activity.account.PersonalInfoActivity;
-import com.ninggc.trade.activity.account.UserLogoutActivity;
 
-public class ScrollingActivity extends AppCompatActivity {
+public class PersonalActivity extends AppCompatActivity {
 
     TextView textView2;
     TextView textView4;
@@ -89,7 +85,7 @@ public class ScrollingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (!AccountUtil.isLogin()) {
-                    startActivity(new Intent(ScrollingActivity.this, LoginActivity.class));
+                    startActivity(new Intent(PersonalActivity.this, LoginActivity.class));
                 }
             }
         });
@@ -97,38 +93,38 @@ public class ScrollingActivity extends AppCompatActivity {
         iv_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ScrollingActivity.this, PersonalInfoActivity.class));
+                startActivity(new Intent(PersonalActivity.this, PersonalInfoActivity.class));
             }
         });
 
         findViewById(R.id.layout_1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ScrollingActivity.this, "我发布的", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PersonalActivity.this, "我发布的", Toast.LENGTH_SHORT).show();
             }
         });
         findViewById(R.id.layout_2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ScrollingActivity.this, "我卖出的", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PersonalActivity.this, "我卖出的", Toast.LENGTH_SHORT).show();
             }
         });
         findViewById(R.id.layout_3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ScrollingActivity.this, "我买到的", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PersonalActivity.this, "我买到的", Toast.LENGTH_SHORT).show();
             }
         });
         findViewById(R.id.layout_4).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ScrollingActivity.this, "我收藏的", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PersonalActivity.this, "我收藏的", Toast.LENGTH_SHORT).show();
             }
         });
         findViewById(R.id.layout_setting).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ScrollingActivity.this, UserLogoutActivity.class));
+                startActivity(new Intent(PersonalActivity.this, UserLogoutActivity.class));
             }
         });
     }

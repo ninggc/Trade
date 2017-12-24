@@ -9,6 +9,8 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.google.gson.Gson;
 import com.ninggc.trade.DAO.Location;
+import com.ninggc.trade.util.IGson;
+import com.ninggc.trade.util.ITAG;
 import com.ninggc.trade.util.nohttp.CallServer;
 import com.yanzhenjie.nohttp.NoHttp;
 import com.yanzhenjie.nohttp.RequestMethod;
@@ -19,16 +21,11 @@ import com.yanzhenjie.nohttp.rest.Request;
  * Created by Ning on 7/29/2017 0029.
  */
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity implements ITAG, IGson {
 //    private Object cancelObject = new Object();
 
     @Deprecated public String TAG = getClass().getSimpleName();
-    public static final String TAG_NOHTTP = "NOHTTP";
-    public static final String TAG_INFO = "INFO";
-    public static final String TAG_BaiduMap = "BaiduMap";
-    public static final String TAG_CAMPUS = "CAMPUS";
 
-    public static Gson gson = new Gson();
 //    public String url_commodity = url + "/commodity";
 
     public LocationClient mLocationClient = null;

@@ -10,12 +10,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
 import com.ninggc.trade.DAO.Commodity;
 import com.ninggc.trade.R;
 import com.ninggc.trade.activity.base.BaseActivity;
 import com.ninggc.trade.activity.c_d_activity.CommodityListFragment;
 import com.ninggc.trade.adapter.MyFragmentPagerAdapter;
+import com.ninggc.trade.util.IGson;
+import com.ninggc.trade.util.ITAG;
 import com.ninggc.trade.util.Server;
 import com.ninggc.trade.util.constants.Constant;
 import com.ninggc.trade.util.exception.NotSupportNowException;
@@ -34,7 +39,7 @@ import java.util.List;
  * Created by Ning on 12/10/2017 0010.
  */
 
-public class CampusMarketFragment extends Fragment {
+public class CampusMarketFragment extends Fragment implements ITAG, IGson {
     View view;
     Banner banner;
 //    RecyclerView recyclerView;
@@ -122,12 +127,22 @@ public class CampusMarketFragment extends Fragment {
                 @Override
                 public void onSucceed(int what, Response<String> response) {
                     super.onSucceed(what, response);
+                    String s = response.get();
+                    Log.e(TAG_NOHTTP + TAG_INFO, "onSucceed: " + s);
+                    try {
+                        List<Commodity> list = gson.fromJson(s, new TypeToken<List<Commodity>>(){}.getType());
+                        Log.e(TAG_INFO, "onSucceed: " + gson.toJson(list));
+                        commodities.addAll(list);
+                    } catch (JsonSyntaxException e) {
+                        e.printStackTrace();
+                        Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
                 }
 
                 @Override
                 public void onFailed(int what, Response<String> response) {
                     super.onFailed(what, response);
-                    Log.e(BaseActivity.TAG_NOHTTP, "onFailed: " + response.get());
+                    Log.e(TAG_NOHTTP, "onFailed: " + response.get());
                 }
 
                 @Override

@@ -34,6 +34,7 @@ import com.ninggc.trade.R;
 import com.ninggc.trade.activity.account.AccountUtil;
 import com.ninggc.trade.activity.account.PersonalInfoActivity;
 import com.ninggc.trade.activity.account.PleaseLoginFragment;
+import com.ninggc.trade.activity.account.PersonalActivity;
 import com.ninggc.trade.activity.c_d_activity.ReleaseCommodityActivity;
 import com.ninggc.trade.activity.c_d_activity.ReleaseDelegationActivity;
 import com.ninggc.trade.activity.ease.ChatActivity;
@@ -168,7 +169,7 @@ public class MainActivity extends AppCompatActivity
 ////                    Log.e(TAG, "onClick: " + text);
 //                    startActivity(new Intent(MainActivity.this, UserLogoutActivity.class));
 //                }
-                startActivity(new Intent(MainActivity.this, ScrollingActivity.class));
+                startActivity(new Intent(MainActivity.this, PersonalActivity.class));
             }
         });
 
@@ -396,7 +397,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_camera) {
             // Handle the camera action
 //            startActivity(new Intent(MainActivity.this, UserLogoutActivity.class));
-            startActivity(new Intent(MainActivity.this, ScrollingActivity.class));
+            startActivity(new Intent(MainActivity.this, PersonalActivity.class));
 //        } else if (id == R.id.nav_gallery) {
 //            Snackbar.make(relativeLayout, "Message show", Snackbar.LENGTH_SHORT).setAction("ok", new View.OnClickListener() {
 //                @Override
