@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.ninggc.trade.DAO.Commodity;
 import com.ninggc.trade.R;
+import com.ninggc.trade.activity.base.BaseActivity;
 import com.ninggc.trade.activity.c_d_activity.DetailCommodityActivity;
 import com.ninggc.trade.util.constants.Constant;
 import com.ninggc.trade.fragment.onMoveAndSwipedListener;
@@ -85,6 +86,7 @@ public class CommodityRecyclerViewAdapter extends RecyclerView.Adapter<Commodity
         }
 
         // FIXME: 12/17/2017 0017 IMAGE size
+        Log.e(BaseActivity.TAG_INFO, "onBindViewHolder: image.size : " + images.size());
         for (int i = 0; i < ( images.size()); i++) {
             ImageView imageView = new ImageView(context);
 //            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
