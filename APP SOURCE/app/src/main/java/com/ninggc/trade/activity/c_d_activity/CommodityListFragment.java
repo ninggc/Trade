@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.ninggc.trade.DAO.Commodity;
 import com.ninggc.trade.R;
 import com.ninggc.trade.adapter.CommodityRecyclerViewAdapter;
+import com.ninggc.trade.fragment.CommodityFragment;
 
 /**
  * Created by Ning on 12/19/2017 0019.
@@ -22,6 +23,7 @@ public class CommodityListFragment extends Fragment {
     Context context;
     View view;
     RecyclerView recyclerView;
+    CommodityRecyclerViewAdapter adapter;
 
     @Nullable
     @Override
@@ -32,14 +34,22 @@ public class CommodityListFragment extends Fragment {
         return view;
     }
 
+    public static CommodityListFragment newInstance(CommodityRecyclerViewAdapter adapter) {
+        CommodityListFragment fragment = new CommodityListFragment();
+        fragment.adapter = adapter;
+        return fragment;
+    }
+
     private void initView() {
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        CommodityRecyclerViewAdapter adapter = new CommodityRecyclerViewAdapter(context);
-        recyclerView.setAdapter(adapter);
 
-        adapter.addItem(Commodity.getTestInstance());
-        adapter.addItem(Commodity.getTestInstance());
-        adapter.addItem(Commodity.getTestInstance());
+        if (adapter != null) {
+            recyclerView.setAdapter(adapter);
+        } else {
+            adapter = new CommodityRecyclerViewAdapter(context);
+            recyclerView.setAdapter(adapter);
+            adapter.addItem(Commodity.getTestInstance());
+        }
     }
 }

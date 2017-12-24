@@ -109,8 +109,9 @@ public class Server {
     }
 
     public static void showCommodityListWithCampus(int id, ResponseListener<String> responseListener) throws NotSupportNowException {
-        Request<String> request = createStringRequest(url + "");
-        CallServer.getInstance().add(COMMODITY_SHOW_BY_CAMPUS, request, responseListener);
+//        Request<String> request = createStringRequest(url + "");
+//        CallServer.getInstance().add(COMMODITY_SHOW_BY_CAMPUS, request, responseListener);
+        showList(id, responseListener);
     }
 
     //OK

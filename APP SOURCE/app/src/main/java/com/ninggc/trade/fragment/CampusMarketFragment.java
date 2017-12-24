@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,12 +13,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.ninggc.trade.DAO.Commodity;
 import com.ninggc.trade.R;
-import com.ninggc.trade.activity.base.BaseActivity;
 import com.ninggc.trade.activity.c_d_activity.CommodityListFragment;
+import com.ninggc.trade.adapter.CommodityRecyclerViewAdapter;
 import com.ninggc.trade.adapter.MyFragmentPagerAdapter;
 import com.ninggc.trade.util.IGson;
 import com.ninggc.trade.util.ITAG;
@@ -32,8 +35,11 @@ import com.youth.banner.Banner;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Ning on 12/10/2017 0010.
@@ -46,13 +52,17 @@ public class CampusMarketFragment extends Fragment implements ITAG, IGson {
 //    CommodityRecyclerViewAdapter adapter;
     SwipeRefreshLayout swipeRefreshLayout;
     TextView tv_notice;
-
     TabLayout tabLayout;
     MyViewPager viewPager;
+    CommodityRecyclerViewAdapter recyclerViewAdapter;
+    MyFragmentPagerAdapter pagerAdapter;
 
-    List<Commodity> commodities = new ArrayList<>();
+    ///或许可以只在adapter保存一个集合的引用就可以，将会考虑删掉这个
+    @Deprecated
+    List<Commodity> commodities = new ArrayList<>(10);
     List<String> titles;
     List<Fragment> fragments;
+    List<Commodity> commodityList;
 
     @Nullable
     @Override
@@ -88,51 +98,59 @@ public class CampusMarketFragment extends Fragment implements ITAG, IGson {
     void initViewPager() {
         titles = new ArrayList<>();
         fragments = new ArrayList<>();
+        commodityList = new ArrayList<>();
+        recyclerViewAdapter = new CommodityRecyclerViewAdapter(getContext());
         Collections.addAll(titles, getResources().getStringArray(R.array.title_book));
-//        LayoutInflater inflater = getLayoutInflater().from(getContext());
-//        fragments.add(inflater.inflate(R.layout.item_commidity, null));
-//        fragments.add(inflater.inflate(R.layout.item_commidity, null));
-//        fragments.add(inflater.inflate(R.layout.item_commidity, null));
-
         for (int i = 0; i < titles.size(); i++) {
             tabLayout.addTab(tabLayout.newTab().setTag(titles.get(i)));
-            fragments.add(new CommodityListFragment());
+            fragments.add(CommodityListFragment.newInstance(recyclerViewAdapter));
         }
-
-        MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(getChildFragmentManager(), fragments, titles);
+        pagerAdapter = new MyFragmentPagerAdapter(getChildFragmentManager(), fragments, titles);
         viewPager.setOffscreenPageLimit(titles.size());
-        viewPager.setAdapter(adapter);
+        viewPager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                syncRecyclerView(null);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+        //初始化集合数组
+        //第一个集合设为页面最开始显示的列表
+        syncRecyclerView(null);
     }
 
     private void initList() {
-//        List<Commodity> commodities = new ArrayList<>(10);
-//        // TEST: 12/17/2017 0017 TEST 添加10个测试元素
-//        for (int i = 0; i < 10; i++) {
-//            commodities.add(i, Commodity.getTestInstance());
-//        }
-//
-//        adapter = new CommodityRecyclerViewAdapter(getContext(), commodities);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-//        recyclerView.setAdapter(adapter);
+
     }
 
     private void syncList() {
         if (!swipeRefreshLayout.isRefreshing()) {
             swipeRefreshLayout.setRefreshing(true);
         }
-        int id = 0;
+        int id = 1;
         try {
             Server.showCommodityListWithCampus(id, new ResponseListener<String>() {
                 @Override
                 public void onSucceed(int what, Response<String> response) {
                     super.onSucceed(what, response);
                     String s = response.get();
-                    Log.e(TAG_NOHTTP + TAG_INFO, "onSucceed: " + s);
+                    Log.e(TAG_NOHTTP + TAG_INFO, "onSucceed: response.get: " + s);
                     try {
                         List<Commodity> list = gson.fromJson(s, new TypeToken<List<Commodity>>(){}.getType());
-                        Log.e(TAG_INFO, "onSucceed: " + gson.toJson(list));
-                        commodities.addAll(list);
+                        Log.e(TAG_INFO, "onSucceed: gson解析后: " + gson.toJson(list));
+                        syncRecyclerView(list);
                     } catch (JsonSyntaxException e) {
                         e.printStackTrace();
                         Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -148,11 +166,39 @@ public class CampusMarketFragment extends Fragment implements ITAG, IGson {
                 @Override
                 public void onFinish(int what) {
                     super.onFinish(what);
+                    swipeRefreshLayout.setRefreshing(false);
                 }
             });
         } catch (NotSupportNowException e) {
             e.printStackTrace();
         }
-        swipeRefreshLayout.setRefreshing(false);
+    }
+
+    private void syncRecyclerView(List<Commodity> list) {
+        Set<Commodity> set = new LinkedHashSet<>(commodityList.size() * 2);
+        if (list != null) {
+            set.addAll(commodityList);
+            set.addAll(list);
+            commodityList = new ArrayList<>(set);
+        }
+
+        String sort = "";
+        switch (tabLayout.getSelectedTabPosition()) {
+            case 0:
+                break;
+            case 1:
+                sort = "33";
+                break;
+            default: break;
+        }
+
+        String finalSort = sort;
+        Collection<Commodity> collection = Collections2.filter(commodityList, new Predicate<Commodity>() {
+            @Override
+            public boolean apply(Commodity input) {
+                return input.getSort().equals(finalSort);
+            }
+        });
+        recyclerViewAdapter.changeList(new ArrayList<Commodity>(collection));
     }
 }

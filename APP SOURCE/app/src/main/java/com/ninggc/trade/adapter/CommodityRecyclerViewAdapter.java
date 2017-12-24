@@ -1,5 +1,6 @@
 package com.ninggc.trade.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -86,39 +87,41 @@ public class CommodityRecyclerViewAdapter extends RecyclerView.Adapter<Commodity
         });
 
         List<String> images = commodity.getImages();
+        if (images != null) {
+            // FIXME: 12/24/2017 0024 THREAD
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    for (String image : images) {
+                        ImageView imageView = new ImageView(context);
+                        Tiny.BitmapCompressOptions options = new Tiny.BitmapCompressOptions();
+                        options.height = 50;
+                        options.width = 50;
+                        Tiny.getInstance().source(Constant.localImage).asBitmap().withOptions(options).compress(new BitmapCallback() {
+                            @Override
+                            public void callback(boolean isSuccess, Bitmap bitmap, Throwable t) {
+                                imageView.setImageBitmap(bitmap);
+                            }
+                        });
+                        imageView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Toast.makeText(context, "height" + imageView.getMaxHeight(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
 
-        // FIXME: 12/24/2017 0024 THREAD
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                for (String image : images) {
-                    ImageView imageView = new ImageView(context);
-                    Tiny.BitmapCompressOptions options = new Tiny.BitmapCompressOptions();
-                    options.height = 50;
-                    options.width = 50;
-                    Tiny.getInstance().source(Constant.localImage).asBitmap().withOptions(options).compress(new BitmapCallback() {
-                        @Override
-                        public void callback(boolean isSuccess, Bitmap bitmap, Throwable t) {
-                            imageView.setImageBitmap(bitmap);
-                        }
-                    });
-                    imageView.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Toast.makeText(context, "height" + imageView.getMaxHeight(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+                        int width = windowManager.getDefaultDisplay().getWidth();
+                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) ((width / 3.0) - 8),(int) ((width / 3.0) - 8));
+                        params.setMargins(8, 0, 0, 0);
+                        imageView.setLayoutParams(params);
 
-                    imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                    WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-                    int width = windowManager.getDefaultDisplay().getWidth();
-                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) ((width / 3.0) - 8),(int) ((width / 3.0) - 8));
-                    params.setMargins(8, 0, 0, 0);
-                    imageView.setLayoutParams(params);
-                    holder.layout_image.addView(imageView);
+                        ((Activity) context).runOnUiThread(() -> holder.layout_image.addView(imageView));
+                    }
                 }
-            }
-        }).start();
+            }).start();
+        }
     }
 
     @Override
@@ -161,6 +164,7 @@ public class CommodityRecyclerViewAdapter extends RecyclerView.Adapter<Commodity
         }
     }
 
+    @Deprecated
     public void addItem(Commodity c) {
         for (int i = 0; i < list.size(); i++) {
             //id 相同则比较
@@ -181,6 +185,7 @@ public class CommodityRecyclerViewAdapter extends RecyclerView.Adapter<Commodity
         Log.e("ADAPTER", "addItem: " + new Gson().toJson(this.list));
     }
 
+    @Deprecated
     public void addItem(List<Commodity> list) {
         for (Commodity c : list) {
             addItem(c);

@@ -83,14 +83,16 @@ public class DetailCommodityActivity extends BaseActivity {
         tv_note.setText(commodity.getNote());
         tv_price.setText("￥" + commodity.getPrice().toString());
 
-        Tiny.BitmapCompressOptions options = new Tiny.BitmapCompressOptions();
-        for (int i = 0; i < commodity.getImages().size(); i++) {
-            Tiny.getInstance().source(commodity.getImages().get(i)).asBitmap().withOptions(options).compress(new BitmapCallback() {
-                @Override
-                public void callback(boolean isSuccess, Bitmap bitmap, Throwable t) {
-                    addImageView(bitmap);
-                }
-            });
+        if (commodity.getImages() != null) {
+            Tiny.BitmapCompressOptions options = new Tiny.BitmapCompressOptions();
+            for (int i = 0; i < commodity.getImages().size(); i++) {
+                Tiny.getInstance().source(commodity.getImages().get(i)).asBitmap().withOptions(options).compress(new BitmapCallback() {
+                    @Override
+                    public void callback(boolean isSuccess, Bitmap bitmap, Throwable t) {
+                        addImageView(bitmap);
+                    }
+                });
+            }
         }
     }
 
