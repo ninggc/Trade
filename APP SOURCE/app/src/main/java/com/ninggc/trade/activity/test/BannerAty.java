@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.ninggc.trade.R;
 import com.ninggc.trade.activity.base.BaseActivity;
-import com.ninggc.trade.factory.constants.Constant;
+import com.ninggc.trade.util.constants.Constant;
 import com.youth.banner.Banner;
 import com.youth.banner.loader.ImageLoader;
 

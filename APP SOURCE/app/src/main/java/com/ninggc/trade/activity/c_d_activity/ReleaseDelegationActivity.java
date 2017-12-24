@@ -15,7 +15,7 @@ import android.widget.Toast;
 import com.ninggc.trade.DAO.Commodity;
 import com.ninggc.trade.R;
 import com.ninggc.trade.activity.base.BaseActivity;
-import com.ninggc.trade.factory.Server;
+import com.ninggc.trade.util.Server;
 import com.yanzhenjie.nohttp.rest.OnResponseListener;
 import com.yanzhenjie.nohttp.rest.Request;
 import com.yanzhenjie.nohttp.rest.Response;

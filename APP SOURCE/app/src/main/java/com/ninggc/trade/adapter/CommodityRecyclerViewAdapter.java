@@ -3,10 +3,6 @@ package com.ninggc.trade.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,11 +18,8 @@ import com.google.gson.Gson;
 import com.ninggc.trade.DAO.Commodity;
 import com.ninggc.trade.R;
 import com.ninggc.trade.activity.c_d_activity.DetailCommodityActivity;
-import com.ninggc.trade.factory.constants.Constant;
+import com.ninggc.trade.util.constants.Constant;
 import com.ninggc.trade.fragment.onMoveAndSwipedListener;
-import com.yanzhenjie.album.Action;
-import com.yanzhenjie.album.Album;
-import com.yanzhenjie.album.AlbumFile;
 import com.zxy.tiny.Tiny;
 import com.zxy.tiny.callback.BitmapCallback;
 
@@ -34,7 +27,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.ninggc.trade.factory.constants.Constant.DEBUG;
+import static com.ninggc.trade.util.constants.Constant.DEBUG;
 
 /**
  * Created by Ning on 8/16/2017 0016.
@@ -84,9 +77,13 @@ public class CommodityRecyclerViewAdapter extends RecyclerView.Adapter<Commodity
         });
 
         List<String> images = commodity.getImages();
-        if (commodity.getImages().size() == 0) {
+        if (images == null) {
+            images = new ArrayList<>();
+        }
+        if (images.size() == 0) {
             commodity.setImages(Arrays.asList(Constant.localImage, Constant.localImage, Constant.localImage, Constant.localImage));
         }
+
         // FIXME: 12/17/2017 0017 IMAGE size
         for (int i = 0; i < ( images.size()); i++) {
             ImageView imageView = new ImageView(context);

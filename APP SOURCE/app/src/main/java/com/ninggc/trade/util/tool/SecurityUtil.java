@@ -1,4 +1,4 @@
-package com.ninggc.trade.factory.tool;
+package com.ninggc.trade.util.tool;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

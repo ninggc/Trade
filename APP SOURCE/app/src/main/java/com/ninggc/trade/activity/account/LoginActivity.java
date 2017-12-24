@@ -27,11 +27,11 @@ import com.hyphenate.exceptions.HyphenateException;
 import com.ninggc.trade.DAO.User;
 import com.ninggc.trade.R;
 import com.ninggc.trade.activity.base.BaseActivity;
-import com.ninggc.trade.factory.Server;
-import com.ninggc.trade.factory.constants.Constant;
-import com.ninggc.trade.factory.constants.ILoginStatus;
-import com.ninggc.trade.factory.constants.IRequestCode;
-import com.ninggc.trade.factory.http.ResponseListener;
+import com.ninggc.trade.util.Server;
+import com.ninggc.trade.util.constants.Constant;
+import com.ninggc.trade.util.constants.ILoginStatus;
+import com.ninggc.trade.util.constants.IRequestCode;
+import com.ninggc.trade.util.http.ResponseListener;
 import com.tencent.connect.UserInfo;
 import com.tencent.connect.common.Constants;
 import com.tencent.tauth.IUiListener;
@@ -39,21 +39,18 @@ import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
 import com.yanzhenjie.loading.LoadingView;
 import com.yanzhenjie.loading.dialog.LoadingDialog;
-import com.yanzhenjie.nohttp.rest.Request;
 import com.yanzhenjie.nohttp.rest.Response;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.HttpCookie;
-import java.util.List;
 import java.util.Map;
 
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
 import cn.smssdk.gui.RegisterPage;
 
-import static com.ninggc.trade.factory.constants.Constant.DEBUG;
+import static com.ninggc.trade.util.constants.Constant.DEBUG;
 
 /**
  * Created by Ning on 7/26/2017 0026.

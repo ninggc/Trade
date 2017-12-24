@@ -1,21 +1,15 @@
 package com.ninggc.trade.activity.ease;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 
 import com.hyphenate.chat.EMClient;
-import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.ui.EaseContactListFragment;
 import com.hyphenate.exceptions.HyphenateException;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static com.ninggc.trade.activity.ease.ContactActivity.contactToMap;
-import static com.ninggc.trade.factory.constants.Constant.TAG_TEST;
 
 /**
  * Created by Ning on 11/12/2017 0012.

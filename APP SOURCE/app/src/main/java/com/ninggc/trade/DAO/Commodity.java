@@ -1,6 +1,6 @@
 package com.ninggc.trade.DAO;
 
-import com.ninggc.trade.factory.constants.Constant;
+import com.ninggc.trade.util.constants.Constant;
 import com.yanzhenjie.album.AlbumFile;
 
 import java.io.Serializable;
@@ -24,7 +24,7 @@ public class Commodity implements IBean, Serializable {
     private String detailLocation;
     private List<AlbumFile> albumFiles;
     private List<String> images;
-    private String kind;
+    private String sort;
     private String location;
     private String cityNumber;
     private int sellerId;
@@ -86,12 +86,12 @@ public class Commodity implements IBean, Serializable {
         this.images = images;
     }
 
-    public String getKind() {
-        return kind;
+    public String getSort() {
+        return sort;
     }
 
-    public void setKind(String kind) {
-        this.kind = kind;
+    public void setSort(String sort) {
+        this.sort = sort;
     }
 
     public String getLocation() {
@@ -145,7 +145,7 @@ public class Commodity implements IBean, Serializable {
             return false;
         if (images != null ? !images.equals(commodity.images) : commodity.images != null)
             return false;
-        if (kind != null ? !kind.equals(commodity.kind) : commodity.kind != null) return false;
+        if (sort != null ? !sort.equals(commodity.sort) : commodity.sort != null) return false;
         if (location != null ? !location.equals(commodity.location) : commodity.location != null)
             return false;
         return cityNumber != null ? cityNumber.equals(commodity.cityNumber) : commodity.cityNumber == null;
@@ -160,7 +160,7 @@ public class Commodity implements IBean, Serializable {
         result = 31 * result + (detailLocation != null ? detailLocation.hashCode() : 0);
         result = 31 * result + (albumFiles != null ? albumFiles.hashCode() : 0);
         result = 31 * result + (images != null ? images.hashCode() : 0);
-        result = 31 * result + (kind != null ? kind.hashCode() : 0);
+        result = 31 * result + (sort != null ? sort.hashCode() : 0);
         result = 31 * result + (location != null ? location.hashCode() : 0);
         result = 31 * result + (cityNumber != null ? cityNumber.hashCode() : 0);
         result = 31 * result + sellerId;

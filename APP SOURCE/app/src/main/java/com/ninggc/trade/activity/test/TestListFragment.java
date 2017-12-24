@@ -32,7 +32,7 @@ import com.ninggc.trade.activity.ease.ContactActivity;
 import com.ninggc.trade.address.AddressCheckActivity;
 import com.ninggc.trade.address.City;
 import com.ninggc.trade.address.CampusCheckActivity;
-import com.ninggc.trade.factory.nohttp.CallServer;
+import com.ninggc.trade.util.nohttp.CallServer;
 import com.ninggc.trade.test.TestBaiduMap;
 import com.yanzhenjie.nohttp.NoHttp;
 import com.yanzhenjie.nohttp.RequestMethod;

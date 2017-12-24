@@ -1,4 +1,4 @@
-package com.ninggc.trade.factory.constants;
+package com.ninggc.trade.util.constants;
 
 /**
  * Created by Ning on 7/26/2017 0026.

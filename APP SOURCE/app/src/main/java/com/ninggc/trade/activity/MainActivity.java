@@ -39,11 +39,10 @@ import com.ninggc.trade.activity.c_d_activity.ReleaseDelegationActivity;
 import com.ninggc.trade.activity.ease.ChatActivity;
 import com.ninggc.trade.activity.ease.ConversationListFragment;
 import com.ninggc.trade.activity.test.TestListFragment;
-import com.ninggc.trade.adapter.MyFragmentPagerAdapter;
 import com.ninggc.trade.address.AddressCheckActivity;
 import com.ninggc.trade.address.City;
-import com.ninggc.trade.factory.constants.Constant;
-import com.ninggc.trade.factory.constants.IRequestCode;
+import com.ninggc.trade.util.constants.Constant;
+import com.ninggc.trade.util.constants.IRequestCode;
 import com.ninggc.trade.fragment.CampusMarketFragment;
 import com.ninggc.trade.fragment.IndexFragment;
 import com.roughike.bottombar.BottomBar;
@@ -56,9 +55,9 @@ import com.tencent.tauth.UiError;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.ninggc.trade.factory.constants.Constant.CANCEL;
-import static com.ninggc.trade.factory.constants.Constant.DEBUG;
-import static com.ninggc.trade.factory.constants.Constant.SUCCESS;
+import static com.ninggc.trade.util.constants.Constant.CANCEL;
+import static com.ninggc.trade.util.constants.Constant.DEBUG;
+import static com.ninggc.trade.util.constants.Constant.SUCCESS;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {

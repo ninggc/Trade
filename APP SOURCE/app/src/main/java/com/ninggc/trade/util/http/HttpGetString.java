@@ -1,4 +1,4 @@
-package com.ninggc.trade.factory.http;
+package com.ninggc.trade.util.http;
 
 import java.util.Map;
 

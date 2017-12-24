@@ -9,15 +9,13 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.ninggc.trade.R;
 import com.ninggc.trade.activity.base.BaseActivity;
-import com.ninggc.trade.factory.Server;
-import com.ninggc.trade.factory.constants.Constant;
-import com.ninggc.trade.factory.http.HttpGetString;
-import com.ninggc.trade.factory.http.ResponseListener;
+import com.ninggc.trade.util.Server;
+import com.ninggc.trade.util.http.HttpGetString;
+import com.ninggc.trade.util.http.ResponseListener;
 import com.yanzhenjie.nohttp.rest.Response;
 
 import java.util.HashMap;

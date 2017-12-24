@@ -11,8 +11,8 @@ import android.view.ViewGroup;
 
 import com.ninggc.trade.R;
 import com.ninggc.trade.activity.test.TestListFragment;
-import com.ninggc.trade.factory.Server;
-import com.ninggc.trade.factory.http.ResponseListener;
+import com.ninggc.trade.util.Server;
+import com.ninggc.trade.util.http.ResponseListener;
 
 /**
  * Created by Ning on 11/12/2017 0012.

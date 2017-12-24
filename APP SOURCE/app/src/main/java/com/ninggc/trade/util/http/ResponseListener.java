@@ -1,6 +1,4 @@
-package com.ninggc.trade.factory.http;
-
-import android.util.Log;
+package com.ninggc.trade.util.http;
 
 import com.yanzhenjie.nohttp.rest.Response;
 import com.yanzhenjie.nohttp.rest.SimpleResponseListener;

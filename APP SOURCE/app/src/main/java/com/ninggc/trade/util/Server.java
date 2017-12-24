@@ -1,9 +1,9 @@
-package com.ninggc.trade.factory;
+package com.ninggc.trade.util;
 
 import com.ninggc.trade.DAO.Commodity;
-import com.ninggc.trade.factory.exception.NotSupportNowException;
-import com.ninggc.trade.factory.http.ResponseListener;
-import com.ninggc.trade.factory.nohttp.CallServer;
+import com.ninggc.trade.util.exception.NotSupportNowException;
+import com.ninggc.trade.util.http.ResponseListener;
+import com.ninggc.trade.util.nohttp.CallServer;
 import com.yanzhenjie.nohttp.NoHttp;
 import com.yanzhenjie.nohttp.RequestMethod;
 import com.yanzhenjie.nohttp.rest.Request;

@@ -1,4 +1,4 @@
-package com.ninggc.trade.factory.exception;
+package com.ninggc.trade.util.exception;
 
 /**
  * Created by Ning on 12/17/2017 0017.

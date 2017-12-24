@@ -1,4 +1,4 @@
-package com.ninggc.trade.factory.nohttp;
+package com.ninggc.trade.util.nohttp;
 
 import com.yanzhenjie.nohttp.NoHttp;
 import com.yanzhenjie.nohttp.rest.OnResponseListener;

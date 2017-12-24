@@ -1,4 +1,4 @@
-package com.ninggc.trade.factory.image;
+package com.ninggc.trade.util.image;
 
 import android.content.Context;
 import android.net.Uri;

@@ -16,19 +16,17 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
 import com.ninggc.trade.DAO.Commodity;
 import com.ninggc.trade.R;
 import com.ninggc.trade.activity.c_d_activity.CommodityList;
 import com.ninggc.trade.adapter.CommodityRecyclerViewAdapter;
-import com.ninggc.trade.factory.Server;
-import com.ninggc.trade.factory.constants.Constant;
-import com.ninggc.trade.factory.http.ResponseListener;
-import com.ninggc.trade.factory.image.GlideImageLoader;
+import com.ninggc.trade.util.IGson;
+import com.ninggc.trade.util.Server;
+import com.ninggc.trade.util.constants.Constant;
+import com.ninggc.trade.util.http.ResponseListener;
+import com.ninggc.trade.util.image.GlideImageLoader;
 import com.yanzhenjie.album.Action;
 import com.yanzhenjie.album.Album;
 import com.yanzhenjie.album.AlbumFile;
@@ -45,7 +43,7 @@ import java.util.List;
  */
 
 @SuppressWarnings("ALL")
-public class IndexFragment extends Fragment implements View.OnClickListener {
+public class IndexFragment extends Fragment implements View.OnClickListener, IGson {
     final String TAG = getClass().getSimpleName();
 //    final String url = "http://123.207.244.139:8080/trade/image/1.jpg";
 //    final String url = "http://img4.imgtn.bdimg.com/it/u=2611079001,3896435225&fm=27&gp=0.jpg";
@@ -162,20 +160,23 @@ public class IndexFragment extends Fragment implements View.OnClickListener {
     }
 
     List<Commodity> parseJsonToList(String json) throws JsonSyntaxException {
-        List<Commodity> list = new ArrayList<>();
 
-        JsonArray jsonArray = new JsonParser().parse(json).getAsJsonArray();
-        for (JsonElement element : jsonArray) {
-            Commodity c = new Commodity();
-            JsonObject jsonObject = element.getAsJsonObject();
+        System.out.println(json);
 
-            c.setName(jsonObject.get("物品名").getAsString());
-            c.setNote(jsonObject.get("说明").getAsString());
-            c.setSellerId(jsonObject.get("出售者id").getAsInt());
-            c.setPrice(jsonObject.get("价格").getAsDouble());
-            c.setKind(jsonObject.get("种类").getAsString());
-            list.add(c);
-        }
+        List<Commodity> list = gson.fromJson(json, new TypeToken<List<Commodity>>(){}.getType());
+
+//        JsonArray jsonArray = new JsonParser().parse(json).getAsJsonArray();
+//        for (JsonElement element : jsonArray) {
+//            Commodity c = new Commodity();
+//            JsonObject jsonObject = element.getAsJsonObject();
+//
+//            c.setName(jsonObject.get("物品名").getAsString());
+//            c.setNote(jsonObject.get("说明").getAsString());
+//            c.setSellerId(jsonObject.get("出售者id").getAsInt());
+//            c.setPrice(jsonObject.get("价格").getAsDouble());
+//            c.setSort(jsonObject.get("种类").getAsString());
+//            list.add(c);
+//        }
 
         Log.e("NOHTTP_GSON", "parseJsonToList: " + new Gson().toJson(list));
         return list;

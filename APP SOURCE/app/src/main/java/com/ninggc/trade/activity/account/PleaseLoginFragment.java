@@ -1,7 +1,6 @@
 package com.ninggc.trade.activity.account;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,14 +9,10 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.ninggc.trade.R;
 import com.ninggc.trade.activity.MainActivity;
-import com.ninggc.trade.activity.base.BaseActivity;
-import com.ninggc.trade.activity.ease.ConversationListFragment;
-import com.ninggc.trade.activity.test.TestListFragment;
-import com.ninggc.trade.factory.constants.Constant;
+import com.ninggc.trade.util.constants.Constant;
 
 /**
  * Created by Ning on 11/22/2017 0022.

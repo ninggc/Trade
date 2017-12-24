@@ -1,4 +1,4 @@
-package com.ninggc.trade.factory.nohttp;
+package com.ninggc.trade.util.nohttp;
 
 import com.ninggc.trade.encrypt.EncryptionUtil;
 import com.yanzhenjie.nohttp.Headers;

@@ -208,7 +208,7 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="n8fOF6EWISU5ObrGIeXmPk6D3CkyjHry" />
         <meta-data
-            android:name="com.ninggc.trade.factory.image.SimpleGlideModule"
+            android:name="com.ninggc.trade.util.image.SimpleGlideModule"
             android:value="GlideModule" />
 
         <!--test activity-->

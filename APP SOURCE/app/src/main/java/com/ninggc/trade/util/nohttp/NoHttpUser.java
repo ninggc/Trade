@@ -1,16 +1,15 @@
-package com.ninggc.trade.factory.nohttp;
+package com.ninggc.trade.util.nohttp;
 
 import android.util.Log;
 
-import com.ninggc.trade.factory.Server;
-import com.ninggc.trade.factory.constants.Constant;
-import com.ninggc.trade.factory.constants.ILoginStatus;
+import com.ninggc.trade.util.Server;
+import com.ninggc.trade.util.constants.ILoginStatus;
 import com.yanzhenjie.nohttp.Logger;
 import com.yanzhenjie.nohttp.NoHttp;
 import com.yanzhenjie.nohttp.rest.Request;
 import com.yanzhenjie.nohttp.rest.Response;
 
-import static com.ninggc.trade.factory.constants.Constant.DEBUG;
+import static com.ninggc.trade.util.constants.Constant.DEBUG;
 
 /**
  * Created by Ning on 7/28/2017 0028.
