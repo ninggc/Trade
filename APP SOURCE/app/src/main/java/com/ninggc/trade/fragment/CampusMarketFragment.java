@@ -48,6 +48,8 @@ import java.util.Set;
 public class CampusMarketFragment extends Fragment implements ITAG, IGson {
     View view;
     Banner banner;
+//    RecyclerView recyclerView;
+//    CommodityRecyclerViewAdapter adapter;
     SwipeRefreshLayout swipeRefreshLayout;
     TextView tv_notice;
     TabLayout tabLayout;
@@ -194,14 +196,9 @@ public class CampusMarketFragment extends Fragment implements ITAG, IGson {
         Collection<Commodity> collection = Collections2.filter(commodityList, new Predicate<Commodity>() {
             @Override
             public boolean apply(Commodity input) {
-                if ("".equals(finalSort)) {
-                    return true;
-                }
                 return input.getSort().equals(finalSort);
             }
         });
-        if (collection.size() == 0) {
-            Toast.makeText(getContext(), "好像没有数据哦", Toast.LENGTH_SHORT).show();
-        }
+        recyclerViewAdapter.changeList(new ArrayList<Commodity>(collection));
     }
 }

@@ -21,7 +21,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <!--设置Toolbar上字体的颜色,以及返回和更多按钮的颜色-->
         <item name="android:textColor">@color/white</item>
-        <item name="android:colorButtonNormal" tools:targetApi="lollipop">@color/white</item>
+        <item name="android:colorButtonNormal">@color/white</item>
         <item name="android:textColorPrimary">@color/white</item>
         <item name="android:colorControlNormal" tools:targetApi="lollipop">@color/white</item>
         <!--<item name="android:colorPrimary" tools:targetApi="lollipop">@color/white</item>-->
