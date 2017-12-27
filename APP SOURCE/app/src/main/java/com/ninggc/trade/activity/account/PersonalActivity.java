@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ninggc.trade.R;
+import com.ninggc.trade.activity.base.BaseActivity;
 
 public class PersonalActivity extends AppCompatActivity {
 
@@ -33,26 +34,7 @@ public class PersonalActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-//        app_bar_layout.setSubtitle("Hello");
-//        layout_toolbar.setTitle("title");
-
-
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
-
         initView();
-        initClickListener();
-        initData();
-    }
-
-    private void initData() {
-
     }
 
     @Override
@@ -65,7 +47,7 @@ public class PersonalActivity extends AppCompatActivity {
         }
     }
 
-    private void initView() {
+    protected void initView() {
         textView2 = (TextView) findViewById(R.id.textView2);
         textView4 = (TextView) findViewById(R.id.textView4);
         textView6 = (TextView) findViewById(R.id.textView6);
@@ -78,6 +60,8 @@ public class PersonalActivity extends AppCompatActivity {
         tv_username = (TextView) findViewById(R.id.personal_tv_username);
         tv_description = (TextView) findViewById(R.id.personal_tv_description);
         iv_image = (ImageView) findViewById(R.id.personal_iv_image);
+
+        initClickListener();
     }
 
     private void initClickListener() {
@@ -121,10 +105,11 @@ public class PersonalActivity extends AppCompatActivity {
                 Toast.makeText(PersonalActivity.this, "我收藏的", Toast.LENGTH_SHORT).show();
             }
         });
-        findViewById(R.id.layout_setting).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.layout_exit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(PersonalActivity.this, UserLogoutActivity.class));
+                AccountUtil.logout();
+                finish();
             }
         });
     }

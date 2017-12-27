@@ -13,6 +13,7 @@ import com.ninggc.trade.activity.base.BaseActivity;
  * Created by Ning on 8/1/2017 0001.
  */
 
+@Deprecated
 public class UserLogoutActivity extends BaseActivity {
     Toolbar mToolbar;
     @Override

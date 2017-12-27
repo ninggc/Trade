@@ -8,6 +8,10 @@
         icon="@drawable/bottom_campus"
         title="Friends" />
     <tab
+        id="@+id/tab_delegate"
+        icon="@drawable/bottom_delegate"
+        title="Friends" />
+    <tab
         id="@+id/tab_chat"
         icon="@drawable/bottom_chat"
         title="Friends" />

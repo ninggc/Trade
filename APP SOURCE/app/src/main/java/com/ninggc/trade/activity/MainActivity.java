@@ -42,6 +42,7 @@ import com.ninggc.trade.activity.ease.ConversationListFragment;
 import com.ninggc.trade.activity.test.TestListFragment;
 import com.ninggc.trade.address.AddressCheckActivity;
 import com.ninggc.trade.address.City;
+import com.ninggc.trade.fragment.CampusDelegationFragment;
 import com.ninggc.trade.util.constants.Constant;
 import com.ninggc.trade.util.constants.IRequestCode;
 import com.ninggc.trade.fragment.CampusMarketFragment;
@@ -297,10 +298,12 @@ public class MainActivity extends AppCompatActivity
         final CampusMarketFragment campusMarketFragment = new CampusMarketFragment();
         final ConversationListFragment conversationListFragment = new ConversationListFragment();
         final TestListFragment testListFragment = new TestListFragment();
+        final CampusDelegationFragment delegationFragment = new CampusDelegationFragment();
         fragments.add(indexFragment);
         fragments.add(campusMarketFragment);
         fragments.add(conversationListFragment);
         fragments.add(testListFragment);
+        fragments.add(delegationFragment);
 
         conversationListFragment.setConversationListItemClickListener(new EaseConversationListFragment.EaseConversationListItemClickListener() {
             @Override
@@ -329,6 +332,10 @@ public class MainActivity extends AppCompatActivity
                     } else {
                         fragmentTransaction.replace(R.id.contentContainer, conversationListFragment);
                     }
+                    fragmentTransaction.commit();
+                }else if(tabId == R.id.tab_delegate) {
+                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.contentContainer, delegationFragment);
                     fragmentTransaction.commit();
                 } else if (tabId == R.id.tab_campus) {
                     FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();

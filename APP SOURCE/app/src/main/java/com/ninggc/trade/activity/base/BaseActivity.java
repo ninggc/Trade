@@ -1,7 +1,11 @@
 package com.ninggc.trade.activity.base;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
 import com.baidu.location.BDAbstractLocationListener;
@@ -9,6 +13,8 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.google.gson.Gson;
 import com.ninggc.trade.DAO.Location;
+import com.ninggc.trade.activity.account.AccountUtil;
+import com.ninggc.trade.activity.account.LoginActivity;
 import com.ninggc.trade.util.IGson;
 import com.ninggc.trade.util.ITAG;
 import com.ninggc.trade.util.nohttp.CallServer;
@@ -46,8 +52,17 @@ public abstract class BaseActivity extends AppCompatActivity implements ITAG, IG
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initView();
-        initData();
+
+        if (!AccountUtil.isLogin() && !getClass().getSimpleName().equals(LoginActivity.class.getSimpleName())) {
+            AlertDialog builder = new AlertDialog.Builder(this)
+                    .setTitle("您好像还没有登录哦")
+                    .setPositiveButton("登录", (dialog, which) -> startActivity(new Intent(BaseActivity.this, LoginActivity.class)))
+                    .setNegativeButton("取消", (dialog, which) -> finish())
+                    .show();
+        } else {
+            initView();
+            initData();
+        }
     }
 
     /**

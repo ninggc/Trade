@@ -209,7 +209,7 @@
             android:background="@color/LightGray"/>
 
         <RelativeLayout
-            android:id="@+id/layout_setting"
+            android:id="@+id/layout_exit"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -231,8 +231,8 @@
                 android:layout_centerVertical="true"
                 android:layout_marginStart="15dp"
                 android:layout_toEndOf="@+id/personal_iv_setting"
-                android:text="@string/setting"
-                android:textSize="@dimen/scroll_text_size"/>
+                android:text="@string/exit"
+                android:textSize="@dimen/scroll_text_size" />
         </RelativeLayout>
 
         <include layout="@layout/line_horizontal" />

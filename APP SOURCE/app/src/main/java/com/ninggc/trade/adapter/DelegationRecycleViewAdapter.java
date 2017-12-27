@@ -3,12 +3,14 @@ package com.ninggc.trade.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.ninggc.trade.DAO.Delegation;
 import com.ninggc.trade.R;
 import com.ninggc.trade.activity.c_d_activity.DetailDelegationActivity;
@@ -73,7 +75,7 @@ public class DelegationRecycleViewAdapter extends RecyclerView.Adapter<Delegatio
         }
     }
 
-
+    @Deprecated
     public void addItem(Delegation d) {
         for (int i = 0; i < list.size(); i++) {
             //id 相同则比较
@@ -93,9 +95,16 @@ public class DelegationRecycleViewAdapter extends RecyclerView.Adapter<Delegatio
         notifyItemChanged(list.size());
     }
 
+    @Deprecated
     public void addItem(List<Delegation> list) {
         for (Delegation d : list) {
             addItem(d);
         }
+    }
+
+    public void changeList(List<Delegation> list) {
+        this.list = list;
+        notifyDataSetChanged();
+        Log.e("ADAPTER", "changeList: " + new Gson().toJson(this.list));
     }
 }

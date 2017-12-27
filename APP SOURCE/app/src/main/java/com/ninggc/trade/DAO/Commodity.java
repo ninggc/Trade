@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Ning on 7/24/2017 0024.
@@ -25,7 +26,7 @@ public class Commodity implements IBean, Serializable {
     private String detailLocation;
     private List<AlbumFile> albumFiles;
     private List<String> images;
-    private String sort;
+    private int sort;
     private String location;
     private String cityNumber;
     @SerializedName("user_id")
@@ -88,11 +89,11 @@ public class Commodity implements IBean, Serializable {
         this.images = images;
     }
 
-    public String getSort() {
+    public int getSort() {
         return sort;
     }
 
-    public void setSort(String sort) {
+    public void setSort(int sort) {
         this.sort = sort;
     }
 
@@ -146,6 +147,7 @@ public class Commodity implements IBean, Serializable {
         return result;
     }
 
+    static Random random;
     /**
      * @return 返回id不同的测试用实例
      */
@@ -154,8 +156,9 @@ public class Commodity implements IBean, Serializable {
         commodity.setName("这是一个自动生成的测试用实例");
         commodity.setPrice(0.01);
         commodity.setNote("什么都没有");
+        commodity.setSort(random.nextInt(5));
         commodity.setImages(Arrays.asList(Constant.image1, Constant.image1, Constant.image1, Constant.image1));
-        commodity.setId((int) new Date().getTime());
+        commodity.setId(random.nextInt(1000));
         return commodity;
     }
 }

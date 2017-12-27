@@ -32,4 +32,27 @@
         <item>材料科学</item>
         <item>其他</item>
     </string-array>
+
+    <integer-array name="sort_value_book">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>0</item>
+    </integer-array>
+
+    <string-array name="title_delegation">
+        <item>代送代取</item>
+        <item>兼职发布</item>
+        <item>活动出行</item>
+        <item>其他</item>
+    </string-array>
+
+    <integer-array name="sort_value_delegation">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>0</item>
+    </integer-array>
+
 </resources>

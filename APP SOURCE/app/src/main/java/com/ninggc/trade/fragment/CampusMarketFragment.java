@@ -182,21 +182,13 @@ public class CampusMarketFragment extends Fragment implements ITAG, IGson {
             commodityList = new ArrayList<>(set);
         }
 
-        String sort = "";
-        switch (tabLayout.getSelectedTabPosition()) {
-            case 0:
-                break;
-            case 1:
-                sort = "33";
-                break;
-            default: break;
-        }
+        int[] value = getResources().getIntArray(R.array.sort_value_book);
+        int sort = value[tabLayout.getSelectedTabPosition()];
 
-        String finalSort = sort;
         Collection<Commodity> collection = Collections2.filter(commodityList, new Predicate<Commodity>() {
             @Override
             public boolean apply(Commodity input) {
-                return input.getSort().equals(finalSort);
+                return sort == input.getSort();
             }
         });
         recyclerViewAdapter.changeList(new ArrayList<Commodity>(collection));
