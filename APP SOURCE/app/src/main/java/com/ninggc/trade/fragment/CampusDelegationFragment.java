@@ -155,13 +155,15 @@ public class CampusDelegationFragment extends Fragment implements IGson, ITAG {
 //                        e.printStackTrace();
 //                        Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
 //                    }
-                    Toast.makeText(getContext(), "未完成", Toast.LENGTH_SHORT).show();
+                    if (getContext() != null) {
+                        Toast.makeText(getContext(), "未完成", Toast.LENGTH_SHORT).show();
 
-                    // FIXME: 12/27/2017 0027 创建了十个测试用实例
-                    for (int i = 0; i < 10; i++) {
-                        delegationList.add(Delegation.getTestInstance());
+                        // FIXME: 12/27/2017 0027 创建了十个测试用实例
+                        for (int i = 0; i < 10; i++) {
+                            delegationList.add(Delegation.getTestInstance());
+                        }
+                        syncRecyclerView(null);
                     }
-                    syncRecyclerView(null);
                 }
 
                 @Override

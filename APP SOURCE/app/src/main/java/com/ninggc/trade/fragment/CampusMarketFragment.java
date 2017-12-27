@@ -132,7 +132,7 @@ public class CampusMarketFragment extends Fragment implements ITAG, IGson {
     }
 
     private void initList() {
-
+        syncList();
     }
 
     private void syncList() {
@@ -145,16 +145,22 @@ public class CampusMarketFragment extends Fragment implements ITAG, IGson {
                 @Override
                 public void onSucceed(int what, Response<String> response) {
                     super.onSucceed(what, response);
-                    String s = response.get();
-                    Log.e(TAG_NOHTTP + TAG_INFO, "onSucceed: response.get: " + s);
-                    try {
-                        List<Commodity> list = gson.fromJson(s, new TypeToken<List<Commodity>>(){}.getType());
-                        Log.e(TAG_INFO, "onSucceed: gson解析后: " + gson.toJson(list));
-                        syncRecyclerView(list);
-                    } catch (JsonSyntaxException e) {
-                        e.printStackTrace();
-                        Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+//                    String s = response.get();
+//                    Log.e(TAG_NOHTTP + TAG_INFO, "onSucceed: response.get: " + s);
+//                    try {
+//                        List<Commodity> list = gson.fromJson(s, new TypeToken<List<Commodity>>(){}.getType());
+//                        Log.e(TAG_INFO, "onSucceed: gson解析后: " + gson.toJson(list));
+//                        syncRecyclerView(list);
+//                    } catch (JsonSyntaxException e) {
+//                        e.printStackTrace();
+//                        Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+//                    }
+
+                    // FIXME: 12/27/2017 0027 添加了十条测试数据，每次刷新都会添加
+                    for (int i = 0; i < 10; i++) {
+                        commodityList.add(Commodity.getTestInstance());
                     }
+                    syncRecyclerView(null);
                 }
 
                 @Override

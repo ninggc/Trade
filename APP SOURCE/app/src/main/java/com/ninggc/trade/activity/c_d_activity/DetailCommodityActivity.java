@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +18,7 @@ import android.widget.Toast;
 import com.ninggc.trade.DAO.Commodity;
 import com.ninggc.trade.R;
 import com.ninggc.trade.activity.base.BaseActivity;
+import com.ninggc.trade.adapter.CommodityRecyclerViewAdapter;
 import com.ninggc.trade.util.constants.Constant;
 import com.sackcentury.shinebuttonlib.ShineButton;
 import com.zxy.tiny.Tiny;
@@ -34,6 +37,8 @@ public class DetailCommodityActivity extends BaseActivity {
     LinearLayout linearLayout;
     Commodity commodity;
     ShineButton shineButton;
+    RecyclerView recyclerView;
+    CommodityRecyclerViewAdapter adapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,6 +64,11 @@ public class DetailCommodityActivity extends BaseActivity {
                 }
             }
         });
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new CommodityRecyclerViewAdapter(this);
+        recyclerView.setAdapter(adapter);
+
         initData();
     }
 

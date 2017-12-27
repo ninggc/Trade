@@ -160,6 +160,8 @@
                         app:siShape="@raw/star" />
                 </LinearLayout>
             </android.support.v7.widget.CardView>
+
+            <include layout="@layout/layout_recyclerview"/>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>

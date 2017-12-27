@@ -147,7 +147,7 @@ public class Commodity implements IBean, Serializable {
         return result;
     }
 
-    static Random random;
+    static Random random = new Random();
     /**
      * @return 返回id不同的测试用实例
      */
