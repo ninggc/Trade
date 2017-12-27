@@ -22,10 +22,10 @@ import com.ninggc.trade.DAO.Commodity;
 import com.ninggc.trade.R;
 import com.ninggc.trade.activity.c_d_activity.CommodityList;
 import com.ninggc.trade.adapter.CommodityRecyclerViewAdapter;
-import com.ninggc.trade.util.IGson;
-import com.ninggc.trade.util.Server;
+import com.ninggc.trade.util.http.HttpResponseListener;
+import com.ninggc.trade.util.tool.IGson;
+import com.ninggc.trade.util.http.Server;
 import com.ninggc.trade.util.constants.Constant;
-import com.ninggc.trade.util.http.ResponseListener;
 import com.ninggc.trade.util.image.GlideImageLoader;
 import com.yanzhenjie.album.Action;
 import com.yanzhenjie.album.Album;
@@ -121,7 +121,7 @@ public class IndexFragment extends Fragment implements View.OnClickListener, IGs
     }
 
     void initList() {
-        Server.showList(1, new ResponseListener<String>() {
+        Server.showList(1, new HttpResponseListener<String>() {
             @Override
             public void onSucceed(int what, Response<String> response) {
                 super.onSucceed(what, response);

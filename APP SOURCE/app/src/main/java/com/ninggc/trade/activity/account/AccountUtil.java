@@ -1,7 +1,14 @@
 package com.ninggc.trade.activity.account;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.support.v7.app.AlertDialog;
+
 import com.hyphenate.chat.EMClient;
 import com.ninggc.trade.DAO.User;
+import com.ninggc.trade.activity.MainActivity;
 
 /**
  * @author Ning
@@ -79,5 +86,29 @@ public class AccountUtil {
             this.password = password;
         }
 
+    }
+
+    public static boolean loginTip(Context context) {
+        if (!AccountUtil.isLogin()) {
+            AlertDialog builder = new AlertDialog.Builder(context)
+                    .setTitle("您好像还没有登录哦")
+                    .setPositiveButton("登录", (dialog, which) -> context.startActivity(new Intent(context, LoginActivity.class)))
+                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if (context instanceof Activity) {
+                                Activity activity = (Activity) context;
+                                if (!activity.getClass().getSimpleName().equals(MainActivity.class.getSimpleName())) {
+                                    activity.finish();
+                                }
+                            }
+                        }
+                    })
+                    .show();
+        } else {
+            return true;
+        }
+
+        return false;
     }
 }

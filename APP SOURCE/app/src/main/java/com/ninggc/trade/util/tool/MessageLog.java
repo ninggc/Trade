@@ -1,11 +1,13 @@
-package com.ninggc.trade.util.log;
+package com.ninggc.trade.util.tool;
 
 import android.util.Log;
 
-import com.ninggc.trade.util.IGson;
+import com.ninggc.trade.util.tool.IGson;
 
 /**
  * Created by Ning on 12/27/2017 0027.
+ * 方便打印日志
+ * 使容易实现在发布的时候控制调试日志的输出
  */
 
 public class MessageLog implements IGson {

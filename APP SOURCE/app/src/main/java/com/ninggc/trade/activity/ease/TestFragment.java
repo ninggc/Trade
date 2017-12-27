@@ -11,8 +11,8 @@ import android.view.ViewGroup;
 
 import com.ninggc.trade.R;
 import com.ninggc.trade.activity.test.TestListFragment;
-import com.ninggc.trade.util.Server;
-import com.ninggc.trade.util.http.ResponseListener;
+import com.ninggc.trade.util.http.HttpResponseListener;
+import com.ninggc.trade.util.http.Server;
 
 /**
  * Created by Ning on 11/12/2017 0012.
@@ -40,7 +40,7 @@ public class TestFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Server.addUser("ning", "12345678", new ResponseListener<String>() {
+                Server.addUser("ning", "12345678", new HttpResponseListener<String>() {
                     @Override
                     public void onSucceed(int what, com.yanzhenjie.nohttp.rest.Response<String> response) {
                         super.onSucceed(what, response);
@@ -83,7 +83,7 @@ public class TestFragment extends Fragment {
 //                    }
 //                }.start();
 
-//                Server.login("ning", "123", new ResponseListener<String>() {
+//                Server.login("ning", "123", new HttpResponseListener<String>() {
 //                    @Override
 //                    public void onSucceed(int what, com.yanzhenjie.nohttp.rest.Response<String> response) {
 //                        super.onSucceed(what, response);

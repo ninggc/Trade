@@ -6,12 +6,12 @@ import java.util.Map;
  * @author Ning
  * Created by Ning on 11/5/2017 0005.
  */
-
+@Deprecated
 public class HttpGetString {
     public static final int NO_WHAT = -1;
     private int what = NO_WHAT;
     private String url;
-    private ResponseListener responseListener;
+    private HttpResponseListener httpResponseListener;
     private Map<String, String> map;
 
     private HttpGetString(String url) {
@@ -27,7 +27,7 @@ public class HttpGetString {
     }
 
     public void start() {
-        HttpGetSomething.getString(what, url, responseListener, map);
+        HttpGetSomething.getString(what, url, httpResponseListener, map);
     }
 
     public int getWhat() {
@@ -48,12 +48,12 @@ public class HttpGetString {
         return this;
     }
 
-    public ResponseListener getResponseListener() {
-        return responseListener;
+    public HttpResponseListener getHttpResponseListener() {
+        return httpResponseListener;
     }
 
-    public HttpGetString setResponseListener(ResponseListener responseListener) {
-        this.responseListener = responseListener;
+    public HttpGetString setHttpResponseListener(HttpResponseListener httpResponseListener) {
+        this.httpResponseListener = httpResponseListener;
         return this;
     }
 

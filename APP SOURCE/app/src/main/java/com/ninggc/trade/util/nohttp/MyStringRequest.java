@@ -15,9 +15,11 @@ import java.util.Map;
 
 /**
  * @author Ning
+ * 在发起request之前对参数进行加密
+ * 未完成
  * Created by Ning on 10/29/2017 0029.
  */
-
+@Deprecated
 class MyStringRequest extends RestRequest<String> {
     private MyStringRequest(String url) {
         this(url, RequestMethod.POST);

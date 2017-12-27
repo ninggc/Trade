@@ -1,68 +1,85 @@
 package com.ninggc.trade.activity.base;
 
-import android.app.Dialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
-import com.google.gson.Gson;
 import com.ninggc.trade.DAO.Location;
 import com.ninggc.trade.activity.account.AccountUtil;
 import com.ninggc.trade.activity.account.LoginActivity;
-import com.ninggc.trade.util.IGson;
-import com.ninggc.trade.util.ITAG;
-import com.ninggc.trade.util.nohttp.CallServer;
-import com.yanzhenjie.nohttp.NoHttp;
-import com.yanzhenjie.nohttp.RequestMethod;
-import com.yanzhenjie.nohttp.rest.OnResponseListener;
-import com.yanzhenjie.nohttp.rest.Request;
+import com.ninggc.trade.util.tool.IGson;
+import com.ninggc.trade.util.tool.ITAG;
 
 /**
+ * @author Ning
  * Created by Ning on 7/29/2017 0029.
+ * 控制初始化顺序
+ * 控制初始化之前的检查
+ *
+ * 视图初始化调用顺序
+ * initView();
+ * initAfterView();
+ * initData();
+ * initAfterData();
+ * initList();
  */
 
 public abstract class BaseActivity extends AppCompatActivity implements ITAG, IGson {
 //    private Object cancelObject = new Object();
 
-    @Deprecated public String TAG = getClass().getSimpleName();
+    @Deprecated
+    //默认为INFO
+    protected String TAG = TAG_INFO;
 
 //    public String url_commodity = url + "/commodity";
 
-    public LocationClient mLocationClient = null;
-    Location location;
+    /**
+     * 调用initBaiduMapLocation后可以启动
+     */
+    protected LocationClient mLocationClient = null;
+    protected Location location;
 
-    @Deprecated
-    public Request<String> createStringRequest(String url) {
-        return NoHttp.createStringRequest(url, RequestMethod.POST);
-    }
+//    @Deprecated
+//    public Request<String> createStringRequest(String url) {
+//        return NoHttp.createStringRequest(url, RequestMethod.POST);
+//    }
 
-    public <T> void request(int what, Request<T> request, OnResponseListener<T> listener) {
-        // 这里设置一个sign给这个请求。
-//        request.setCancelSign(cancelObject);
-
-        CallServer.getInstance().add(what, request, listener);
-    }
+//    @Deprecated
+//    public <T> void request(int what, Request<T> request, OnResponseListener<T> listener) {
+//        // 这里设置一个sign给这个请求。
+////        request.setCancelSign(cancelObject);
+//
+//        CallServer.getInstance().add(what, request, listener);
+//    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (!AccountUtil.isLogin() && !getClass().getSimpleName().equals(LoginActivity.class.getSimpleName())) {
-            AlertDialog builder = new AlertDialog.Builder(this)
-                    .setTitle("您好像还没有登录哦")
-                    .setPositiveButton("登录", (dialog, which) -> startActivity(new Intent(BaseActivity.this, LoginActivity.class)))
-                    .setNegativeButton("取消", (dialog, which) -> finish())
-                    .show();
+        /**
+         * 除了登录界面外都对登录状态进行检查
+         * 部分activity未继承BaseActivity不检查登录状态
+         */
+        if (!getClass().getSimpleName().equals(LoginActivity.class.getSimpleName())) {
+            AccountUtil.loginTip(this);
         } else {
-            initView();
-            initData();
+            init();
         }
+    }
+
+    /**
+     * 子类通过重写方法进行初始化
+     * 初始化顺序如下
+     */
+    private void init() {
+        initView();
+        initAfterView();
+        initData();
+        initAfterData();
+        initList();
     }
 
     /**
@@ -71,12 +88,40 @@ public abstract class BaseActivity extends AppCompatActivity implements ITAG, IG
     protected void initView() { }
 
     /**
+     * 初始化视图之后，初始化数据之前调用
+     * after initView() but before initData()
+     */
+    protected void initAfterView() {
+
+    }
+
+    /**
      * 初始化数据
      * 在onCreate调用
      * initView调用之后调用
      */
     protected void initData() { }
 
+    /**
+     * 初始化视图和数据之后调用
+     * after initView() and initData()
+     */
+    protected void initAfterData() {
+
+    }
+
+    /**
+     * 用于初始化列表数据
+     * 最后进行
+     */
+    protected void initList() {
+
+    }
+
+    /**
+     * 默认不调用，有需要可以自行调用并在listener中获取位置等信息
+     * @param listener
+     */
     protected void initBaiduMapLocation(BDAbstractLocationListener listener) {
         mLocationClient = new LocationClient(getApplicationContext());
         LocationClientOption option = new LocationClientOption();

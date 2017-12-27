@@ -15,7 +15,7 @@ import android.widget.Toast;
 import com.ninggc.trade.DAO.Commodity;
 import com.ninggc.trade.R;
 import com.ninggc.trade.activity.base.BaseActivity;
-import com.ninggc.trade.util.Server;
+import com.ninggc.trade.util.http.Server;
 import com.yanzhenjie.nohttp.rest.OnResponseListener;
 import com.yanzhenjie.nohttp.rest.Request;
 import com.yanzhenjie.nohttp.rest.Response;
@@ -94,31 +94,31 @@ public class ReleaseDelegationActivity extends BaseActivity {
         btn_release.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Request<String> request = createStringRequest(Server.url + "commodity/release");
-                request(Server.NO_WHAT, request, new OnResponseListener<String>() {
-                    @Override
-                    public void onStart(int what) {
-
-                    }
-
-                    @Override
-                    public void onSucceed(int what, Response<String> response) {
-                        Toast.makeText(ReleaseDelegationActivity.this, "SUCCEED", Toast.LENGTH_SHORT).show();
-                        //TODO
-                    }
-
-                    @Override
-                    public void onFailed(int what, Response<String> response) {
-                        Toast.makeText(ReleaseDelegationActivity.this, "FAILED", Toast.LENGTH_SHORT).show();
-                        //TODO
-                    }
-
-                    @Override
-                    public void onFinish(int what) {
-                        Toast.makeText(ReleaseDelegationActivity.this, "FINISH", Toast.LENGTH_SHORT).show();
-                        //TODO
-                    }
-                });
+//                Request<String> request = createStringRequest(Server.url + "commodity/release");
+//                request(Server.NO_WHAT, request, new OnResponseListener<String>() {
+//                    @Override
+//                    public void onStart(int what) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onSucceed(int what, Response<String> response) {
+//                        Toast.makeText(ReleaseDelegationActivity.this, "SUCCEED", Toast.LENGTH_SHORT).show();
+//                        //TODO
+//                    }
+//
+//                    @Override
+//                    public void onFailed(int what, Response<String> response) {
+//                        Toast.makeText(ReleaseDelegationActivity.this, "FAILED", Toast.LENGTH_SHORT).show();
+//                        //TODO
+//                    }
+//
+//                    @Override
+//                    public void onFinish(int what) {
+//                        Toast.makeText(ReleaseDelegationActivity.this, "FINISH", Toast.LENGTH_SHORT).show();
+//                        //TODO
+//                    }
+//                });
             }
         });
     }

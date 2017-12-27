@@ -20,10 +20,10 @@ import com.ninggc.trade.R;
 import com.ninggc.trade.activity.base.BaseActivity;
 import com.ninggc.trade.address.AddressCheckActivity;
 import com.ninggc.trade.address.City;
-import com.ninggc.trade.util.Server;
+import com.ninggc.trade.util.http.HttpResponseListener;
+import com.ninggc.trade.util.http.Server;
 import com.ninggc.trade.util.constants.Constant;
 import com.ninggc.trade.util.constants.IRequestCode;
-import com.ninggc.trade.util.http.ResponseListener;
 import com.yanzhenjie.album.Action;
 import com.yanzhenjie.album.Album;
 import com.yanzhenjie.album.AlbumFile;
@@ -128,7 +128,7 @@ public class ReleaseCommodityActivity extends BaseActivity implements View.OnCli
                     break;
                 } else {
                     Log.e("INFO", "onClick: " + gson.toJson(commodity));
-                    Server.releaseCommodity(commodity, new ResponseListener<String>() {
+                    Server.releaseCommodity(commodity, new HttpResponseListener<String>() {
                         @Override
                         public void onSucceed(int what, Response<String> response) {
                             super.onSucceed(what, response);

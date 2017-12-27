@@ -1,11 +1,18 @@
 package com.ninggc.trade.activity.ease;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.easeui.ui.EaseContactListFragment;
 import com.hyphenate.exceptions.HyphenateException;
+import com.ninggc.trade.activity.account.AccountUtil;
+import com.ninggc.trade.activity.account.LoginActivity;
+import com.ninggc.trade.activity.base.BaseActivity;
 
 import java.util.List;
 
@@ -18,6 +25,11 @@ import static com.ninggc.trade.activity.ease.ContactActivity.contactToMap;
 public class ContactListFragment extends EaseContactListFragment {
 
     String TAG = getClass().getSimpleName();
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     public void onStart() {

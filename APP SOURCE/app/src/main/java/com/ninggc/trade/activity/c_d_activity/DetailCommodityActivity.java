@@ -39,9 +39,9 @@ public class DetailCommodityActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         setContentView(R.layout.activity_detail_commodity);
         super.onCreate(savedInstanceState);
-        initView();
     }
 
+    @Override
     protected void initView() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         tv_note = (TextView) findViewById(R.id.detail_main_1_tv_intro);

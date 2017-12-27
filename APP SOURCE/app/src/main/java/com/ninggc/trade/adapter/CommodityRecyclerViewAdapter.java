@@ -23,6 +23,7 @@ import com.ninggc.trade.activity.base.BaseActivity;
 import com.ninggc.trade.activity.c_d_activity.DetailCommodityActivity;
 import com.ninggc.trade.util.constants.Constant;
 import com.ninggc.trade.fragment.onMoveAndSwipedListener;
+import com.ninggc.trade.util.tool.ImproveProperty;
 import com.zxy.tiny.Tiny;
 import com.zxy.tiny.callback.BitmapCallback;
 
@@ -164,7 +165,7 @@ public class CommodityRecyclerViewAdapter extends RecyclerView.Adapter<Commodity
         }
     }
 
-    @Deprecated
+    @ImproveProperty
     public void addItem(Commodity c) {
         for (int i = 0; i < list.size(); i++) {
             //id 相同则比较
@@ -185,7 +186,7 @@ public class CommodityRecyclerViewAdapter extends RecyclerView.Adapter<Commodity
         Log.e("ADAPTER", "addItem: " + new Gson().toJson(this.list));
     }
 
-    @Deprecated
+    @ImproveProperty
     public void addItem(List<Commodity> list) {
         for (Commodity c : list) {
             addItem(c);

@@ -7,6 +7,7 @@ import com.yanzhenjie.nohttp.rest.RequestQueue;
 
 /**
  * Created by Ning on 7/29/2017 0029.
+ * 通过getInstance方法实现统一管理所有请求
  */
 
 public class CallServer {

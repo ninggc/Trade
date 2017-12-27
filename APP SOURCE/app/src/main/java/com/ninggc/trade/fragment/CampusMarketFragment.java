@@ -22,12 +22,12 @@ import com.ninggc.trade.R;
 import com.ninggc.trade.activity.c_d_activity.CommodityListFragment;
 import com.ninggc.trade.adapter.CommodityRecyclerViewAdapter;
 import com.ninggc.trade.adapter.MyFragmentPagerAdapter;
-import com.ninggc.trade.util.IGson;
-import com.ninggc.trade.util.ITAG;
-import com.ninggc.trade.util.Server;
+import com.ninggc.trade.util.http.HttpResponseListener;
+import com.ninggc.trade.util.tool.IGson;
+import com.ninggc.trade.util.tool.ITAG;
+import com.ninggc.trade.util.http.Server;
 import com.ninggc.trade.util.constants.Constant;
 import com.ninggc.trade.util.exception.NotSupportNowException;
-import com.ninggc.trade.util.http.ResponseListener;
 import com.ninggc.trade.util.image.GlideImageLoader;
 import com.ninggc.trade.view.MyViewPager;
 import com.yanzhenjie.nohttp.rest.Response;
@@ -141,7 +141,7 @@ public class CampusMarketFragment extends Fragment implements ITAG, IGson {
         }
         int id = 1;
         try {
-            Server.showCommodityListWithCampus(id, new ResponseListener<String>() {
+            Server.showCommodityListWithCampus(id, new HttpResponseListener<String>() {
                 @Override
                 public void onSucceed(int what, Response<String> response) {
                     super.onSucceed(what, response);

@@ -2,7 +2,7 @@ package com.ninggc.trade.util.nohttp;
 
 import android.util.Log;
 
-import com.ninggc.trade.util.Server;
+import com.ninggc.trade.util.http.Server;
 import com.ninggc.trade.util.constants.ILoginStatus;
 import com.yanzhenjie.nohttp.Logger;
 import com.yanzhenjie.nohttp.NoHttp;

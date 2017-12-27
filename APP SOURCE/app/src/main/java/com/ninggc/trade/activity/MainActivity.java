@@ -59,6 +59,7 @@ import java.util.List;
 
 import static com.ninggc.trade.util.constants.Constant.CANCEL;
 import static com.ninggc.trade.util.constants.Constant.DEBUG;
+import static com.ninggc.trade.util.constants.Constant.MAIN;
 import static com.ninggc.trade.util.constants.Constant.SUCCESS;
 
 public class MainActivity extends AppCompatActivity
@@ -322,25 +323,29 @@ public class MainActivity extends AppCompatActivity
                     fragmentTransaction.add(R.id.contentContainer, indexFragment);
                     fragmentTransaction.commit();
                 } else if (tabId == R.id.tab_contact) {
-                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.contentContainer, testListFragment);
-                    fragmentTransaction.commit();
-                } else if (tabId == R.id.tab_chat) {
-                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    if (!AccountUtil.isLogin()) {
-                        fragmentTransaction.replace(R.id.contentContainer, new PleaseLoginFragment(indexFragment));
-                    } else {
-                        fragmentTransaction.replace(R.id.contentContainer, conversationListFragment);
+                    if (AccountUtil.loginTip(MainActivity.this)) {
+                        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(R.id.contentContainer, testListFragment);
+                        fragmentTransaction.commit();
                     }
-                    fragmentTransaction.commit();
+                } else if (tabId == R.id.tab_chat) {
+                    if (AccountUtil.loginTip(MainActivity.this)) {
+                        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(R.id.contentContainer, conversationListFragment);
+                        fragmentTransaction.commit();
+                    }
                 }else if(tabId == R.id.tab_delegate) {
-                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.contentContainer, delegationFragment);
-                    fragmentTransaction.commit();
+                    if (AccountUtil.loginTip(MainActivity.this)) {
+                        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(R.id.contentContainer, delegationFragment);
+                        fragmentTransaction.commit();
+                    }
                 } else if (tabId == R.id.tab_campus) {
-                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.contentContainer, campusMarketFragment);
-                    fragmentTransaction.commit();
+                    if (AccountUtil.loginTip(MainActivity.this)) {
+                        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(R.id.contentContainer, campusMarketFragment);
+                        fragmentTransaction.commit();
+                    }
                 }
             }
         });

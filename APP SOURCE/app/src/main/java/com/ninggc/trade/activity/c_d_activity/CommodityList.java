@@ -22,8 +22,8 @@ import com.ninggc.trade.DAO.Commodity;
 import com.ninggc.trade.R;
 import com.ninggc.trade.activity.base.BaseActivity;
 import com.ninggc.trade.adapter.CommodityRecyclerViewAdapter;
-import com.ninggc.trade.util.Server;
-import com.ninggc.trade.util.http.ResponseListener;
+import com.ninggc.trade.util.http.HttpResponseListener;
+import com.ninggc.trade.util.http.Server;
 import com.yanzhenjie.nohttp.rest.Response;
 
 import java.util.List;
@@ -53,8 +53,6 @@ public class CommodityList extends BaseActivity {
         setContentView(R.layout.list_commodity);
         super.onCreate(savedInstanceState);
 //        requestWindowFeature(Window.FEATURE_NO_TITLE);
-
-        initList();
     }
 
     @Override
@@ -156,12 +154,13 @@ public class CommodityList extends BaseActivity {
     }
 
     //刷新列表
-    void initList() {
+    @Override
+    protected void initList() {
         if (!swipeRefreshLayout.isRefreshing()) {
             swipeRefreshLayout.setRefreshing(true);
         }
 
-        Server.showCommodityListWithSort(kind, new ResponseListener<String>() {
+        Server.showCommodityListWithSort(kind, new HttpResponseListener<String>() {
             @Override
             public void onSucceed(int what, Response<String> response) {
                 super.onSucceed(what, response);
@@ -182,7 +181,7 @@ public class CommodityList extends BaseActivity {
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
-//        Server.showCommodityListWithSort(kind, new ResponseListener<String>() {
+//        Server.showCommodityListWithSort(kind, new HttpResponseListener<String>() {
 //            @Override
 //            public void onSucceed(int what, Response<String> response) {
 //                super.onSucceed(what, response);

@@ -13,9 +13,9 @@ import android.widget.Toast;
 
 import com.ninggc.trade.R;
 import com.ninggc.trade.activity.base.BaseActivity;
-import com.ninggc.trade.util.Server;
+import com.ninggc.trade.util.http.HttpResponseListener;
+import com.ninggc.trade.util.http.Server;
 import com.ninggc.trade.util.http.HttpGetString;
-import com.ninggc.trade.util.http.ResponseListener;
 import com.yanzhenjie.nohttp.rest.Response;
 
 import java.util.HashMap;
@@ -83,7 +83,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                     map.put("password", password);
                     // FIXME: 11/5/2017 0005 URL
                     Log.e(TAG, "onClick: " + "start http");
-                    HttpGetString.getInstance(Server.url + "usermage/register/").setResponseListener(new ResponseListener() {
+                    HttpGetString.getInstance(Server.url + "usermage/register/").setHttpResponseListener(new HttpResponseListener() {
                         @Override
                         public void onSucceed(int what, Response response) {
                             super.onSucceed(what, response);

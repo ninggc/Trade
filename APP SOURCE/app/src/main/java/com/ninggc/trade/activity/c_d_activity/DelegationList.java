@@ -17,7 +17,7 @@ import com.ninggc.trade.DAO.Delegation;
 import com.ninggc.trade.R;
 import com.ninggc.trade.activity.base.BaseActivity;
 import com.ninggc.trade.adapter.DelegationRecycleViewAdapter;
-import com.ninggc.trade.util.Server;
+import com.ninggc.trade.util.http.Server;
 import com.ninggc.trade.util.constants.Constant;
 import com.ninggc.trade.util.nohttp.CallServer;
 import com.yanzhenjie.nohttp.NoHttp;
@@ -47,9 +47,6 @@ public class DelegationList extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         setContentView(R.layout.list_delegation);
         super.onCreate(savedInstanceState);
-        initView();
-        initData();
-        initList();
     }
 
     @Override
@@ -78,8 +75,8 @@ public class DelegationList extends BaseActivity {
         });
     }
 
-
-    void initList() {
+    @Override
+    protected void initList() {
         Request<String> request = NoHttp.createStringRequest(Server.url + "delegation/select.php", RequestMethod.POST);
         CallServer.getInstance().add(-1, request, new OnResponseListener() {
             @Override

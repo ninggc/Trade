@@ -5,6 +5,7 @@ import java.security.NoSuchAlgorithmException;
 
 /**
  * Created by Ning on 11/5/2017 0005.
+ * 暂未使用
  */
 
 public class SecurityUtil {

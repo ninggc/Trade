@@ -32,13 +32,13 @@ import com.ninggc.trade.activity.ease.ContactActivity;
 import com.ninggc.trade.address.AddressCheckActivity;
 import com.ninggc.trade.address.City;
 import com.ninggc.trade.address.CampusCheckActivity;
+import com.ninggc.trade.util.http.HttpResponseListener;
 import com.ninggc.trade.util.nohttp.CallServer;
 import com.ninggc.trade.test.TestBaiduMap;
 import com.yanzhenjie.nohttp.NoHttp;
 import com.yanzhenjie.nohttp.RequestMethod;
 import com.yanzhenjie.nohttp.rest.Request;
 import com.yanzhenjie.nohttp.rest.Response;
-import com.yanzhenjie.nohttp.rest.SimpleResponseListener;
 
 import java.util.ArrayList;
 
@@ -76,7 +76,7 @@ public class TestListFragment extends ListFragment {
 //        adapter.addItem("--测试登录", new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                Server.login("ning", "123", new ResponseListener<String>() {
+//                Server.login("ning", "123", new HttpResponseListener<String>() {
 //                    @Override
 //                    public void onSucceed(int what, Response<String> response) {
 //                        super.onSucceed(what, response);
@@ -96,7 +96,7 @@ public class TestListFragment extends ListFragment {
 //        adapter.addItem("--Cookie", new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                Server.login("ning", "123", new ResponseListener<String>() {
+//                Server.login("ning", "123", new HttpResponseListener<String>() {
 //                    @Override
 //                    public void onSucceed(int what, Response<String> response) {
 //                        super.onSucceed(what, response);
@@ -200,7 +200,7 @@ public class TestListFragment extends ListFragment {
                 request.set("type", "1");
                 request.set("username", "ning");
                 request.set("password", "123");
-                CallServer.getInstance().add(0, request, new SimpleResponseListener() {
+                CallServer.getInstance().add(0, request, new HttpResponseListener() {
                     @Override
                     public void onSucceed(int what, Response response) {
                         Log.e(BaseActivity.TAG_NOHTTP, "onSucceed: " + response.get());

@@ -14,6 +14,7 @@ import com.google.gson.Gson;
 import com.ninggc.trade.DAO.Delegation;
 import com.ninggc.trade.R;
 import com.ninggc.trade.activity.c_d_activity.DetailDelegationActivity;
+import com.ninggc.trade.util.tool.ImproveProperty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,7 +76,7 @@ public class DelegationRecycleViewAdapter extends RecyclerView.Adapter<Delegatio
         }
     }
 
-    @Deprecated
+    @ImproveProperty
     public void addItem(Delegation d) {
         for (int i = 0; i < list.size(); i++) {
             //id 相同则比较
@@ -95,7 +96,7 @@ public class DelegationRecycleViewAdapter extends RecyclerView.Adapter<Delegatio
         notifyItemChanged(list.size());
     }
 
-    @Deprecated
+    @ImproveProperty
     public void addItem(List<Delegation> list) {
         for (Delegation d : list) {
             addItem(d);

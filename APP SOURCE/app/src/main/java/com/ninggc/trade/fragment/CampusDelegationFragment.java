@@ -18,19 +18,17 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 import com.ninggc.trade.DAO.Delegation;
 import com.ninggc.trade.R;
-import com.ninggc.trade.activity.c_d_activity.CommodityListFragment;
 import com.ninggc.trade.activity.c_d_activity.DelegationListFragment;
-import com.ninggc.trade.adapter.CommodityRecyclerViewAdapter;
 import com.ninggc.trade.adapter.DelegationRecycleViewAdapter;
 import com.ninggc.trade.adapter.MyFragmentPagerAdapter;
-import com.ninggc.trade.util.IGson;
-import com.ninggc.trade.util.ITAG;
-import com.ninggc.trade.util.Server;
+import com.ninggc.trade.util.http.HttpResponseListener;
+import com.ninggc.trade.util.tool.IGson;
+import com.ninggc.trade.util.tool.ITAG;
+import com.ninggc.trade.util.http.Server;
 import com.ninggc.trade.util.constants.Constant;
 import com.ninggc.trade.util.exception.NotSupportNowException;
-import com.ninggc.trade.util.http.ResponseListener;
 import com.ninggc.trade.util.image.GlideImageLoader;
-import com.ninggc.trade.util.log.MessageLog;
+import com.ninggc.trade.util.tool.MessageLog;
 import com.ninggc.trade.view.MyViewPager;
 import com.yanzhenjie.nohttp.rest.Response;
 import com.youth.banner.Banner;
@@ -143,7 +141,7 @@ public class CampusDelegationFragment extends Fragment implements IGson, ITAG {
         }
         int id = 1;
         try {
-            Server.showCommodityListWithCampus(id, new ResponseListener<String>() {
+            Server.showCommodityListWithCampus(id, new HttpResponseListener<String>() {
                 @Override
                 public void onSucceed(int what, Response<String> response) {
 //                    super.onSucceed(what, response);
