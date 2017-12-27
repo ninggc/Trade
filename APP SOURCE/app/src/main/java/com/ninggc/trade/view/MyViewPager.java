@@ -6,7 +6,9 @@ import android.util.AttributeSet;
 import android.view.View;
 
 /**
+ * @author Web
  * Created by Ning on 12/19/2017 0019.
+ * 控制viewpager高度
  */
 
 public class MyViewPager extends ViewPager {

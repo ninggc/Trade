@@ -132,7 +132,7 @@ public class CampusDelegationFragment extends Fragment implements IGson, ITAG {
     }
 
     private void initList() {
-
+        syncList();
     }
 
     private void syncList() {
