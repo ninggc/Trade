@@ -6,6 +6,8 @@ import com.ninggc.trade.encrypt.EncryptionUtil;
 
 import org.junit.Test;
 
+import java.util.Set;
+
 /**
  * Example local unit test, which will execute on the development machine (host).
  *
@@ -25,6 +27,8 @@ public class ExampleUnitTest {
 
 
         System.out.println(EncryptionUtil.md5("123456"));
+
+        Set<String> set;
     }
 
     @Test

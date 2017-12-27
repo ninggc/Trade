@@ -2,6 +2,7 @@ package com.ninggc.trade.activity.c_d_activity;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
@@ -13,6 +14,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.ninggc.trade.DAO.Commodity;
 import com.ninggc.trade.R;
 import com.ninggc.trade.activity.base.BaseActivity;
@@ -20,6 +24,8 @@ import com.ninggc.trade.util.constants.Constant;
 import com.sackcentury.shinebuttonlib.ShineButton;
 import com.zxy.tiny.Tiny;
 import com.zxy.tiny.callback.BitmapCallback;
+
+import java.io.ByteArrayInputStream;
 
 /**
  * @author Ning
@@ -94,14 +100,19 @@ public class DetailCommodityActivity extends BaseActivity {
                 });
             }
         }
+
+        if (commodity.getImg1() != null && !"".equals(commodity.getImg1())) {
+            Glide.with(this).load(commodity.getImg1()).asBitmap().into(new SimpleTarget<Bitmap>() {
+                @Override
+                public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                    addImageView(resource);
+                }
+            });
+        }
     }
 
     private void addImageView(Bitmap bitmap) {
         ImageView imageView = new ImageView(this);
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//                Drawable drawable = context.getDrawable(R.drawable.thinking);
-//                Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.thinking);
-//            }
         Tiny.BitmapCompressOptions options = new Tiny.BitmapCompressOptions();
         options.height = 150;
         options.width = 150;

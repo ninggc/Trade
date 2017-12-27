@@ -133,7 +133,7 @@ public class CommodityRecyclerViewAdapter extends RecyclerView.Adapter<Commodity
     public boolean onItemMove(int fromPosition, int toPosition) {
         if (DEBUG) {
             Log.e(getClass().getSimpleName(), "onItemMove: ");
-        }
+        }notifyDataSetChanged();
         return false;
     }
 
