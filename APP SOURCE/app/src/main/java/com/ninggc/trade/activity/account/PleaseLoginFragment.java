@@ -15,6 +15,7 @@ import com.ninggc.trade.activity.MainActivity;
 import com.ninggc.trade.util.constants.Constant;
 
 /**
+ * @author Ning
  * Created by Ning on 11/22/2017 0022.
  */
 

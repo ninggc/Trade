@@ -10,6 +10,7 @@ import com.ninggc.trade.R;
 import com.ninggc.trade.activity.base.BaseActivity;
 
 /**
+ * @author Ning
  * Created by Ning on 12/10/2017 0010.
  * 启动页，未完成
  */

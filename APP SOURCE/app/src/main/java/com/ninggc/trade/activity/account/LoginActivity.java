@@ -53,6 +53,7 @@ import cn.smssdk.gui.RegisterPage;
 import static com.ninggc.trade.util.constants.Constant.DEBUG;
 
 /**
+ * @author Ning
  * Created by Ning on 7/26/2017 0026.
  */
 

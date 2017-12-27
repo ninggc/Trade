@@ -29,6 +29,7 @@ import com.yanzhenjie.nohttp.rest.Response;
 import java.util.List;
 
 /**
+ * @author Ning
  * Created by Ning on 7/31/2017 0031.
  * 根据Intent传递的kind，从服务器动态获取信息列表
  */

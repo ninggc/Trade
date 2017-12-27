@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.Random;
 
 /**
+ * @author Ning
  * Created by Ning on 7/24/2017 0024.
  */
 
@@ -68,13 +69,22 @@ public class Delegation implements IBean, Serializable {
         return result;
     }
 
-    static Random random = new Random();
+    /**
+     * 通过count生成连续的id以便于观察
+     */
+    private static int count = 0;
+    private static Random random = new Random();
+
+    /**
+     * 测试用函数
+     * @return
+     */
     public static Delegation getTestInstance() {
         Delegation delegation = new Delegation();
-        delegation.setId(random.nextInt(1000));
+        delegation.setId(count++);
         delegation.setSort(random.nextInt(4));
         delegation.setTitle("Test instance");
-        delegation.setDescription("这是一个测试用的委托");
+        delegation.setDescription(String.valueOf(count));
         return delegation;
     }
 }

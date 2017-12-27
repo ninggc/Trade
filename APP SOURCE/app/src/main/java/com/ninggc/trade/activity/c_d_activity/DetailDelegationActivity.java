@@ -12,6 +12,7 @@ import com.ninggc.trade.DAO.Delegation;
 import com.ninggc.trade.R;
 
 /**
+ * @author Ning
  * Created by Ning on 8/16/2017 0016.
  */
 

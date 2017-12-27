@@ -24,6 +24,7 @@ import java.util.Date;
 import java.util.Locale;
 
 /**
+ * @author Ning
  * Created by Ning on 8/17/2017 0017.
  */
 

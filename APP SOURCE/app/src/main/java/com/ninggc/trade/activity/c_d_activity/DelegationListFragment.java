@@ -17,6 +17,7 @@ import com.ninggc.trade.adapter.CommodityRecyclerViewAdapter;
 import com.ninggc.trade.adapter.DelegationRecycleViewAdapter;
 
 /**
+ * @author Ning
  * Created by Ning on 12/19/2017 0019.
  */
 

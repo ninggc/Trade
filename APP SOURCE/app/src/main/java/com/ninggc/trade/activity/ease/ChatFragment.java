@@ -8,6 +8,7 @@ import com.hyphenate.easeui.ui.EaseChatFragment;
 import com.hyphenate.easeui.widget.chatrow.EaseCustomChatRowProvider;
 
 /**
+ * @author Ning
  * Created by Ning on 11/12/2017 0012.
  */
 

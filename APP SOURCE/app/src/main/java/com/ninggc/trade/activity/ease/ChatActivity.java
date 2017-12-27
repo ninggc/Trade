@@ -11,6 +11,7 @@ import com.ninggc.trade.activity.MainActivity;
 import com.ninggc.trade.activity.base.BaseActivity;
 
 /**
+ * @author Ning
  * Created by Ning on 11/12/2017 0012.
  */
 

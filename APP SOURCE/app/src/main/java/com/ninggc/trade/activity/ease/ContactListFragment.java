@@ -19,6 +19,7 @@ import java.util.List;
 import static com.ninggc.trade.activity.ease.ContactActivity.contactToMap;
 
 /**
+ * @author Ning
  * Created by Ning on 11/12/2017 0012.
  */
 

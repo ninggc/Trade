@@ -34,6 +34,7 @@ import java.util.List;
 import static com.ninggc.trade.util.constants.Constant.DEBUG;
 
 /**
+ * @author Ning
  * Created by Ning on 8/16/2017 0016.
  */
 

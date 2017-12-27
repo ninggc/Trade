@@ -11,6 +11,7 @@ import com.hyphenate.chat.EMClient;
 import java.util.List;
 
 /**
+ * @author Ning
  * Created by Ning on 11/12/2017 0012.
  */
 

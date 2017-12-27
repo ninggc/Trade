@@ -6,6 +6,7 @@ import android.util.Log;
 import com.hyphenate.easeui.ui.EaseConversationListFragment;
 
 /**
+ * @author Ning
  * Created by Ning on 11/12/2017 0012.
  */
 

@@ -15,6 +15,7 @@ import com.ninggc.trade.util.http.HttpResponseListener;
 import com.ninggc.trade.util.http.Server;
 
 /**
+ * @author Ning
  * Created by Ning on 11/12/2017 0012.
  */
 

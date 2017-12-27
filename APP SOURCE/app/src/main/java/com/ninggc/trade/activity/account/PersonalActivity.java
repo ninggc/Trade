@@ -10,8 +10,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ninggc.trade.R;
-import com.ninggc.trade.activity.base.BaseActivity;
 
+/**
+ * @author Ning
+ */
 public class PersonalActivity extends AppCompatActivity {
 
     TextView textView2;

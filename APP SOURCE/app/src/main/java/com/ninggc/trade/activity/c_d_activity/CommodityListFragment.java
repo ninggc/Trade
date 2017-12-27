@@ -16,6 +16,7 @@ import com.ninggc.trade.adapter.CommodityRecyclerViewAdapter;
 import com.ninggc.trade.fragment.CommodityFragment;
 
 /**
+ * @author Ning
  * Created by Ning on 12/19/2017 0019.
  */
 
