@@ -7,9 +7,10 @@ package com.ninggc.trade.util.tool;
  */
 
 public interface ITAG {
-    String TAG_NOHTTP = "NOHTTP";
-    String TAG_INFO = "INFO";
-    String TAG_BaiduMap = "BaiduMap";
-    String TAG_CAMPUS = "CAMPUS";
-    String TAG_TIP = "TIP";
+    String NINGGC = "_N_";
+    String TAG_NOHTTP = NINGGC + "NOHTTP";
+    String TAG_INFO = NINGGC + "INFO";
+    String TAG_BaiduMap = NINGGC + "BaiduMap";
+    String TAG_CAMPUS = NINGGC + "CAMPUS";
+    String TAG_TIP = NINGGC + "TIP";
 }

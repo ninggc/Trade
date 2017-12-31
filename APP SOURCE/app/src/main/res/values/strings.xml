@@ -191,6 +191,11 @@
     <string name="register_username_invalid">用户名不合法</string>
     <string name="register_email">邮箱</string>
     <string name="register_email_invalid">邮箱不合法</string>
+    <string name="register_result_error_username_exist">用户已存在</string>
+    <string name="register_result_error_email_existed">邮箱已被注册</string>
+    <string name="register_result_error_phone_existed">手机号已被注册</string>
+    <string name="register_result_error_string_invalid">字符串不合法</string>
+    <string name="register_result_success">注册成功</string>
 
     <!-- activity_detail_commodity -->
 </resources>

@@ -5,6 +5,8 @@ import com.ninggc.trade.DAO.Security;
 import com.ninggc.trade.DAO.User;
 import com.ninggc.trade.util.exception.NotSupportNowException;
 import com.ninggc.trade.util.nohttp.CallServer;
+import com.ninggc.trade.util.tool.ITAG;
+import com.ninggc.trade.util.tool.MessageLog;
 import com.yanzhenjie.nohttp.NoHttp;
 import com.yanzhenjie.nohttp.RequestMethod;
 import com.yanzhenjie.nohttp.rest.Request;
@@ -71,14 +73,18 @@ public class Server {
     public static void register(User user, HttpResponseListener<String> listener) {
         Request<String> request = createStringRequest(url + "usermage/adduser/");
         request.set("username", user.getUsername());
-        request.set("password", user.getMD5());
-        request.set("ageinpassword", user.getMD5());
 
         Security security = user.getSecurity();
         if (security != null) {
             request.set("phone", security.getPhone());
             request.set("email", security.getEmail());
+            String password = security.getPassword();
+            if (password != null && !"".equals(password)) {
+                request.set("password", password);
+                request.set("ageinpassword", password);
+            }
         }
+        MessageLog.show(ITAG.TAG_INFO, "Server.register: ", security);
 
         CallServer.getInstance().add(USER_REGISTER, request, listener);
     }

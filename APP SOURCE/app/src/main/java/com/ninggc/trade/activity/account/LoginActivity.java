@@ -27,11 +27,10 @@ import com.hyphenate.exceptions.HyphenateException;
 import com.ninggc.trade.DAO.User;
 import com.ninggc.trade.R;
 import com.ninggc.trade.activity.base.BaseActivity;
-import com.ninggc.trade.util.http.HttpResponseListener;
-import com.ninggc.trade.util.http.Server;
 import com.ninggc.trade.util.constants.Constant;
 import com.ninggc.trade.util.constants.ILoginStatus;
-import com.ninggc.trade.util.constants.IRequestCode;
+import com.ninggc.trade.util.http.HttpResponseListener;
+import com.ninggc.trade.util.http.Server;
 import com.tencent.connect.UserInfo;
 import com.tencent.connect.common.Constants;
 import com.tencent.tauth.IUiListener;
@@ -517,7 +516,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                     Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                     intent.putExtra("country", country);
                     intent.putExtra("phone", phone);
-                    startActivityForResult(intent, IRequestCode.REGISTER);
+                    startActivityForResult(intent, Constant.REGISTER);
                 } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
                     //获取验证码成功
                     Log.e(TAG, "afterEvent: " + "获取验证码成功");
@@ -604,10 +603,25 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Constants.REQUEST_LOGIN) {
             Tencent.onActivityResultData(requestCode, resultCode, data, QQUIListener);
             mTencent.onActivityResult(requestCode, resultCode, data);
         }
-        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case Constant.REGISTER:
+                    if (data == null) {
+                        break;
+                    }
+                    String phone = data.getStringExtra("phone");
+                    if (phone != null && !"".equals(phone)) {
+                        login_til_account.getEditText().setText(phone);
+                        login_til_password.getEditText().setText("");
+                    }
+                    break;
+            }
+        }
     }
 }

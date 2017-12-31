@@ -1,5 +1,6 @@
 package com.ninggc.trade.activity.account;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
@@ -144,8 +145,10 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         User user = new User();
         user.setUsername(username);
         Security security = new Security();
+        security.setPassword(password);
         security.setPhone(phone);
         security.setPassword(password);
+        security.setEmail(email);
         user.setSecurity(security);
         Server.register(user, new HttpResponseListener<String>() {
             @Override
@@ -158,11 +161,32 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 super.onSucceed(what, response);
                 String result = response.get();
                 MessageLog.show(TAG_INFO, "RegisterActivity.onSucceed: ", result);
+
+                switch (result) {
+                    case "000":
+                        Toast.makeText(RegisterActivity.this, R.string.register_result_error_username_exist, Toast.LENGTH_SHORT).show();
+                        break;
+                    case "001":
+                        Toast.makeText(RegisterActivity.this, R.string.register_result_error_email_existed, Toast.LENGTH_SHORT).show();
+                        break;
+                    case "002":
+                        Toast.makeText(RegisterActivity.this, R.string.register_result_error_phone_existed, Toast.LENGTH_SHORT).show();
+                        break;
+                    case "003":
+                        Toast.makeText(RegisterActivity.this, R.string.register_result_success, Toast.LENGTH_SHORT).show();
+                        setResult(RESULT_OK, new Intent().putExtra("account", phone));
+                        finish();
+                        break;
+                    case "004":
+                        Toast.makeText(RegisterActivity.this, R.string.register_result_error_string_invalid, Toast.LENGTH_SHORT).show();
+                        break;
+                }
             }
 
             @Override
             public void onFailed(int what, Response<String> response) {
                 super.onFailed(what, response);
+                Toast.makeText(RegisterActivity.this, getResources().getString(R.string.server_error), Toast.LENGTH_SHORT).show();
             }
 
             @Override
