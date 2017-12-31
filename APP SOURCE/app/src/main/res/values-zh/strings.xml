@@ -161,6 +161,10 @@
     <string name="personal_tv_campus">学校：无</string>
     <string name="campus_notice">【公告】 敬请关注</string>
     <string name="exit">退出</string>
+    <string name="register_username">用户名</string>
+    <string name="register_username_invalid">用户名不合法</string>
+    <string name="register_email">邮箱</string>
+    <string name="register_email_invalid">邮箱不合法</string>
 
     <!-- activity_detail_commodity -->
 </resources>

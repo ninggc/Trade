@@ -1,8 +1,6 @@
 package com.ninggc.trade.activity.account;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.Toolbar;
@@ -11,15 +9,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.ninggc.trade.DAO.Security;
+import com.ninggc.trade.DAO.User;
 import com.ninggc.trade.R;
 import com.ninggc.trade.activity.base.BaseActivity;
 import com.ninggc.trade.util.http.HttpResponseListener;
 import com.ninggc.trade.util.http.Server;
-import com.ninggc.trade.util.http.HttpGetString;
+import com.ninggc.trade.util.tool.MessageLog;
 import com.yanzhenjie.nohttp.rest.Response;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author Ning
@@ -30,11 +27,14 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
     Toolbar toolbar;
     Button btnRegister;
+    TextInputLayout til_username;
     TextInputLayout til_password;
     TextInputLayout til_password_again;
+    TextInputLayout til_email;
 //    EditText et_password;
 //    EditText et_password_again;
 
+    MatchUtil matchUtil = new MatchUtil();
     String country;
     String phone;
 //    String code;
@@ -59,86 +59,116 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         btnRegister = (Button) findViewById(R.id.register_btn_register);
         btnRegister.setOnClickListener(this);
+        til_username = (TextInputLayout) findViewById(R.id.register_til_username);
         til_password = (TextInputLayout) findViewById(R.id.register_til_password);
         til_password_again = (TextInputLayout) findViewById(R.id.register_til_password_again);
-//        et_password = (EditText) findViewById(R.id.register_et_password);
-//        et_password_again = (EditText) findViewById(R.id.register_et_password_again);
+        til_email = (TextInputLayout) findViewById(R.id.register_til_email);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.register_btn_register:
-//                String password = et_password.getText().toString();
-                String password = til_password.getEditText().getText().toString();
-                if(!vertify(password)) {
-                    Toast.makeText(this, getResources().getString(R.string.register_password_invalid), Toast.LENGTH_SHORT).show();
-                    break;
-                }else if (!password.equals(til_password_again.getEditText().getText().toString())) {
-                    Toast.makeText(this, getResources().getString(R.string.register_password_diff), Toast.LENGTH_SHORT).show();
-                    break;
-                } else {
-                    final Map<String, String> map = new HashMap<>();
-                    map.put("password", password);
-                    // FIXME: 11/5/2017 0005 URL
-                    Log.e(TAG, "onClick: " + "start http");
-                    HttpGetString.getInstance(Server.url + "usermage/register/").setHttpResponseListener(new HttpResponseListener() {
-                        @Override
-                        public void onSucceed(int what, Response response) {
-                            super.onSucceed(what, response);
-                            Log.e(TAG, "onSucceed: ");
-                            Message msg = new Message();
-                            msg.what = 1;
-                            handler.sendMessage(msg);
-                        }
-
-                        @Override
-                        public void onFailed(int what, Response response) {
-                            super.onFailed(what, response);
-                            Log.e(TAG, "onFailed: ");
-                            Message msg = new Message();
-                            msg.what = -1;
-                            handler.sendMessage(msg);
-                        }
-
-                        @Override
-                        public void onFinish(int what) {
-                            super.onFinish(what);
-                            Log.e(TAG, "onFinish: " + "注册结束");
-                            Message msg = new Message();
-                            msg.what = 0;
-                            handler.sendMessage(msg);
-                        }
-                    }).setMap(map).start();
-                }
+                register();
                 break;
             default:break;
         }
     }
 
-    final Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            Log.e(TAG, "handleMessage: " + msg.what);
-            switch (msg.what) {
-                case 1:
-                    break;
-                default:break;
+    //验证输入字符是否合法
+    public class MatchUtil {
+        private boolean verifyUsername(String text) {
+            if (text == null || "".equals(text)) {
+                Log.e(TAG_TIP, "verifyUsername: " + "用户名不能为空");
+                return false;
             }
-        }
-    };
 
-    private boolean vertify(String text) {
-        if (text == null || "".equals(text)) {
-            Log.e(TAG, "vertify: " + "密码不能为空");
-            return false;
-        } else if (text.length() < 9 || text.length() > 16) {
-            Log.e(TAG, "vertify: "+ "密码长度为 : " + text.length());
-            return false;
+            return true;
         }
-        return true;
+
+        private boolean verifyPassword(String text) {
+            if (text == null || "".equals(text)) {
+                Log.e(TAG_TIP, "verifyPassword: " + "密码不能为空");
+                return false;
+            } else if (text.length() < 9 || text.length() > 16) {
+                Log.e(TAG_TIP, "verifyPassword: "+ "密码长度为 : " + text.length());
+                return false;
+            }
+            return true;
+        }
+
+        private boolean verifyEmail(String text) {
+            if (text == null || "".equals(text)) {
+                Log.e(TAG_TIP, "verifyEmail: " + "邮箱不能为空");
+                return false;
+            }
+
+            return true;
+        }
+    }
+
+
+    private void register() {
+        String username = til_username.getEditText().getText().toString();
+        String password = til_password.getEditText().getText().toString();
+        String againPassword = til_password_again.getEditText().getText().toString();
+        String email = til_email.getEditText().getText().toString();
+
+        ///验证用户名
+        if (!matchUtil.verifyUsername(username)) {
+            Toast.makeText(this, getResources().getString(R.string.register_username_invalid), Toast.LENGTH_SHORT).show();
+            return;
+        }
+        ///验证密码合法性
+        if (!matchUtil.verifyPassword(password)) {
+            Toast.makeText(this, getResources().getString(R.string.register_password_invalid), Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        ///验证再次输入的密码的合法性
+        if (!password.equals(againPassword)) {
+            Toast.makeText(this, getResources().getString(R.string.register_password_diff), Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (!matchUtil.verifyEmail(email)) {
+            Toast.makeText(this, getResources().getString(R.string.register_email_invalid), Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        ///通过验证
+        ///开始注册到服务器
+        User user = new User();
+        user.setUsername(username);
+        Security security = new Security();
+        security.setPhone(phone);
+        security.setPassword(password);
+        user.setSecurity(security);
+        Server.register(user, new HttpResponseListener<String>() {
+            @Override
+            public void onStart(int what) {
+                super.onStart(what);
+            }
+
+            @Override
+            public void onSucceed(int what, Response<String> response) {
+                super.onSucceed(what, response);
+                String result = response.get();
+                MessageLog.show(TAG_INFO, "RegisterActivity.onSucceed: ", result);
+            }
+
+            @Override
+            public void onFailed(int what, Response<String> response) {
+                super.onFailed(what, response);
+            }
+
+            @Override
+            public void onFinish(int what) {
+                super.onFinish(what);
+            }
+        });
     }
 }

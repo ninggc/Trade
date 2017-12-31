@@ -11,4 +11,5 @@ public interface ITAG {
     String TAG_INFO = "INFO";
     String TAG_BaiduMap = "BaiduMap";
     String TAG_CAMPUS = "CAMPUS";
+    String TAG_TIP = "TIP";
 }

@@ -10,6 +10,7 @@ import com.baidu.location.LocationClientOption;
 import com.ninggc.trade.DAO.Location;
 import com.ninggc.trade.activity.account.AccountUtil;
 import com.ninggc.trade.activity.account.LoginActivity;
+import com.ninggc.trade.activity.account.RegisterActivity;
 import com.ninggc.trade.util.tool.IGson;
 import com.ninggc.trade.util.tool.ITAG;
 
@@ -60,15 +61,17 @@ public abstract class BaseActivity extends AppCompatActivity implements ITAG, IG
         super.onCreate(savedInstanceState);
 
         /**
-         * 除了登录界面外都对登录状态进行检查
+         * 登录、注册界面不验证状态
+         * 其他界面均进行验证
          * 部分activity未继承BaseActivity不检查登录状态
          */
-        if (!getClass().getSimpleName().equals(LoginActivity.class.getSimpleName())) {
+        String simpleName = getClass().getSimpleName();
+        if (simpleName.equals(LoginActivity.class.getSimpleName()) || simpleName.equals(RegisterActivity.class.getSimpleName())) {
+            init();
+        } else {
             if (AccountUtil.loginTip(this)) {
                 init();
             }
-        } else {
-            init();
         }
     }
 

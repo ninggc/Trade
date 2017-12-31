@@ -1,0 +1,110 @@
+{
+	"info": {
+		"name": "tradenewyear",
+		"_postman_id": "67578e01-0df5-ae1a-7a9b-47ce4b0ed0a3",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "release",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "tile",
+							"value": "123",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "444",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "datetime_month",
+							"value": "1",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "datetime_day",
+							"value": "20",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "datetime_year",
+							"value": "2017",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "endtime_month",
+							"value": "1",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "endtime_day",
+							"value": "22",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "endtime_year",
+							"value": "2017",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "extra",
+							"value": "54112",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "school",
+							"value": "default",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "img1",
+							"value": "",
+							"description": "",
+							"type": "file"
+						},
+						{
+							"key": "type",
+							"value": "1",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "127.0.0.1/market/releasede/",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"path": [
+						"market",
+						"releasede",
+						""
+					]
+				},
+				"description": "提交委托"
+			},
+			"response": []
+		}
+	]
+}

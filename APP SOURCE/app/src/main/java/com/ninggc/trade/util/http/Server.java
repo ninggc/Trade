@@ -1,6 +1,8 @@
 package com.ninggc.trade.util.http;
 
 import com.ninggc.trade.DAO.Commodity;
+import com.ninggc.trade.DAO.Security;
+import com.ninggc.trade.DAO.User;
 import com.ninggc.trade.util.exception.NotSupportNowException;
 import com.ninggc.trade.util.nohttp.CallServer;
 import com.yanzhenjie.nohttp.NoHttp;
@@ -64,6 +66,21 @@ public class Server {
         request.set("password", password);
         CallServer.getInstance().add(NO_WHAT, request, httpResponseListener);
         Server.request = request;
+    }
+
+    public static void register(User user, HttpResponseListener<String> listener) {
+        Request<String> request = createStringRequest(url + "usermage/adduser/");
+        request.set("username", user.getUsername());
+        request.set("password", user.getMD5());
+        request.set("ageinpassword", user.getMD5());
+
+        Security security = user.getSecurity();
+        if (security != null) {
+            request.set("phone", security.getPhone());
+            request.set("email", security.getEmail());
+        }
+
+        CallServer.getInstance().add(USER_REGISTER, request, listener);
     }
 
     public static void addUser(String username, String password, HttpResponseListener<String> httpResponseListener) {

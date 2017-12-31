@@ -104,6 +104,7 @@ public class AccountUtil {
                             }
                         }
                     })
+                    .setCancelable(false)
                     .show();
         } else {
             return true;

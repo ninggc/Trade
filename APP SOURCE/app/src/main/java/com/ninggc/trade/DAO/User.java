@@ -14,6 +14,7 @@ public class User implements IBean {
     private String portrait;
     private String MD5;
     private Campus campus;
+    private Security security;
 
     public int getId() {
         return id;
@@ -85,6 +86,14 @@ public class User implements IBean {
 
     public void setCampus(Campus campus) {
         this.campus = campus;
+    }
+
+    public Security getSecurity() {
+        return security;
+    }
+
+    public void setSecurity(Security security) {
+        this.security = security;
     }
 
     @Override

@@ -9,7 +9,7 @@ public class Security implements IBean {
     private String password;
     private String email;
     private int userId;
-    private String tel;
+    private String phone;
 
     public String getPassword() {
         return password;
@@ -35,12 +35,12 @@ public class Security implements IBean {
         this.userId = userId;
     }
 
-    public String getTel() {
-        return tel;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setTel(String tel) {
-        this.tel = tel;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     @Override
@@ -54,7 +54,7 @@ public class Security implements IBean {
         if (password != null ? !password.equals(security.password) : security.password != null)
             return false;
         if (email != null ? !email.equals(security.email) : security.email != null) return false;
-        return tel != null ? tel.equals(security.tel) : security.tel == null;
+        return phone != null ? phone.equals(security.phone) : security.phone == null;
     }
 
     @Override
@@ -62,7 +62,7 @@ public class Security implements IBean {
         int result = password != null ? password.hashCode() : 0;
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + userId;
-        result = 31 * result + (tel != null ? tel.hashCode() : 0);
+        result = 31 * result + (phone != null ? phone.hashCode() : 0);
         return result;
     }
 }
