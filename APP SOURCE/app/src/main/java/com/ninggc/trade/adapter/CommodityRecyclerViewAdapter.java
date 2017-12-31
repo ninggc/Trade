@@ -38,7 +38,9 @@ import static com.ninggc.trade.util.constants.Constant.DEBUG;
  * Created by Ning on 8/16/2017 0016.
  */
 
-public class CommodityRecyclerViewAdapter extends RecyclerView.Adapter<CommodityRecyclerViewAdapter.RecyclerViewHolder> implements onMoveAndSwipedListener {
+public class CommodityRecyclerViewAdapter
+        extends RecyclerView.Adapter<CommodityRecyclerViewAdapter.RecyclerViewHolder>
+        implements onMoveAndSwipedListener {
     private Context context;
     private List<Commodity> list;
 
@@ -53,7 +55,8 @@ public class CommodityRecyclerViewAdapter extends RecyclerView.Adapter<Commodity
 
     @Override
     public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_commidity, parent, false);
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_commidity, parent, false);
         return new RecyclerViewHolder(view);
     }
 
@@ -84,7 +87,8 @@ public class CommodityRecyclerViewAdapter extends RecyclerView.Adapter<Commodity
         holder.iv_head_portrait.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.startActivity(new Intent(context, PersonalActivity.class).putExtra("user_id", commodity.getUserId()));
+                context.startActivity(new Intent(context, PersonalActivity.class)
+                        .putExtra("user_id", commodity.getUserId()));
             }
         });
 
@@ -99,7 +103,8 @@ public class CommodityRecyclerViewAdapter extends RecyclerView.Adapter<Commodity
                         Tiny.BitmapCompressOptions options = new Tiny.BitmapCompressOptions();
                         options.height = 50;
                         options.width = 50;
-                        Tiny.getInstance().source(Constant.localImage).asBitmap().withOptions(options).compress(new BitmapCallback() {
+                        Tiny.getInstance().source(Constant.localImage)
+                                .asBitmap().withOptions(options).compress(new BitmapCallback() {
                             @Override
                             public void callback(boolean isSuccess, Bitmap bitmap, Throwable t) {
                                 imageView.setImageBitmap(bitmap);

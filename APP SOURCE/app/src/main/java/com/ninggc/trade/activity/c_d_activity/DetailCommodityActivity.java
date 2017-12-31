@@ -15,14 +15,23 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.ninggc.trade.DAO.Comment;
 import com.ninggc.trade.DAO.Commodity;
 import com.ninggc.trade.R;
 import com.ninggc.trade.activity.base.BaseActivity;
+import com.ninggc.trade.adapter.CommentRecyclerViewAdapter;
 import com.ninggc.trade.adapter.CommodityRecyclerViewAdapter;
 import com.ninggc.trade.util.constants.Constant;
+import com.ninggc.trade.util.tool.MessageLog;
 import com.sackcentury.shinebuttonlib.ShineButton;
 import com.zxy.tiny.Tiny;
 import com.zxy.tiny.callback.BitmapCallback;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Ning
@@ -38,12 +47,14 @@ public class DetailCommodityActivity extends BaseActivity {
     Commodity commodity;
     ShineButton shineButton;
     RecyclerView recyclerView;
-    CommodityRecyclerViewAdapter adapter;
+    CommentRecyclerViewAdapter adapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         setContentView(R.layout.activity_detail_commodity);
         super.onCreate(savedInstanceState);
+
+        syncList();
     }
 
     @Override
@@ -65,9 +76,9 @@ public class DetailCommodityActivity extends BaseActivity {
             }
         });
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new CommodityRecyclerViewAdapter(this);
+        adapter = new CommentRecyclerViewAdapter(this);
         recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         initData();
     }
@@ -83,12 +94,8 @@ public class DetailCommodityActivity extends BaseActivity {
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        layout_toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                finish();
-//            }
-//        });
+
+
         tv_name.setText(commodity.getName());
         tv_note.setText(commodity.getNote());
         tv_price.setText("￥" + commodity.getPrice().toString());
@@ -96,10 +103,20 @@ public class DetailCommodityActivity extends BaseActivity {
         if (commodity.getImages() != null) {
             Tiny.BitmapCompressOptions options = new Tiny.BitmapCompressOptions();
             for (int i = 0; i < commodity.getImages().size(); i++) {
-                Tiny.getInstance().source(commodity.getImages().get(i)).asBitmap().withOptions(options).compress(new BitmapCallback() {
+//                Tiny.getInstance().source(commodity.getImages().get(i)).asBitmap().withOptions(options).compress(new BitmapCallback() {
+//                    @Override
+//                    public void callback(boolean isSuccess, Bitmap bitmap, Throwable t) {
+//                        addImageView(bitmap);
+//                    }
+//                });
+                Glide.with(DetailCommodityActivity.this)
+                        .load(commodity.getImages().get(i)).asBitmap().into(new SimpleTarget<Bitmap>() {
                     @Override
-                    public void callback(boolean isSuccess, Bitmap bitmap, Throwable t) {
-                        addImageView(bitmap);
+                    public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                        MessageLog.show(TAG, "DetailCommodityActivity.onResourceReady: ", resource);
+                        if (resource != null) {
+                            addImageView(resource);
+                        }
                     }
                 });
             }
@@ -108,10 +125,7 @@ public class DetailCommodityActivity extends BaseActivity {
 
     private void addImageView(Bitmap bitmap) {
         ImageView imageView = new ImageView(this);
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//                Drawable drawable = context.getDrawable(R.drawable.thinking);
-//                Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.thinking);
-//            }
+
         Tiny.BitmapCompressOptions options = new Tiny.BitmapCompressOptions();
         options.height = 150;
         options.width = 150;
@@ -135,6 +149,22 @@ public class DetailCommodityActivity extends BaseActivity {
         params.setMargins(8, 0, 0, 0);
         imageView.setLayoutParams(params);
         linearLayout.addView(imageView);
+    }
+
+    @Override
+    protected void initList() {
+        super.initList();
+        syncList();
+        MessageLog.show(TAG, "DetailCommodityActivity.initList: ", adapter.list);
+    }
+
+    protected void syncList() {
+        List<Comment> list = new ArrayList<>();
+        for (int i = 0; i < 2; i++) {
+            list.add(Comment.getTestInstance());
+        }
+        adapter.changeList(list);
+        MessageLog.show(TAG, "DetailCommodityActivity.syncList: ", adapter.getItemCount());
     }
 
 }

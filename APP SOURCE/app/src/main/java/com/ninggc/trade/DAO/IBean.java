@@ -6,7 +6,7 @@ import com.google.gson.Gson;
  * Created by Ning on 7/21/2017 0021.
  */
 public interface IBean {
-    public static Gson gson = new Gson();
+    Gson gson = new Gson();
 
 //    private int id;
 

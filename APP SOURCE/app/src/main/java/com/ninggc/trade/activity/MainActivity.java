@@ -320,7 +320,7 @@ public class MainActivity extends AppCompatActivity
             public void onTabSelected(@IdRes int tabId) {
                 if (tabId == R.id.tab_home) {
                     FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.add(R.id.contentContainer, indexFragment);
+                    fragmentTransaction.replace(R.id.contentContainer, indexFragment);
                     fragmentTransaction.commit();
                 } else if (tabId == R.id.tab_contact) {
                     if (AccountUtil.loginTip(MainActivity.this)) {

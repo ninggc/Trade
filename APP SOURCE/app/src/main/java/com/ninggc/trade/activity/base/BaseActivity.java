@@ -64,7 +64,9 @@ public abstract class BaseActivity extends AppCompatActivity implements ITAG, IG
          * 部分activity未继承BaseActivity不检查登录状态
          */
         if (!getClass().getSimpleName().equals(LoginActivity.class.getSimpleName())) {
-            AccountUtil.loginTip(this);
+            if (AccountUtil.loginTip(this)) {
+                init();
+            }
         } else {
             init();
         }
