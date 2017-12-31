@@ -314,39 +314,31 @@ public class MainActivity extends AppCompatActivity
         });
 
         bottomBar = (BottomBar) findViewById(R.id.bottomBar);
-        bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
+        bottomBar.setOnTabSelectListener(tabId -> {
+            if (tabId != R.id.tab_home && !AccountUtil.loginTip(MainActivity.this)) {
+                return;
+            }
 
-            @Override
-            public void onTabSelected(@IdRes int tabId) {
-                if (tabId == R.id.tab_home) {
-                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.contentContainer, indexFragment);
-                    fragmentTransaction.commit();
-                } else if (tabId == R.id.tab_contact) {
-                    if (AccountUtil.loginTip(MainActivity.this)) {
-                        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.replace(R.id.contentContainer, testListFragment);
-                        fragmentTransaction.commit();
-                    }
-                } else if (tabId == R.id.tab_chat) {
-                    if (AccountUtil.loginTip(MainActivity.this)) {
-                        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.replace(R.id.contentContainer, conversationListFragment);
-                        fragmentTransaction.commit();
-                    }
-                }else if(tabId == R.id.tab_delegate) {
-                    if (AccountUtil.loginTip(MainActivity.this)) {
-                        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.replace(R.id.contentContainer, delegationFragment);
-                        fragmentTransaction.commit();
-                    }
-                } else if (tabId == R.id.tab_campus) {
-                    if (AccountUtil.loginTip(MainActivity.this)) {
-                        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.replace(R.id.contentContainer, campusMarketFragment);
-                        fragmentTransaction.commit();
-                    }
-                }
+            if (tabId == R.id.tab_home) {
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.contentContainer, indexFragment);
+                fragmentTransaction.commit();
+            } else if (tabId == R.id.tab_contact) {
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.contentContainer, testListFragment);
+                fragmentTransaction.commit();
+            } else if (tabId == R.id.tab_chat) {
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.contentContainer, conversationListFragment);
+                fragmentTransaction.commit();
+            }else if(tabId == R.id.tab_delegate) {
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.contentContainer, delegationFragment);
+                fragmentTransaction.commit();
+            } else if (tabId == R.id.tab_campus) {
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.contentContainer, campusMarketFragment);
+                fragmentTransaction.commit();
             }
         });
 

@@ -80,7 +80,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     /**
      * 登陆成功后Server返回的信息
-     * @param result
+     * @param result 服务器传回的字符串信息
      */
     public void setResult(String result) {
         this.result = result;
