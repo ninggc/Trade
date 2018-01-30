@@ -53,8 +53,6 @@ public class DetailCommodityActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         setContentView(R.layout.activity_detail_commodity);
         super.onCreate(savedInstanceState);
-
-        syncList();
     }
 
     @Override
@@ -79,11 +77,10 @@ public class DetailCommodityActivity extends BaseActivity {
         adapter = new CommentRecyclerViewAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        initData();
     }
 
     @SuppressLint("SetTextI18n")
+    @Override
     protected void initData() {
         commodity = (Commodity) getIntent().getSerializableExtra("commodity");
         if (commodity == null) {
@@ -153,7 +150,6 @@ public class DetailCommodityActivity extends BaseActivity {
 
     @Override
     protected void initList() {
-        super.initList();
         syncList();
         MessageLog.show(TAG, "DetailCommodityActivity.initList: ", adapter.list);
     }

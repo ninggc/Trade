@@ -11,8 +11,15 @@ import com.ninggc.trade.DAO.Location;
 import com.ninggc.trade.activity.account.AccountUtil;
 import com.ninggc.trade.activity.account.LoginActivity;
 import com.ninggc.trade.activity.account.RegisterActivity;
+import com.ninggc.trade.activity.c_d_activity.DetailCommodityActivity;
+import com.ninggc.trade.activity.c_d_activity.DetailDelegationActivity;
 import com.ninggc.trade.util.tool.IGson;
 import com.ninggc.trade.util.tool.ITAG;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @author Ning
@@ -66,7 +73,14 @@ public abstract class BaseActivity extends AppCompatActivity implements ITAG, IG
          * 部分activity未继承BaseActivity不检查登录状态
          */
         String simpleName = getClass().getSimpleName();
-        if (simpleName.equals(LoginActivity.class.getSimpleName()) || simpleName.equals(RegisterActivity.class.getSimpleName())) {
+        //不需要验证登录的视图列表
+        Set<String> withoutLoginViewNameSet = new HashSet<>();
+        withoutLoginViewNameSet.add(LoginActivity.class.getSimpleName());
+        withoutLoginViewNameSet.add(RegisterActivity.class.getSimpleName());
+        withoutLoginViewNameSet.add(DetailCommodityActivity.class.getSimpleName());
+        withoutLoginViewNameSet.add(DetailDelegationActivity.class.getSimpleName());
+
+        if (withoutLoginViewNameSet.contains(getClass().getSimpleName())) {
             init();
         } else {
             if (AccountUtil.loginTip(this)) {

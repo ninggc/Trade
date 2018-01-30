@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <style>
+       #head{
+           height: 100px;
+           width:1353px;
+           float: inherit;
+       }
+       .main{
+           width:1353px;
+           height: 574px;
+           background-image: url("/static/images/注册背景.jpg");
+
+       }
+
+       #head_left {
+           width: 267px;
+           height: 100px;
+           float: left;
+
+       }
+       #head_img {
+           width: 250px;
+           height: 100px;
+       }
+        #head_right{
+            padding-top:35px;
+            height: 100px;
+            width: 986px;
+        }
+        #body-top{
+            height: 50px;
+            width: 600px;
+            padding-left: 100px;
+            margin-left: 400px;
+            float: inherit;
+        }
+        #body{
+            height:333px;
+            width: 600px;
+            padding-left: 100px;
+            margin-left: 400px;
+
+            float:inherit;
+            background-color: white;
+            border-radius: 15px;
+            border: 1px solid #CCC;
+        }
+       #img1{
+           color:white ;
+           display: inline;
+       }
+
+       #img2{
+           color:white ;
+           display: inline;
+       }
+       #img3{
+           color:white ;
+           display: inline;
+       }
+       #img4{
+           color:white ;
+           display: inline;
+       }
+       #img5{
+           color:white ;
+           display: inline;
+       }
+    </style>
+    <script>
+    var usernameRegex=/^[A-Za-z0-9_\u554A-\u9C52]{1,10}$/;
+    var passwordRegex=/^[a-zA-Z]\w{7}$/;
+    var telRegex=/^\d{11}$/;
+    var emailRegex = /^\w+@\w+(\.\w+)+$/;
+
+    function ById(id){  //自定义方法，用于获取传递过来的ID值对应的节点对象
+        return document.getElementById(id);
+    }
+
+    function validateForm() {   //提交检测
+        var flag=true;
+        //验证用户名
+        var usernameNode=ById("username");
+        var username=usernameNode.value;
+        if(!usernameRegex.test(username)){    //验证获得到的值是否符合正则表达式
+            ById("span_username").style.color = "red"; //如果不符合，则将ID值为username_span的节点对象内容变为红色
+            flag = false;        //返回false，不提交
+        }
+        //验证密码
+        var passwordNode=ById("password");
+        var password=passwordNode.value;
+        if(!passwordRegex.test(password))
+        {
+            ById("span_password").style.color="red";
+            flag=false;
+        }
+        //验证重复密码
+        var pdNode=ById("pd");
+        var pd=pdNode.value;
+        if(pd!==password){
+            ById("span_pd").style.color="red";
+            flag=false;
+        }
+        else if(!passwordRegex.test(pd)){
+            ById("span_pd").style.color="red";
+            flag=false;
+        }
+        else
+            ById("span_pd").style.color="green";
+
+        //验证电话
+        var telNode=ById("tel");
+        var tel=telNode.value;
+        if(!telRegex.test(tel)){
+            ById("span_tel").style.color="red";
+            flag=false;
+        }
+        return flag;
+    }
+
+    function check_username(node){ //当鼠标离开节点时调用此方法，验证节点内容是否符合注册规范
+        //校验用户名
+        var username = node.value;  //得到传递过来的节点对象的值
+        if(!usernameRegex.test(username)){  //验证是否符合节点对应的正则表达式
+            ById("span_username").style.display = "inline";
+            ById("span_username").style.color = "red"; //不符合，相应内容变成红色
+        }else{
+            ById("span_username").style.display = "none";//符合，相应内容变成绿色
+            ById("img1").style.color="green";
+        }
+    }
+
+    function check_password(node){  //当鼠标离开节点时调用此方法，验证节点内容是否符合注册规范
+        //校验密码
+        var password = node.value;
+        if (!passwordRegex.test(password)) {
+            ById("span_password").style.display = "inline";
+            ById("span_password").style.color = "red";
+        }
+        else {
+            ById("span_password").style.display = "none";
+            ById("img2").style.color="green";
+        }
+    }
+
+    function check_pd(node){  //当鼠标离开节点时调用此方法，验证节点内容是否符合注册规范
+        //确认密码
+        var pd = node.value;
+        var password = ById("password").value;
+
+        if(pd!==password){
+            ById("span_pd").style.display = "inline";
+            ById("span_pd").style.color = "red";
+        }else if(!passwordRegex.test(pd)){
+            ById("span_pd").style.display = "inline";
+            ById("span_pd").style.color = "red";
+        }else{
+            ById("span_pd").style.display = "none";
+            ById("img3").style.color = "green";
+        }
+    }
+    function check_tel(node) {
+        //校验电话
+        var tel=node.value;
+        if(!telRegex.test(tel)){
+            ById("span_tel").style.display = "inline";
+            ById("span_tel").style.color="red";
+        }
+        else {
+            ById("span_tel").style.display = "none";
+            ById("img4").style.color="green";
+        }
+    }
+    function check_email(node){  //当鼠标离开节点时调用此方法，验证节点内容是否符合注册规范
+        //校验邮箱
+        var email = node.value;
+        if(!emailRegex.test(email)){
+            ById("span_email").style.display = "inline";
+            ById("span_email").style.color = "red";
+        }else{
+            ById("span_email").style.display = "none";
+            ById("img5").style.color = "green";
+        }
+    }
+
+</script>
+</head>
+<body>
+<div class="main">
+    <div id="head">
+        <div id="head_left">
+            <img id="head_img" src="305713.jpg" >
+        </div>
+        <div id="head_right">
+            <span style="margin-left: 70px; margin-top: 40px; text-align: inherit; font-family: 宋体;color: white;font-size: xx-large"> 欢迎注册</span>
+        </div>
+    </div>
+    <div id="body-top"></div>
+    <div id="body">
+    <form name="form1" method="post" onsubmit="return validateForm()"  action="/usermage/adduser/">
+    {% csrf_token %}
+        <br><br>
+    <span>用&nbsp户&nbsp名&nbsp&nbsp&nbsp</span><input type="text" maxlength="20" name="username" id="username" onblur="check_username(this)" >
+       <span class="glyphicon glyphicon-ok" id="img1"></span><span id="span_username">用户名为四个汉字</span><br><span style="margin-left:120px">{{information}}</span><br>
+
+    <span>密&nbsp&nbsp码&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span><input type="password" maxlength="8" name="password" id="password" onblur="check_password(this)">
+        <span class="glyphicon glyphicon-ok" id="img2"></span><span  id="span_password">密码由数字或英文字母组成长度为8</span><br><br>
+
+    <span>确认密码&nbsp&nbsp</span><input type="password" maxlength="8" name="ageinpassword"  id="ageinpassword" onblur="check_pd(this)">
+        <span class="glyphicon glyphicon-ok"  id="img3"></span><span id="span_pd">请输入与上次相同的密码</span><br><br>
+
+    <span>电&nbsp&nbsp话&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span><input type="text"   maxlength="11" name="phone" id="phone" onblur="check_tel(this)">
+        <span class="glyphicon glyphicon-ok"  id="img4"></span><span id="span_tel">请输入手机号码</span><br><br>
+
+    <span>邮&nbsp&nbsp箱&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span><input type="email" name="email" id="email" onblur="check_email(this)">
+        <span class="glyphicon glyphicon-ok"  id="img5"></span><span id="span_email">请输入正确邮箱格式</span><br><br>
+
+        <input class="btn btn-primary" style="width: 70px; margin-left: 110px" type="submit" value="注册" >
+    </form>
+</div>
+</div>
+</body>
+</html>

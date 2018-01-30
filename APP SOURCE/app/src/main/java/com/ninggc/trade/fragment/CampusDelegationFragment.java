@@ -183,6 +183,11 @@ public class CampusDelegationFragment extends Fragment implements IGson, ITAG {
         }
     }
 
+    /**
+     *
+     * @param list if list is null, it will sync by delegationList
+     *             else it will sync by the list.
+     */
     private void syncRecyclerView(List<Delegation> list) {
         Set<Delegation> set = new LinkedHashSet<>(delegationList.size() * 2);
         if (list != null) {

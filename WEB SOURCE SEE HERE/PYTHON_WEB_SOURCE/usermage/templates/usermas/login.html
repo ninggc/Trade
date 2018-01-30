@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<head>
+
+    <meta charset="UTF-8">
+    <title>登录测试</title>
+    <style type="text/css">
+         .all{
+             width:1353px;
+             height: 574px;
+             background-image: url("/static/images/302993.jpg");
+         }
+        .left{
+
+            width: 770px;
+            float: left;
+
+            height:500px;
+        }
+        .right{
+            width:563px;
+            float: left;
+            height: 500px;
+        }
+        .right_top{
+            width: 100%;
+            height: 200px;
+            float: inherit;
+        }
+        .right_bottom{
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <script>
+    var information=
+        function validate_name(form) {
+
+            if( form.username.value==null||form.password.value==" ") {
+                alert("用户名不能为空");
+                return false;
+            }
+            if(form.username.value.length!=4)
+            {
+                alert("用户名格式不正确");
+                return false;
+            }
+        }
+        function validate_password(form) {
+            if(form.password.value==null||form.password.value=="") {
+                alert("密码不能为空")
+                return false;
+            }
+        }
+        function check(form) {
+            if(information)
+                alert("输入的用户名或密码不正确");
+        }
+    </script>
+</head>
+<body>
+
+<div class="all">
+
+<div class="left" style=""></div>
+<div class="right">
+    <div class="right_top"></div>
+    <div class="right_bottom">
+        <form onsubmit="validate_name(this),validate_password(this),check(this)" method="post" action="/usermage/login/">
+            <div class="col-xs-6" style="float: inherit">
+                <input class="form-control" type="text" maxlength="4" name="username" placeholder="用户名">
+            </div><br>
+            <div class="col-xs-6" style="float: inherit">
+                <input class="form-control" type="password" maxlength="8" name="password" placeholder="密码">
+            </div>
+            <span style="margin-left:60px">{{information}}</span><br><br>
+            <div class="col-xs-4" style=" margin-left: 60px">
+                <input class="btn btn-primary" style="width: 120px;" type="submit" value="登录" >
+            </div>
+           
+        </form>
+    </div>
+
+
+</div>
+</div>
+</body>
+</html>
