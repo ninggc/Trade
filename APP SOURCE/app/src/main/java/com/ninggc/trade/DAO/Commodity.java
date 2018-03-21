@@ -153,11 +153,11 @@ public class Commodity implements IBean, Serializable {
      */
     public static Commodity getTestInstance() {
         Commodity commodity = new Commodity();
-        commodity.setName("这是一个自动生成的测试用实例");
+        commodity.setName("这是一个自动生成的实例");
         commodity.setPrice(0.01);
-        commodity.setNote("什么都没有");
+        commodity.setNote("备注信息");
         commodity.setSort(random.nextInt(5));
-        commodity.setImages(Arrays.asList(Constant.image1, Constant.image1, Constant.image1, Constant.image1));
+        commodity.setImages(Arrays.asList(Constant.imageNet));
         commodity.setId(random.nextInt(1000));
         return commodity;
     }
