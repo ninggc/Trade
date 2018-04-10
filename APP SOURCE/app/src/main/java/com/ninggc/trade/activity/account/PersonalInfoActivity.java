@@ -1,5 +1,6 @@
 package com.ninggc.trade.activity.account;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -13,9 +14,11 @@ import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.ninggc.trade.DAO.Campus;
 import com.ninggc.trade.DAO.Location;
+import com.ninggc.trade.DAO.Province;
 import com.ninggc.trade.DAO.User;
 import com.ninggc.trade.R;
 import com.ninggc.trade.activity.base.BaseActivity;
+import com.ninggc.trade.address.CampusCheckActivity;
 import com.yanzhenjie.alertdialog.AlertDialog;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.Permission;
@@ -97,10 +100,22 @@ public class PersonalInfoActivity extends BaseActivity {
         }
         User user = AccountUtil.getCurrentUser();
         if (user != null && user.getCampus() != null) {
-            tv_campus.setText("学校：" + user.getCampus().getName());
+            tv_campus.setText("学校：" + user.getCampus().getName() + "(未认证)");
         } else {
             tv_campus.setText("学校：无");
         }
+
+        findViewById(R.id.personal_info_modify_tv_campus).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectCampus();
+            }
+        });
+    }
+
+    private void selectCampus() {
+        Intent intent = new Intent(PersonalInfoActivity.this, CampusCheckActivity.class);
+        startActivityForResult(intent, 777);
     }
 
     private PermissionListener permissionListener = new PermissionListener() {
@@ -115,4 +130,21 @@ public class PersonalInfoActivity extends BaseActivity {
             Log.e("PERMISSION", "onFailed: " + gson.toJson(deniedPermissions));
         }
     };
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case 777:
+                Province province = gson.fromJson(data.getStringExtra("province"), Province.class);
+                Campus campus = gson.fromJson(data.getStringExtra("campus"), Campus.class);
+
+                Log.e("CAMPUS", "onActivityResult: " + gson.toJson(province));
+                Log.e("CAMPUS", "onActivityResult: " + gson.toJson(campus));
+                AccountUtil.getCurrentUser().setCampus(campus);
+                tv_campus.setText("学校：" + campus.getName() + "(未认证)");
+                break;
+            default:break;
+        }
+    }
 }

@@ -12,6 +12,7 @@ import com.ninggc.trade.activity.base.BaseActivity;
 /**
  * @author Ning
  * Created by Ning on 8/1/2017 0001.
+ * 由于用户信息已经由AccountUtil统一管理，故该类已被淘汰
  */
 
 @Deprecated
